@@ -2,10 +2,10 @@
 const colorMode = useColorMode();
 const linkGroups = computed(() => [
   {
-    name: "Main Links", 
+    name: "Main Links",
     links: [
-      { name: "Home", to: "/" }, 
-      { name: "Error Page", to: "/error" }, 
+      { name: "Home", to: "/" },
+      { name: "Error Page", to: "/error" },
     ],
   },
 ]);
@@ -28,7 +28,6 @@ const socials: Link[] = [
   },
 ];
 </script>
-
 
 <template>
   <div>

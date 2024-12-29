@@ -14,7 +14,6 @@ const colorModeIcons = new Map<string, string>([
 ]);
 </script>
 
-
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>

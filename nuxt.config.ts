@@ -3,10 +3,10 @@ const baseUrl = process.env.BASE_URL;
 export default defineNuxtConfig({
   modules: [
     "@zadigetvoltaire/nuxt-well-known",
+    "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/tailwindcss",
     "@nuxtjs/color-mode",
-    "@vee-validate/nuxt",
     "@nuxtjs/fontaine",
     "nuxt-vitalizer",
     "nuxt-security",

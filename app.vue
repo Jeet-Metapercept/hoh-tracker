@@ -1,11 +1,9 @@
 <script setup lang="ts">
 const route = useRoute();
-const description = computed(() =>
-  (route.meta.description as string) ?? "Default description"
+const description = computed(
+  () => (route.meta.description as string) ?? "Default description",
 );
-const title = computed(() =>
-  (route.meta.title as string) ?? "Default title"
-);
+const title = computed(() => (route.meta.title as string) ?? "Default title");
 const siteName = computed(() => "Default Site Name");
 
 defineOgImageComponent("Default", {
@@ -14,7 +12,8 @@ defineOgImageComponent("Default", {
 });
 
 useHead({
-  titleTemplate: (pageTitle) => (pageTitle ? `${pageTitle} - ${siteName.value}` : siteName.value),
+  titleTemplate: (pageTitle) =>
+    pageTitle ? `${pageTitle} - ${siteName.value}` : siteName.value,
   meta: [
     { name: "description", content: description.value },
     { property: "og:title", content: title.value },
@@ -24,7 +23,6 @@ useHead({
   ],
 });
 </script>
-
 
 <template>
   <Html lang="en" dir="ltr">
