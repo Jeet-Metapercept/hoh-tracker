@@ -1,0 +1,52 @@
+{
+  "name": "nuxt-shadcn-boilerplate",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint:fix": "eslint . --fix && prettier --write --list-different . && bunx nuxi typecheck",
+    "postinstall": "nuxt prepare",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "build": "nuxt build",
+    "dev": "nuxt dev"
+  },
+  "dependencies": {
+    "@nuxt/fonts": "^0.10.2",
+    "@nuxt/image": "^1.8.1",
+    "@nuxtjs/fontaine": "^0.4.4",
+    "@nuxtjs/i18n": "^8.5.6",
+    "@nuxtjs/seo": "2.0.0-rc.23",
+    "@pinia/nuxt": "^0.7.0",
+    "@vee-validate/nuxt": "^4.14.7",
+    "@vee-validate/zod": "^4.14.7",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "nuxt": "^3.14.159",
+    "nuxt-security": "^2.1.1",
+    "nuxt-svgo": "^4.0.8",
+    "nuxt-vitalizer": "^0.10.0",
+    "pinia": "^2.2.6",
+    "pinia-plugin-persistedstate": "^4.1.3",
+    "radix-vue": "^1.9.10",
+    "shadcn-nuxt": "^0.10.4",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss-animate": "^1.0.7",
+    "vee-validate": "^4.14.7",
+    "vue": "^3.5.13",
+    "vue-router": "^4.4.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^0.6.2",
+    "@nuxt/icon": "^1.8.1",
+    "@nuxtjs/color-mode": "^3.5.2",
+    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@vueuse/core": "^11.2.0",
+    "@vueuse/nuxt": "^11.2.0",
+    "@zadigetvoltaire/nuxt-well-known": "^0.0.13",
+    "eslint": "^9.15.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3",
+    "vue-tsc": "^2.1.10"
+  }
+}
