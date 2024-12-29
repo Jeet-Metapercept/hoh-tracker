@@ -13,7 +13,7 @@ defineProps<{
       <div class="grid place-items-start gap-3">
         <LayoutLogo />
         <p class="text-muted-foreground">
-          {{ config.nuxtSiteConfig.description }}
+          {{ config.nuxtSiteConfig_description }}
         </p>
         <div class="flex flex-wrap gap-2">
           <Button
