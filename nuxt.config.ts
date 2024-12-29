@@ -2,6 +2,7 @@ const baseUrl = process.env.BASE_URL;
 
 export default defineNuxtConfig({
   runtimeConfig: {
+    apiKey: process.env.API_KEY,
     turso: {
       dbUrl: "",
       dbAuthToken: "",
@@ -55,4 +56,9 @@ export default defineNuxtConfig({
     enabled: true,
   },
   compatibilityDate: "2024-11-14",
+  nitro: {
+    routeRules: {
+      "/api/**": { appMiddleware: ["auth.middleware"] },
+    },
+  },
 });
