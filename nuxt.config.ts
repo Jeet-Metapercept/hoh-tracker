@@ -56,9 +56,4 @@ export default defineNuxtConfig({
     enabled: true,
   },
   compatibilityDate: "2024-11-14",
-  nitro: {
-    routeRules: {
-      "/api/**": { appMiddleware: ["auth.middleware"] },
-    },
-  },
 });
