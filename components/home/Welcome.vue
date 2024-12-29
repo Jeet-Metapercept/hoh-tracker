@@ -7,10 +7,10 @@ const config = useAppConfig();
   <section class="container my-16 grid place-items-center">
     <section class="grid text-center">
       <h1 class="text-5xl font-bold mb-3">
-        {{ config.nuxtSiteConfig.name }}
+        {{ config.nuxtSiteConfig_name }}
       </h1>
       <p class="text-3xl text-muted-foreground">
-        {{ config.nuxtSiteConfig.description }}
+        {{ config.nuxtSiteConfig_description }}
       </p>
       <div class="flex flex-wrap justify-center gap-3 my-10">
         <Button as-child>
