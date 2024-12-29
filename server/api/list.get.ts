@@ -39,3 +39,19 @@ export default defineEventHandler(async (event) => {
 // curl -X GET "http://localhost:3000/api/list?limit=5" \
 // -H "Authorization: 9238d426c848f353b965975532ea8a618c129300854614d5f69587d4ff2ef7d1" \
 // -H "Content-Type: application/json"
+
+// {
+//     "success": true,
+//     "message": "Latest 5 rows retrieved successfully from 'hoh_tracker'.",
+//     "data": [
+//       {
+//         "id": 4,
+//         "created_at": "2024-12-29 18:37:11",
+//         "updated_at": "2024-12-29 18:37:11",
+//         "status": 1,
+//         "step": "Initialize process",
+//         "process": 10
+//       },
+//       ...
+//     ]
+//   }⏎
