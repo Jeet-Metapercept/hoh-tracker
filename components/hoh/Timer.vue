@@ -37,7 +37,6 @@ onBeforeUnmount(() => {
       :min="0"
       :value="value"
     />
-
-    <Button variant="outline" @click="value = value + 10">Button</Button>
+    <!-- <Button variant="outline" @click="value = value + 10">Button</Button> -->
   </div>
 </template>
