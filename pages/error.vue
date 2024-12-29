@@ -3,10 +3,6 @@ import type { NuxtError } from "#app";
 
 const { error } = defineProps<{ error: NuxtError }>();
 const { statusCode } = error;
-
-useHead({
-  title: statusCode.toString(),
-});
 </script>
 
 <template>
@@ -15,8 +11,8 @@ useHead({
     <Button as-child>
       <NuxtLink to="/"> Go Home </NuxtLink>
     </Button>
+    <DevOnly>
+      {{ error }}
+    </DevOnly>
   </main>
-  <DevOnly>
-    {{ error }}
-  </DevOnly>
 </template>
