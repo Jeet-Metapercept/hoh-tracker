@@ -13,9 +13,7 @@ useHead({
   <main class="h-screen flex justify-center items-center flex-col">
     <h1 class="text-4xl font-extrabold mb-5">{{ statusCode }}</h1>
     <Button as-child>
-      <NuxtLink to="/">
-        Back
-      </NuxtLink>
+      <NuxtLink to="/"> Back </NuxtLink>
     </Button>
   </main>
   <DevOnly>

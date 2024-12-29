@@ -7,11 +7,13 @@ definePageMeta({
 const colorMode = useColorMode();
 
 const gaugePrimaryColor = computed(() =>
-  colorMode.value === "dark" ? "rgb(255, 255, 255)" : "rgb(79, 70, 229)"
+  colorMode.value === "dark" ? "rgb(255, 255, 255)" : "rgb(79, 70, 229)",
 );
 
 const gaugeSecondaryColor = computed(() =>
-  colorMode.value === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
+  colorMode.value === "dark"
+    ? "rgba(255, 255, 255, 0.1)"
+    : "rgba(0, 0, 0, 0.1)",
 );
 
 const value = ref(0);
@@ -35,8 +37,7 @@ const value = ref(0);
           :value="value"
         />
 
-        <Button @click="value= value+10">Button</Button>
-
+        <Button @click="value = value + 10">Button</Button>
       </div>
     </section>
   </section>

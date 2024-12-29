@@ -3,9 +3,7 @@ const colorMode = useColorMode();
 const linkGroups = computed(() => [
   {
     name: "Main Links",
-    links: [
-      { name: "Home", to: "/" },
-    ],
+    links: [{ name: "Home", to: "/" }],
   },
 ]);
 
