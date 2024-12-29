@@ -6,10 +6,10 @@ export default defineEventHandler(async (_event) => {
   const query = `
     CREATE TABLE IF NOT EXISTS hoh_tracker (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      created_at DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+      updated_at DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
       status BOOLEAN NOT NULL DEFAULT 0,
-      step TEXT NOT NULL
+      step TEXT NOT NULL,
       process INTEGER DEFAULT 0 CHECK (process >= 0 AND process <= 100)
     );
   `;
@@ -18,13 +18,13 @@ export default defineEventHandler(async (_event) => {
     await client.execute(query);
     return {
       success: true,
-      message: "Table 'hoh_tracker' created successfully or already exists.",
+      message: "Table 'hoh_tracker' created successfully or already exists."
     };
   } catch (error) {
     console.error("Error creating table:", error);
     throw createError({
       statusCode: 500,
-      message: "Failed to create 'hoh_tracker' table.",
+      message: "Failed to create 'hoh_tracker' table."
     });
   }
 });
