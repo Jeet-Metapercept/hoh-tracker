@@ -15,7 +15,7 @@ definePageMeta({
         {{ config.nuxtSiteConfig_description }}
       </p>
       <div class="flex flex-col justify-center gap-6 my-10">
-       <HohTimer />
+       <HohStatus />
       </div>
     </section>
   </section>
