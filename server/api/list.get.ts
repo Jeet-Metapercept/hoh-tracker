@@ -1,8 +1,6 @@
 import type { HohTrackerRow, ListApiResponse } from "~/shared/types";
 import { useTurso } from "../utils/turso";
 
-
-
 export default defineEventHandler(async (event): Promise<ListApiResponse> => {
   const client = useTurso();
 
