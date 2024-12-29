@@ -1,10 +1,12 @@
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
+import { setupInspiraUI } from "@inspira-ui/plugins";
 
 export default <Partial<Config>>{
   darkMode: ["class"],
   safelist: ["dark"],
   prefix: "",
+  content: [],
   theme: {
     container: {
       center: true,
@@ -81,5 +83,5 @@ export default <Partial<Config>>{
       },
     },
   },
-  plugins: [animate],
+  plugins: [animate, setupInspiraUI],
 };
