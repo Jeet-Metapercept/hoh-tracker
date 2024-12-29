@@ -1,5 +1,4 @@
 <script setup lang="ts">
-defineProps<{ package: object }>();
 const config = useAppConfig();
 definePageMeta({
   title: "meta.home.title",
@@ -20,10 +19,10 @@ const value = ref(0);
       </p>
       <div class="flex flex-col justify-center gap-3 my-10">
         <InspiraAnimatedCircularProgressBar
-      :max="100"
-      :min="0"
-      :value="value"
-    />
+          :max="100"
+          :min="0"
+          :value="value"
+        />
 
         <Button @click="value= value+10">Button</Button>
 
