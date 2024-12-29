@@ -28,117 +28,80 @@ const value = ref(0);
 //   clearInterval(interval);
 // });
 
-
-const { data, pending, error } = await useFetch('/api/list', {headers: {Authorization: config.apiKey}});
-
-const dummyContent = [
-  {
-    title: "Lorem Ipsum Dolor Sit Amet",
-    description: [
-      "Sit duis est minim proident non nisi velit non consectetur. Esse adipisicing laboris consectetur enim ipsum reprehenderit eu deserunt Lorem ut aliqua anim do. Duis cupidatat qui irure cupidatat incididunt incididunt enim magna id est qui sunt fugiat. Laboris do duis pariatur fugiat Lorem aute sit ullamco. Qui deserunt non reprehenderit dolore nisi velit exercitation Lorem qui do enim culpa. Aliqua eiusmod in occaecat reprehenderit laborum nostrud fugiat voluptate do Lorem culpa officia sint labore. Tempor consectetur excepteur ut fugiat veniam commodo et labore dolore commodo pariatur.",
-      "Dolor minim irure ut Lorem proident. Ipsum do pariatur est ad ad veniam in commodo id reprehenderit adipisicing. Proident duis exercitation ad quis ex cupidatat cupidatat occaecat adipisicing.",
-      "Tempor quis dolor veniam quis dolor. Sit reprehenderit eiusmod reprehenderit deserunt amet laborum consequat adipisicing officia qui irure id sint adipisicing. Adipisicing fugiat aliqua nulla nostrud. Amet culpa officia aliquip deserunt veniam deserunt officia adipisicing aliquip proident officia sunt.",
-    ],
-    badge: "Vue",
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Lorem Ipsum Dolor Sit Amet",
-    description: [
-      "Ex irure dolore veniam ex velit non aute nisi labore ipsum occaecat deserunt cupidatat aute. Enim cillum dolor et nulla sunt exercitation non voluptate qui aliquip esse tempor. Ullamco ut sunt consectetur sint qui qui do do qui do. Labore laborum culpa magna reprehenderit ea velit id esse adipisicing deserunt amet dolore. Ipsum occaecat veniam commodo proident aliqua id ad deserunt dolor aliquip duis veniam sunt.",
-      "In dolore veniam excepteur eu est et sunt velit. Ipsum sint esse veniam fugiat esse qui sint ad sunt reprehenderit do qui proident reprehenderit. Laborum exercitation aliqua reprehenderit ea sint cillum ut mollit.",
-    ],
-    badge: "Nuxt",
-    image:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Lorem Ipsum Dolor Sit Amet",
-    description: [
-      "Ex irure dolore veniam ex velit non aute nisi labore ipsum occaecat deserunt cupidatat aute. Enim cillum dolor et nulla sunt exercitation non voluptate qui aliquip esse tempor. Ullamco ut sunt consectetur sint qui qui do do qui do. Labore laborum culpa magna reprehenderit ea velit id esse adipisicing deserunt amet dolore. Ipsum occaecat veniam commodo proident aliqua id ad deserunt dolor aliquip duis veniam sunt.",
-    ],
-    badge: "Inspira UI",
-    image:
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&q=80&w=3506&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
+const { data, pending, error } = await useFetch("/api/list", {
+  headers: { Authorization: config.apiKey },
+});
 </script>
 
 <template>
-  <div class="gague">
+  <div class="gague max-w-6xl">
+    <div class="flex flex-col justify-center gap-8 my-8">
+      <div class="flex justify-center">
     <InspiraAnimatedCircularProgressBar
       :gauge-primary-color="gaugePrimaryColor"
       :gauge-secondary-color="gaugeSecondaryColor"
       :max="100"
       :min="0"
       :value="value"
-    />
+    /></div>
 
-    <!-- list of status -->
-    <div class="my-8 mx-auto">
-    <!-- Loading state -->
-    <div v-if="pending" class="flex justify-center py-8">
-      <div class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
-    </div>
+    <div class="max-w-2xl items-center justify-center px-8">
+      <InspiraTracingBeam v-if="!pending && !error" class="px-6">
+        <div class="relative mx-auto max-w-2xl pt-4 antialiased">
+          <div v-for="item in data?.data || []" :key="item.id" class="mb-10">
+            <Badge
+              class="mb-4 w-fit rounded-full bg-black px-4 py-1 text-sm text-white"
+            >
+              {{ item.status ? "Complete" : "Pending" }}
+            </Badge>
 
-    <!-- Error state -->
-    <div v-else-if="error" class="text-red-500 p-4 rounded-lg bg-red-50">
-      {{ error.message }}
-    </div>
+            <p class="mb-4 text-xl">
+              {{ item.step }}
+            </p>
 
-    <!-- Items list -->
-    <ul v-else v-auto-animate class="space-y-2">
-      <li
-        v-for="item in data?.data || []"
-        :key="item.id"
-        class="p-3 rounded-lg cursor-pointer hover:ring-1 ring-primary ring-opacity-20"
-      >
-        {{ item.step }}
-      </li>
-      
-      <li v-if="data && !data.data.length" class="text-center text-gray-500 py-4">
-        No items available
-      </li>
-    </ul>
-  </div>
+            <div class="prose prose-sm dark:prose-invert text-sm">
+              <div>
+                <p>Created: {{ new Date(item.created_at).toLocaleString() }}</p>
+                <p>Updated: {{ new Date(item.updated_at).toLocaleString() }}</p>
 
-
-  <div class="w-full items-center justify-center px-8">
-    <InspiraTracingBeam class="px-6">
-      <div class="relative mx-auto max-w-2xl pt-4 antialiased">
-        <div
-          v-for="(item, index) in dummyContent"
-          :key="`content-${index}`"
-          class="mb-10"
-        >
-          <Badge class="mb-4 w-fit rounded-full bg-black px-4 py-1 text-sm text-white">
-            {{ item.badge }}
-          </Badge>
-
-          <p :class="['mb-4 text-xl']">
-            {{ item.title }}
-          </p>
-
-          <div class="prose prose-sm dark:prose-invert text-sm">
-            <img
-              v-if="item.image"
-              :src="item.image"
-              alt="blog thumbnail"
-              class="mb-10 rounded-lg object-cover"
-            />
-            <div>
-              <p
-                v-for="(paragraph, idx) in item.description"
-                :key="`desc-${idx}`"
-              >
-                {{ paragraph }}
-              </p>
+                <!-- Progress bar -->
+                <div
+                  class="mt-4 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700"
+                >
+                  <div
+                    class="bg-primary h-2.5 rounded-full transition-all duration-500"
+                    :style="{ width: `${item.process}%` }"
+                  ></div>
+                </div>
+                <p class="mt-2 text-sm text-gray-500">
+                  Progress: {{ item.process }}%
+                </p>
+              </div>
             </div>
           </div>
+
+          <!-- Empty state -->
+          <div
+            v-if="data && !data.data.length"
+            class="text-center text-gray-500 py-4"
+          >
+            No items available
+          </div>
         </div>
+      </InspiraTracingBeam>
+
+      <!-- Keep the loading and error states outside the TracingBeam -->
+      <div v-if="pending" class="flex justify-center py-8">
+        <div
+          class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"
+        ></div>
       </div>
-    </InspiraTracingBeam>
-  </div>
+
+      <div v-else-if="error" class="text-red-500 p-4 rounded-lg bg-red-50">
+        {{ error.message }}
+      </div>
+    </div>
+
+    </div>
   </div>
 </template>
