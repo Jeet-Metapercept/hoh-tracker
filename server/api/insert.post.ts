@@ -30,3 +30,16 @@ export default defineEventHandler(async (event) => {
     });
   }
 });
+
+
+// curl -X POST http://localhost:3000/api/insert \
+//                       -H "Content-Type: application/json" \
+//                       -d '{
+//                     "status": true,
+//                     "step": "Initialize process"
+//                   }'
+
+// {
+//   "success": true,
+//   "message": "Row inserted successfully into 'hoh_tracker'."
+// }⏎
