@@ -10,6 +10,10 @@ const gaugePrimaryColor = computed(() =>
   colorMode.value === "dark" ? "rgb(255, 255, 255)" : "rgb(79, 70, 229)"
 );
 
+const gaugeSecondaryColor = computed(() =>
+  colorMode.value === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
+);
+
 const value = ref(0);
 </script>
 
@@ -25,6 +29,7 @@ const value = ref(0);
       <div class="flex flex-col justify-center gap-3 my-10">
         <InspiraAnimatedCircularProgressBar
           :gauge-primary-color="gaugePrimaryColor"
+          :gauge-secondary-color="gaugeSecondaryColor"
           :max="100"
           :min="0"
           :value="value"
