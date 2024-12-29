@@ -5,7 +5,6 @@ const linkGroups = computed(() => [
     name: "Main Links",
     links: [
       { name: "Home", to: "/" },
-      { name: "Error Page", to: "/error" },
     ],
   },
 ]);

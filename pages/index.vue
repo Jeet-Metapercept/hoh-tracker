@@ -4,6 +4,9 @@ const config = useAppConfig();
 definePageMeta({
   title: "meta.home.title",
 });
+
+const value = ref(0);
+
 </script>
 
 <template>
@@ -15,8 +18,15 @@ definePageMeta({
       <p class="text-muted-foreground">
         {{ config.nuxtSiteConfig_description }}
       </p>
-      <div class="flex flex-wrap justify-center gap-3 my-10">
-        <InspiraAnimatedCircularProgressBar />
+      <div class="flex flex-col justify-center gap-3 my-10">
+        <InspiraAnimatedCircularProgressBar
+      :max="100"
+      :min="0"
+      :value="value"
+    />
+
+        <Button @click="value= value+10">Button</Button>
+
       </div>
     </section>
   </section>
