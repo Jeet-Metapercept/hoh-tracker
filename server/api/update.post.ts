@@ -14,14 +14,16 @@ export default defineEventHandler(async (event) => {
   const query = `
     UPDATE hoh_tracker
     SET status = ?, step = ?, updated_at = CURRENT_TIMESTAMP
+    ${body.process !== undefined ? ", process = ?" : ""}
     WHERE id = ?;
   `;
 
   try {
-    const result = await client.execute({
-      sql: query,
-      args: [body.status, body.step, body.id],
-    });
+    const args = body.process !== undefined 
+      ? [body.status, body.step, body.process, body.id]
+      : [body.status, body.step, body.id];
+
+    const result = await client.execute({ sql: query, args });
 
     if (result.rowsAffected === 0) {
       throw createError({
@@ -42,16 +44,3 @@ export default defineEventHandler(async (event) => {
     });
   }
 });
-
-// curl -X POST http://localhost:3000/api/update \
-// -H "Content-Type: application/json" \
-// -d '{
-// "id": 1,
-// "status": false,
-// "step": "Completed process"
-// }'
-
-// {
-// "success": true,
-// "message": "Row with id 1 updated successfully in 'hoh_tracker'."
-// }⏎
