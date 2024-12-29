@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "lint:fix": "eslint . --fix && prettier --write --list-different . && bunx nuxi typecheck",
+    "lint:fix": "eslint . --fix && prettier --write --list-different . && pnpm nuxi typecheck",
     "postinstall": "nuxt prepare",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -41,11 +41,13 @@
     "@nuxt/icon": "^1.8.1",
     "@nuxtjs/color-mode": "^3.5.2",
     "@nuxtjs/tailwindcss": "^6.12.2",
+    "@types/tailwindcss": "^3.1.0",
     "@vueuse/core": "^11.2.0",
     "@vueuse/nuxt": "^11.2.0",
     "@zadigetvoltaire/nuxt-well-known": "^0.0.13",
     "eslint": "^9.15.0",
     "prettier": "^3.3.3",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.6.3",
     "vue-tsc": "^2.1.10"
   }
