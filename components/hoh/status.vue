@@ -21,58 +21,55 @@ const { data, pending, error } = await useFetch("/api/list", {
   <div class="gague max-w-6xl">
     <div class="flex flex-col justify-center gap-8 my-8">
       <div class="flex justify-center">
-    <InspiraAnimatedCircularProgressBar
-      :gauge-primary-color="gaugePrimaryColor"
-      :gauge-secondary-color="gaugeSecondaryColor"
-      :max="100"
-      :min="0"
-      :value="value"
-    /></div>
+        <InspiraAnimatedCircularProgressBar
+          :gauge-primary-color="gaugePrimaryColor"
+          :gauge-secondary-color="gaugeSecondaryColor"
+          :max="100"
+          :min="0"
+          :value="value"
+        />
+      </div>
 
-    <div class="max-w-2xl items-center justify-center px-8">
+    <div class="max-w-2xl px-8">
       <InspiraTracingBeam v-if="!pending && !error" class="px-6">
-        <div class="relative mx-auto max-w-2xl pt-4 antialiased">
-          <div v-for="item in data?.data || []" :key="item.id" class="mb-10">
-            <Badge
-              class="mb-4 w-fit rounded-full bg-black px-4 py-1 text-sm text-white"
-            >
-              {{ item.status ? "Complete" : "Pending" }}
-            </Badge>
+          <div class="relative max-w-2xl pt-3 antialiased text-left">
+            <div v-for="item in data?.data || []" :key="item.id" class="mb-10">
+              <Badge class="mb-2" variant="secondary">
+                {{ new Date(item.created_at).toLocaleString() }}
+              </Badge>
 
-            <p class="mb-4 text-xl">
-              {{ item.step }}
-            </p>
+              <p class="mb-2 text-xl text-left">
+                {{ item.step }}
+              </p>
 
-            <div class="prose prose-sm dark:prose-invert text-sm">
-              <div>
-                <p>Created: {{ new Date(item.created_at).toLocaleString() }}</p>
-                <p>Updated: {{ new Date(item.updated_at).toLocaleString() }}</p>
+              <div class="prose prose-sm dark:prose-invert text-sm text-left">
+                <div>
+                  <p>Created: {{ new Date(item.created_at).toLocaleString() }}</p>
+                  <p>Updated: {{ new Date(item.updated_at).toLocaleString() }}</p>
 
-                <!-- Progress bar -->
-                <div
-                  class="mt-4 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700"
-                >
-                  <div
-                    class="bg-primary h-2.5 rounded-full transition-all duration-500"
-                    :style="{ width: `${item.process}%` }"
-                  ></div>
+                  <!-- Progress bar stays centered -->
+                  <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                    <div
+                      class="bg-primary h-2.5 rounded-full transition-all duration-500"
+                      :style="{ width: `${item.process}%` }"
+                    ></div>
+                  </div>
+                  <p class="mt-2 text-sm text-gray-500">
+                    Progress: {{ item.process }}%
+                  </p>
                 </div>
-                <p class="mt-2 text-sm text-gray-500">
-                  Progress: {{ item.process }}%
-                </p>
               </div>
             </div>
-          </div>
 
-          <!-- Empty state -->
-          <div
-            v-if="data && !data.data.length"
-            class="text-center text-gray-500 py-4"
-          >
-            No items available
+            <!-- Empty state -->
+            <div
+              v-if="data && !data.data.length"
+              class="text-gray-500 py-4"
+            >
+              No items available
+            </div>
           </div>
-        </div>
-      </InspiraTracingBeam>
+        </InspiraTracingBeam>
 
       <!-- Keep the loading and error states outside the TracingBeam -->
       <div v-if="pending" class="flex justify-center py-8">
