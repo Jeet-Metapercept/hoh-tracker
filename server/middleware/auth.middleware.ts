@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-    const protectedRoutes = ['/api/insert', '/api/update'];
+    const protectedRoutes = ['/api/insert', '/api/update', '/api/list'];
   
     if (!protectedRoutes.includes(event.path)) {
       return

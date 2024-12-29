@@ -3,6 +3,11 @@ const config = useAppConfig();
 definePageMeta({
   title: "meta.home.title",
 });
+
+const items = ref(["😏","😐","😑","😒","😕",])
+function removeItem(toRemove: string) {
+  items.value = items.value.filter((item) => item !== toRemove)
+}
 </script>
 
 <template>
@@ -16,6 +21,20 @@ definePageMeta({
       </p>
       <div class="flex flex-col justify-center gap-6 my-10">
        <HohTimer />
+
+       <div>
+        <h5>Click emojis to remove them.</h5>
+  <ul v-auto-animate>
+    <li
+      v-for="item in items"
+      :key="item"
+      @click="removeItem(item)"
+    >
+      {{ item }}
+    </li>
+  </ul>
+        
+       </div>
       </div>
     </section>
   </section>

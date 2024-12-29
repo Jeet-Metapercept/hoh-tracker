@@ -7,7 +7,7 @@ const linkGroups = computed(() => [
   },
 ]);
 
-const socials: Link[] = [
+const _socials: Link[] = [
   {
     to: "https://www.x.com",
     icon: "bi:twitter-x",
@@ -37,6 +37,6 @@ const socials: Link[] = [
     <main class="pt-[65px] min-h-screen">
       <slot />
     </main>
-    <LayoutFooter :link-groups="linkGroups" :socials="socials" />
+    <!-- <LayoutFooter :link-groups="linkGroups" :socials="socials" /> -->
   </div>
 </template>
