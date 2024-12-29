@@ -46,7 +46,6 @@ const { data, pending, error } = await useFetch("/api/list", {
                 <div>
                   <p>Created: {{ new Date(item.created_at).toLocaleString() }}</p>
                   <p>Updated: {{ new Date(item.updated_at).toLocaleString() }}</p>
-{{ item.created_at }}
                   <!-- Progress bar stays centered -->
                   <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                     <div
