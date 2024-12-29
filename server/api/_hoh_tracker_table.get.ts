@@ -10,6 +10,7 @@ export default defineEventHandler(async (_event) => {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       status BOOLEAN NOT NULL DEFAULT 0,
       step TEXT NOT NULL
+      process INTEGER DEFAULT 0 CHECK (process >= 0 AND process <= 100)
     );
   `;
 
