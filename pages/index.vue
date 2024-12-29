@@ -15,7 +15,24 @@ const gaugeSecondaryColor = computed(() =>
 );
 
 const value = ref(0);
+
+let interval: ReturnType<typeof setInterval>;
+
+onMounted(() => {
+  interval = setInterval(() => {
+    if (value.value < 100) {
+      value.value += 10;
+    } else {
+      value.value = 0;
+    }
+  }, 5 * 1000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(interval);
+});
 </script>
+
 
 <template>
   <section class="container my-16 grid place-items-center">
