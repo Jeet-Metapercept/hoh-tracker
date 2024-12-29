@@ -30,7 +30,7 @@ const { data, pending, error } = await useFetch("/api/list", {
         />
       </div>
 
-    <div class="max-w-2xl px-8">
+    <div class="max-w-2xl">
       <InspiraTracingBeam v-if="!pending && !error" class="px-6">
           <div class="relative max-w-2xl pt-3 antialiased text-left">
             <div v-for="item in data?.data || []" :key="item.id" class="mb-10">
@@ -46,7 +46,7 @@ const { data, pending, error } = await useFetch("/api/list", {
                 <div>
                   <p>Created: {{ new Date(item.created_at).toLocaleString() }}</p>
                   <p>Updated: {{ new Date(item.updated_at).toLocaleString() }}</p>
-
+{{ item.created_at }}
                   <!-- Progress bar stays centered -->
                   <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                     <div
