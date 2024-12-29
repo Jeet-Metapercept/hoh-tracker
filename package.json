@@ -11,6 +11,7 @@
     "dev": "nuxt dev"
   },
   "dependencies": {
+    "@libsql/client": "^0.14.0",
     "@nuxt/fonts": "^0.10.2",
     "@nuxt/image": "^1.8.1",
     "@nuxtjs/fontaine": "^0.4.4",

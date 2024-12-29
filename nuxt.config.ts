@@ -1,6 +1,12 @@
 const baseUrl = process.env.BASE_URL;
 
 export default defineNuxtConfig({
+  runtimeConfig: {
+    turso: {
+      dbUrl: "",
+      dbAuthToken: "",
+    },
+  },
   modules: [
     "@zadigetvoltaire/nuxt-well-known",
     "@pinia/nuxt",
