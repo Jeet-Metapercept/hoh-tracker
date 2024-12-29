@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-    const apiKeyHeader = getHeader(event, "x-api-key");
+    const apiKeyHeader = getHeader(event, "Authorization");
   
     const runtimeConfig = useRuntimeConfig();
     const validApiKey = runtimeConfig.apiKey;
