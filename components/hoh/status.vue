@@ -60,7 +60,6 @@ const { data, pending, error } = await useFetch("/api/list", {
                 </div>
               </div>
 
-              <!-- Empty state -->
               <div
                 v-if="data && !data.data.length"
                 class="text-gray-500 py-4"
@@ -70,7 +69,6 @@ const { data, pending, error } = await useFetch("/api/list", {
             </div>
           </InspiraTracingBeam>
 
-        <!-- Keep the loading and error states outside the TracingBeam -->
         <div v-if="pending" class="flex justify-center py-8">
           <div
             class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"
