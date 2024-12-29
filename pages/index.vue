@@ -28,7 +28,7 @@ const value = ref(0);
       <p class="text-muted-foreground">
         {{ config.nuxtSiteConfig_description }}
       </p>
-      <div class="flex flex-col justify-center gap-3 my-10">
+      <div class="flex flex-col justify-center gap-6 my-10">
         <InspiraAnimatedCircularProgressBar
           :gauge-primary-color="gaugePrimaryColor"
           :gauge-secondary-color="gaugeSecondaryColor"
@@ -37,7 +37,7 @@ const value = ref(0);
           :value="value"
         />
 
-        <Button @click="value = value + 10">Button</Button>
+        <Button variant="outline" @click="value = value + 10">Button</Button>
       </div>
     </section>
   </section>
