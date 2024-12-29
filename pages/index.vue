@@ -6,7 +6,7 @@ definePageMeta({
 </script>
 
 <template>
-  <section class="container max-w-7xl my-16 grid place-items-center">
+  <section class="container max-w-7xl mt-16 grid place-items-center">
     <section class="text-center">
       <h1 class="text-5xl font-bold mb-3">
         {{ config.nuxtSiteConfig_name }}
@@ -14,7 +14,7 @@ definePageMeta({
       <p class="text-muted-foreground">
         {{ config.nuxtSiteConfig_description }}
       </p>
-      <div class="flex flex-col justify-center gap-6 my-10">
+      <div class="flex flex-col justify-center gap-3">
         <HohStatus />
       </div>
     </section>
