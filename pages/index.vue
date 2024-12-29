@@ -6,9 +6,7 @@ definePageMeta({
 
 const colorMode = useColorMode();
 
-const gaugePrimaryColor = computed(() =>
-  colorMode.value === "dark" ? "rgb(255, 255, 255)" : "rgb(79, 70, 229)",
-);
+const gaugePrimaryColor = computed(() => "rgb(233,0,82)");
 
 const gaugeSecondaryColor = computed(() =>
   colorMode.value === "dark"
