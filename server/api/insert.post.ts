@@ -12,16 +12,18 @@ export default defineEventHandler(async (event) => {
   }
 
   const query = `
-    INSERT INTO hoh_tracker (status, step${body.process !== undefined ? ", process" : ""})
-    VALUES (?, ?${body.process !== undefined ? ", ?" : ""})
+    INSERT INTO hoh_tracker (status, step${body.process !== undefined ? ", process" : ""}${body.started_at ? ", started_at" : ""})
+    VALUES (?, ?${body.process !== undefined ? ", ?" : ""}${body.started_at ? ", ?" : ""})
     RETURNING id;
   `;
 
   try {
-    const args =
-      body.process !== undefined
-        ? [body.status, body.step, body.process]
-        : [body.status, body.step];
+    const args = [
+      body.status,
+      body.step,
+      ...(body.process !== undefined ? [body.process] : []),
+      ...(body.started_at ? [body.started_at] : []),
+    ];
 
     const result = await client.execute({ sql: query, args });
     const generatedId = result.rows[0]?.id;
@@ -46,6 +48,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 });
+
 
 // curl -X POST http://localhost:3000/api/insert \
 // -H "Content-Type: application/json" \

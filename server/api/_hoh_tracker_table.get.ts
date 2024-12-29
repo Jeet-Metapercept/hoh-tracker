@@ -8,6 +8,7 @@ export default defineEventHandler(async (_event) => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       created_at DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
       updated_at DATETIME DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+      started_at DATETIME DEFAULT NULL,
       status BOOLEAN NOT NULL DEFAULT 0,
       step TEXT NOT NULL,
       process INTEGER DEFAULT 0 CHECK (process >= 0 AND process <= 100)
