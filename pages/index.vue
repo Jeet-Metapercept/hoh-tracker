@@ -4,8 +4,13 @@ definePageMeta({
   title: "meta.home.title",
 });
 
-const value = ref(0);
+const colorMode = useColorMode();
 
+const gaugePrimaryColor = computed(() =>
+  colorMode.value === "dark" ? "rgb(255, 255, 255)" : "rgb(79, 70, 229)"
+);
+
+const value = ref(0);
 </script>
 
 <template>
@@ -19,6 +24,7 @@ const value = ref(0);
       </p>
       <div class="flex flex-col justify-center gap-3 my-10">
         <InspiraAnimatedCircularProgressBar
+          :gauge-primary-color="gaugePrimaryColor"
           :max="100"
           :min="0"
           :value="value"
