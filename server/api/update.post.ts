@@ -19,9 +19,10 @@ export default defineEventHandler(async (event) => {
   `;
 
   try {
-    const args = body.process !== undefined 
-      ? [body.status, body.step, body.process, body.id]
-      : [body.status, body.step, body.id];
+    const args =
+      body.process !== undefined
+        ? [body.status, body.step, body.process, body.id]
+        : [body.status, body.step, body.id];
 
     const result = await client.execute({ sql: query, args });
 

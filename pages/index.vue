@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const config = useAppConfig();
+
 definePageMeta({
   title: "meta.home.title",
 });
 
-const items = ref(["😏","😐","😑","😒","😕",])
-function removeItem(toRemove: string) {
-  items.value = items.value.filter((item) => item !== toRemove)
-}
+const { data: items, pending, error } = await useFetch('/api/list', {
+  params: { limit: 10 },
+});
 </script>
 
 <template>
@@ -20,21 +20,21 @@ function removeItem(toRemove: string) {
         {{ config.nuxtSiteConfig_description }}
       </p>
       <div class="flex flex-col justify-center gap-6 my-10">
-       <HohTimer />
+        <HohTimer />
 
-       <div>
-        <h5>Click emojis to remove them.</h5>
-  <ul v-auto-animate>
-    <li
-      v-for="item in items"
-      :key="item"
-      @click="removeItem(item)"
-    >
-      {{ item }}
-    </li>
-  </ul>
-        
-       </div>
+        <div v-if="pending">Loading...</div>
+        <div v-else-if="error">{{ error.message }}</div>
+        <div v-else>
+          <h5>Click items to remove them.</h5>
+          <ul v-auto-animate>
+            <li
+              v-for="item in items"
+              :key="item.id"
+            >
+              {{ item.step }}
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
   </section>

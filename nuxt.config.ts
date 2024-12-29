@@ -26,7 +26,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxt/icon",
     "nuxt-svgo",
-    "@formkit/auto-animate/nuxt"
+    "@formkit/auto-animate/nuxt",
   ],
   wellKnown: {
     securityTxt: {

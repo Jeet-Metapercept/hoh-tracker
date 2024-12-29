@@ -1,9 +1,9 @@
 export default defineEventHandler(async (event) => {
-    const protectedRoutes = ['/api/insert', '/api/update', '/api/list'];
-  
-    if (!protectedRoutes.includes(event.path)) {
-      return
-    }
+  const protectedRoutes = ["/api/insert", "/api/update", "/api/list"];
+
+  if (!protectedRoutes.includes(event.path)) {
+    return;
+  }
 
   const apiKeyHeader = getHeader(event, "Authorization");
   const runtimeConfig = useRuntimeConfig();
@@ -23,8 +23,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const providedKey = apiKeyHeader.startsWith('Bearer ') 
-    ? apiKeyHeader.slice(7) 
+  const providedKey = apiKeyHeader.startsWith("Bearer ")
+    ? apiKeyHeader.slice(7)
     : apiKeyHeader;
 
   if (providedKey !== validApiKey) {
