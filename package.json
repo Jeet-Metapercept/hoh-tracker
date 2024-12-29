@@ -30,6 +30,7 @@
     "vee-validate": "^4.14.7",
     "vue": "^3.5.13",
     "vue-router": "^4.4.5",
+    "vue-use-spring": "^0.3.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
