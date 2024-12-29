@@ -14,6 +14,7 @@ const colorModeIcons = new Map<string, string>([
 ]);
 </script>
 
+
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
@@ -23,13 +24,13 @@ const colorModeIcons = new Map<string, string>([
     </DropdownMenuTrigger>
     <DropdownMenuContent>
       <DropdownMenuItem @click="$emit('update:colorMode', 'light')">
-        {{ $t("colorMode.light") }}
+        Light
       </DropdownMenuItem>
       <DropdownMenuItem @click="$emit('update:colorMode', 'dark')">
-        {{ $t("colorMode.dark") }}
+        Dark
       </DropdownMenuItem>
       <DropdownMenuItem @click="$emit('update:colorMode', 'system')">
-        {{ $t("colorMode.system") }}
+        System
       </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>

@@ -1,19 +1,12 @@
 <script setup lang="ts">
-const head = useLocaleHead({
-  identifierAttribute: "id",
-  addSeoAttributes: true,
-  addDirAttribute: true,
-});
 const route = useRoute();
-const { t } = useI18n();
-
 const description = computed(() =>
-  t((route.meta.description as string) ?? "nuxtSiteConfig.description"),
+  (route.meta.description as string) ?? "Default description"
 );
 const title = computed(() =>
-  t((route.meta.title as string) ?? "nuxtSiteConfig.name"),
+  (route.meta.title as string) ?? "Default title"
 );
-const siteName = computed(() => t("nuxtSiteConfig.name"));
+const siteName = computed(() => "Default Site Name");
 
 defineOgImageComponent("Default", {
   description,
@@ -21,28 +14,23 @@ defineOgImageComponent("Default", {
 });
 
 useHead({
-  templateParams: {
-    siteName: siteName,
-  },
+  titleTemplate: (pageTitle) => (pageTitle ? `${pageTitle} - ${siteName.value}` : siteName.value),
+  meta: [
+    { name: "description", content: description.value },
+    { property: "og:title", content: title.value },
+    { property: "og:description", content: description.value },
+    { property: "og:site_name", content: siteName.value },
+    { property: "og:type", content: "website" },
+  ],
 });
 </script>
 
+
 <template>
-  <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
+  <Html lang="en" dir="ltr">
     <Head>
       <Title>{{ title }}</Title>
       <Meta :content="description" name="description" />
-      <template v-for="link in head.link" :key="link.id">
-        <Link
-          :id="link.id"
-          :hreflang="link.hreflang"
-          :href="link.href"
-          :rel="link.rel"
-        />
-      </template>
-      <template v-for="meta in head.meta" :key="meta.id">
-        <Meta :id="meta.id" :property="meta.property" :content="meta.content" />
-      </template>
     </Head>
     <Body>
       <NuxtLoadingIndicator />

@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     "nuxt-vitalizer",
     "nuxt-security",
     "@nuxt/eslint",
-    "@nuxtjs/i18n",
     "@vueuse/nuxt",
     "shadcn-nuxt",
     "@nuxt/image",
@@ -21,31 +20,12 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "nuxt-svgo",
   ],
-  i18n: {
-    locales: [
-      {
-        language: "tr-TR",
-        name: "Türkçe",
-        file: "tr.ts",
-        code: "tr",
-      },
-      {
-        language: "en-US",
-        name: "English",
-        file: "en.ts",
-        code: "en",
-      },
-    ],
-    defaultLocale: "tr",
-    langDir: "locales/",
-    baseUrl,
-  },
   wellKnown: {
     securityTxt: {
       canonical: [`${baseUrl}/.well-known/security.txt`],
       expires: new Date("2025-11-14").toISOString(),
       contacts: ["mailto:you@domain.com"],
-      preferredLanguages: ["tr", "en"],
+      preferredLanguages: ["en"],
       disabled: false,
     },
     devtools: true,

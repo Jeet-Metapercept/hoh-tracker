@@ -1,15 +1,16 @@
 <script setup lang="ts">
 defineProps<{ package: object }>();
+const config = useAppConfig();
 </script>
 
 <template>
   <section class="container my-16 grid place-items-center">
     <section class="grid text-center">
       <h1 class="text-5xl font-bold mb-3">
-        {{ $t("nuxtSiteConfig.name") }}
+        {{ config.nuxtSiteConfig.name }}
       </h1>
       <p class="text-3xl text-muted-foreground">
-        {{ $t("nuxtSiteConfig.description") }}
+        {{ config.nuxtSiteConfig.description }}
       </p>
       <div class="flex flex-wrap justify-center gap-3 my-10">
         <Button as-child>

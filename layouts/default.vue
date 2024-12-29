@@ -1,26 +1,11 @@
 <script setup lang="ts">
-import type { LocaleObject } from "@nuxtjs/i18n";
-
-const switchLocalePath = useSwitchLocalePath();
-const { locale, locales, t } = useI18n();
-const localePath = useLocalePath();
 const colorMode = useColorMode();
-
-const availableLocales = computed<LocaleObject[]>(() =>
-  locales.value
-    .filter(({ code }) => code !== locale.value)
-    .map((locale) => ({
-      ...locale,
-      code: switchLocalePath(locale.code),
-    })),
-);
-
-const linkGroups = computed<LinkGroup[]>(() => [
+const linkGroups = computed(() => [
   {
-    name: t("linkGroups.0.name"),
+    name: "Main Links", 
     links: [
-      { name: t("linkGroups.0.links.0"), to: localePath("/") },
-      { name: t("linkGroups.0.links.1"), to: localePath("/error") },
+      { name: "Home", to: "/" }, 
+      { name: "Error Page", to: "/error" }, 
     ],
   },
 ]);
@@ -44,6 +29,7 @@ const socials: Link[] = [
 ];
 </script>
 
+
 <template>
   <div>
     <LayoutHeader :links="linkGroups[0].links">
@@ -51,11 +37,10 @@ const socials: Link[] = [
         :color-mode="colorMode.preference"
         @update:color-mode="colorMode.preference = $event"
       />
-      <LayoutLanguageMenu :available-locales />
     </LayoutHeader>
     <main class="pt-[65px] min-h-screen">
       <slot />
     </main>
-    <LayoutFooter :link-groups :socials />
+    <LayoutFooter :link-groups="linkGroups" :socials="socials" />
   </div>
 </template>

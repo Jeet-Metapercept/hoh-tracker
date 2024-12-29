@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { navigationMenuTriggerStyle } from "../ui/navigation-menu";
-
+const config= useAppConfig()
 defineProps<{
   linkGroups: LinkGroup[];
   socials: Link[];
@@ -13,7 +13,7 @@ defineProps<{
       <div class="grid place-items-start gap-3">
         <LayoutLogo />
         <p class="text-muted-foreground">
-          {{ $t("footer.description") }}
+          {{  config.nuxtSiteConfig.description }}
         </p>
         <div class="flex flex-wrap gap-2">
           <Button
