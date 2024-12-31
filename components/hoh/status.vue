@@ -130,42 +130,21 @@ const addHistoryItem = async () => {
         <InspiraTracingBeam v-if="!historyPending && !error" class="px-6">
           <div class="relative max-w-2xl pt-3 antialiased text-left">
             <div v-for="item in historyData" :key="item.id" class="mb-10">
-             
+              <Badge class="mb-2" variant="secondary">
+                {{ new Date(item.created_at).toLocaleString() }}
+              </Badge>
 
               <div class="mb-2">
                 <Alert>
-                  <div class="flex gap-2 item-center">
-                    <Icon name="lucide:timer" />
-                    <Badge class="mb-2 px-2" variant="secondary">
-                      {{ new Date(item.created_at).toLocaleString() }}
-                    </Badge>
-                  </div>
-
                   <div class="flex gap-2">
-                      <Icon name="lucide:terminal" class="w-4 h-4" />
-                      <!-- <AlertTitle>{{ new Date(item.created_at).toLocaleString() }}</AlertTitle> -->
-                      <AlertDescription>
-                       {{item.step}}
-                      </AlertDescription>
+                    <Icon name="lucide:terminal" class="w-4 h-4" />
+                    <AlertDescription>{{item.step}}</AlertDescription>
                   </div>
-                 
-                </Alert>
-              </div>
-
-              <div class="prose prose-sm dark:prose-invert text-sm text-left">
-                <div>
-                  <p>Created: {{ new Date(item.created_at).toLocaleString() }}</p>
-                  <p>Updated: {{ new Date(item.updated_at).toLocaleString() }}</p>
-                 
-                  <div class="my-3 w-full">
-                    <Progress :model-value="item.process"  />
-                  </div>
-
-
+                  <Progress :model-value="item.process" class="my-2" />
                   <p class=" text-sm text-gray-500">
                     Progress: {{ item.process }}%
                   </p>
-                </div>
+                </Alert>
               </div>
             </div>
 
