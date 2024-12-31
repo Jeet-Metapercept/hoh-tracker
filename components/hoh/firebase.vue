@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref as dbRef } from 'firebase/database'
+import { ref as dbRef, update } from 'firebase/database'
 import { useDatabase, useDatabaseObject } from 'vuefire'
 
 interface HohStatus {
@@ -12,6 +12,16 @@ const { data, pending } = useDatabaseObject<HohStatus>(statusRef)
 
 // For debugging
 console.log('Raw Firebase data:', toRaw(data.value))
+
+const toggleStatus = async () => {
+  try {
+    await update(statusRef, {
+      status: !data.value?.status
+    })
+  } catch (error) {
+    console.error('Error updating status:', error)
+  }
+}
 </script>
 
 <template>
@@ -29,5 +39,8 @@ console.log('Raw Firebase data:', toRaw(data.value))
     <pre class="mt-4 p-4 rounded bg-gray-100 dark:bg-gray-800">
       {{ data }}
     </pre>
+    <Button :disabled="pending" @click="toggleStatus">
+      Toggle Status
+      </Button>
   </div>
 </template>
