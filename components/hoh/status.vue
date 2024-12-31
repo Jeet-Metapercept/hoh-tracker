@@ -78,6 +78,17 @@ const historyData = computed(() => {
 //     newStep.value = ""
 //     newProcess.value = Math.min(newProcess.value + 10, 100)
 // }
+
+// curl -X POST \
+//   'https://hoh-stats-default-rtdb.asia-southeast1.firebasedatabase.app/history.json' \
+//   -H 'Content-Type: application/json' \
+//   -d '{
+//     "step": "Test Step",
+//     "status": false,
+//     "process": 50,
+//     "created_at": {".sv": "timestamp"},
+//     "updated_at": {".sv": "timestamp"}
+//   }'
 </script>
 
 <template>
