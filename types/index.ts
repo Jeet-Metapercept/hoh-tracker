@@ -9,7 +9,6 @@ export type LinkGroup = {
   links: Link[];
 };
 
-
 export interface HohData {
   id: number;
   step: string;
