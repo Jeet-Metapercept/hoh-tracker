@@ -7,8 +7,11 @@ interface HohStatus {
 }
 
 const db = useDatabase()
-const statusRef = dbRef(db, 'status')
+const statusRef = dbRef(db, '/') 
 const { data, pending } = useDatabaseObject<HohStatus>(statusRef)
+
+// For debugging
+console.log('Raw Firebase data:', toRaw(data.value))
 </script>
 
 <template>
@@ -17,14 +20,14 @@ const { data, pending } = useDatabaseObject<HohStatus>(statusRef)
       <div class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"></div>
     </div>
 
-  
-    <div v-else class="space-y-4">
-      <Badge :variant="data?.status ? 'default' : 'secondary'">
+    <div v-else class="space-y-4 mx-auto">
+      <Badge :variant="data?.status ? 'default' : 'destructive'">
         {{ data?.status ? 'Online' : 'Offline' }}
       </Badge>
     </div>
 
-
-    
+    <pre class="mt-4 p-4 rounded bg-gray-100 dark:bg-gray-800">
+      {{ data }}
+    </pre>
   </div>
 </template>

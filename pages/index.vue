@@ -14,10 +14,11 @@ definePageMeta({
       <p class="text-muted-foreground">
         {{ config.nuxtSiteConfig_description }}
       </p>
-      <div class="flex flex-col justify-center gap-3">
+    </section>
+
+    <div class="flex flex-col justify-center gap-3">
         <!-- <HohStatus /> -->
         <HohFirebase />
       </div>
-    </section>
   </section>
 </template>
