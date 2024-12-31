@@ -126,7 +126,7 @@ const historyData = computed(() => {
 
       <!-- History List -->
       <div class="max-w-2xl mx-auto w-full">
-        <InspiraTracingBeam v-if="!historyPending" class="px-6">
+        <InspiraTracingBeam v-if="!historyPending" class="px-10">
           <div class="relative max-w-2xl pt-3 antialiased text-left">
             <div v-for="item in historyData" :key="item.id" class="mb-10">
               <div class="flex justify-between items-center">
