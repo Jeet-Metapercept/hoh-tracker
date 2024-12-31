@@ -32,18 +32,6 @@ export default defineNuxtConfig({
     },
     devtools: true,
   },
-  // vuefire: {
-  //   config: {
-  //     apiKey: "AIzaSyDLiXUeLCL_SqQTdXi4bQ70ulUEzUtTPwg",
-  //     authDomain: "hoh-stats.firebaseapp.com",
-  //     databaseURL: "https://hoh-stats-default-rtdb.asia-southeast1.firebasedatabase.app",
-  //     projectId: "hoh-stats",
-  //     storageBucket: "hoh-stats.firebasestorage.app",
-  //     messagingSenderId: "427466791217",
-  //     appId: "1:427466791217:web:905bf02bd2d5fd47597810",
-  //     measurementId: "G-ZEH6SGV52N"
-  //   },
-  // },
   vuefire: {
     config: {
       apiKey: process.env.FIREBASE_API_KEY,
