@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 const config = useRuntimeConfig();
 const colorMode = useColorMode();
 
@@ -46,7 +46,6 @@ const { data, pending, error } = await useFetch("/api/list", {
                   <div>
                     <p>Created: {{ new Date(item.created_at).toLocaleString() }}</p>
                     <p>Updated: {{ new Date(item.updated_at).toLocaleString() }}</p>
-                    <!-- Progress bar stays centered -->
                     <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                       <div
                         class="bg-primary h-2.5 rounded-full transition-all duration-500"
@@ -82,4 +81,4 @@ const { data, pending, error } = await useFetch("/api/list", {
 
     </div>
   </div>
-</template>
+</template> -->

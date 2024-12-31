@@ -15,7 +15,8 @@ definePageMeta({
         {{ config.nuxtSiteConfig_description }}
       </p>
       <div class="flex flex-col justify-center gap-3">
-        <HohStatus />
+        <!-- <HohStatus /> -->
+        <HohFirebase />
       </div>
     </section>
   </section>
