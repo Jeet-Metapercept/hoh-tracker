@@ -33,7 +33,7 @@ interface HohData {
 }
 
 const db = useDatabase()
-const statusRef = dbRef(db, "status")
+const statusRef = dbRef(db, "/")
 const { data: statusData } = useDatabaseObject<HohStatus>(statusRef)
 
 // Get the overall progress value from the latest history item
@@ -46,11 +46,11 @@ const value = computed(() => {
 //   await update(statusRef, { status: !statusData.value?.status })
 // }
 
-const historyRef = dbRef(db, "history")
+const historyRef = dbRef(db, "/history")
 const historyQuery = query(
   historyRef,
   orderByChild("created_at"),
-  limitToLast(10)
+  limitToLast(5)
 )
 
 const { data: historyDataRaw, pending: historyPending } = useDatabaseList<HohData>(historyQuery)
