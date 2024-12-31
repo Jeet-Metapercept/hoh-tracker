@@ -142,12 +142,13 @@ const addHistoryItem = async () => {
                 <div>
                   <p>Created: {{ new Date(item.created_at).toLocaleString() }}</p>
                   <p>Updated: {{ new Date(item.updated_at).toLocaleString() }}</p>
-                  <div class="mt-4 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                    <div
-                      class="bg-primary h-2.5 rounded-full transition-all duration-500"
-                      :style="{ width: `${item.process}%` }"
-                    />
+                  <div class="mt-4 w-full">
+                    
+                  <Progress :model-value="item.process" />
+
                   </div>
+
+
                   <p class="mt-2 text-sm text-gray-500">
                     Progress: {{ item.process }}%
                   </p>

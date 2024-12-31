@@ -133,6 +133,7 @@ const addHistoryItem = async () => {
               class="bg-primary h-2.5 rounded-full transition-all duration-500"
               :style="{ width: `${item.process}%` }"
             />
+
           </div>
           <p class="mt-2 text-sm text-muted-foreground">
             Progress: {{ item.process }}%
