@@ -6,7 +6,7 @@ import {
   // push,
   query,
   // serverTimestamp,
-  update
+  // update
 } from "firebase/database"
 import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire"
 
@@ -34,7 +34,7 @@ interface HohData {
 
 const db = useDatabase()
 const statusRef = dbRef(db, "status")
-const { data: statusData, pending: statusPending } = useDatabaseObject<HohStatus>(statusRef)
+const { data: statusData } = useDatabaseObject<HohStatus>(statusRef)
 
 // Get the overall progress value from the latest history item
 const value = computed(() => {
@@ -42,9 +42,9 @@ const value = computed(() => {
   return historyData.value[0].process
 })
 
-const toggleStatus = async () => {
-  await update(statusRef, { status: !statusData.value?.status })
-}
+// const toggleStatus = async () => {
+//   await update(statusRef, { status: !statusData.value?.status })
+// }
 
 const historyRef = dbRef(db, "history")
 const historyQuery = query(
@@ -99,9 +99,9 @@ const historyData = computed(() => {
         <Badge :variant="statusData?.status ? 'default' : 'destructive'">
           {{ statusData?.status ? "Online" : "Offline" }}
         </Badge>
-        <Button :disabled="statusPending" @click="toggleStatus">
+        <!-- <Button :disabled="statusPending" @click="toggleStatus">
           Toggle Status
-        </Button>
+        </Button> -->
       </div>
 
       <!-- Add History Form -->
