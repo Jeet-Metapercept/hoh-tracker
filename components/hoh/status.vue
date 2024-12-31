@@ -81,7 +81,7 @@ const historyData = computed(() => {
 </script>
 
 <template>
-  <div class="gague max-w-6xl">
+  <div class="gague">
     <div class="flex flex-col justify-center gap-8 my-8">
       <!-- Circular Progress Bar -->
       <div class="flex justify-center">
