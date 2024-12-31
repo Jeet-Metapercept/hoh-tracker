@@ -3,9 +3,9 @@ import {
   ref as dbRef,
   limitToLast,
   orderByChild,
-  push,
+  // push,
   query,
-  serverTimestamp,
+  // serverTimestamp,
   update
 } from "firebase/database"
 import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire"
@@ -59,26 +59,25 @@ const historyData = computed(() => {
   return [...historyDataRaw.value].reverse()
 })
 
-const error = ref(null)
 
-const newStep = ref("")
-const newProcess = ref(0)
+// const newStep = ref("")
+// const newProcess = ref(0)
 
-const addHistoryItem = async () => {
-    if (!newStep.value) return
+// const addHistoryItem = async () => {
+//     if (!newStep.value) return
 
-    const newItem = {
-      step: newStep.value,
-      status: false,
-      process: newProcess.value,
-      created_at: serverTimestamp(),
-      updated_at: serverTimestamp()
-    }
+//     const newItem = {
+//       step: newStep.value,
+//       status: false,
+//       process: newProcess.value,
+//       created_at: serverTimestamp(),
+//       updated_at: serverTimestamp()
+//     }
 
-    await push(historyRef, newItem)
-    newStep.value = ""
-    newProcess.value = Math.min(newProcess.value + 10, 100)
-}
+//     await push(historyRef, newItem)
+//     newStep.value = ""
+//     newProcess.value = Math.min(newProcess.value + 10, 100)
+// }
 </script>
 
 <template>
@@ -106,7 +105,7 @@ const addHistoryItem = async () => {
       </div>
 
       <!-- Add History Form -->
-      <div class="flex justify-center">
+      <!-- <div class="flex justify-center">
         <form class="flex gap-4 max-w-2xl w-full" @submit.prevent="addHistoryItem">
           <input
             v-model="newStep"
@@ -123,11 +122,11 @@ const addHistoryItem = async () => {
           />
           <Button type="submit" :disabled="!newStep">Add</Button>
         </form>
-      </div>
+      </div> -->
 
       <!-- History List -->
       <div class="max-w-2xl mx-auto w-full">
-        <InspiraTracingBeam v-if="!historyPending && !error" class="px-6">
+        <InspiraTracingBeam v-if="!historyPending" class="px-6">
           <div class="relative max-w-2xl pt-3 antialiased text-left">
             <div v-for="item in historyData" :key="item.id" class="mb-10">
               <Badge class="mb-2" variant="secondary">
@@ -161,10 +160,6 @@ const addHistoryItem = async () => {
           <div
             class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"
           />
-        </div>
-
-        <div v-if="error" class="text-red-500 p-4 rounded-lg bg-red-50">
-          {{ error }}
         </div>
       </div>
     </div>
