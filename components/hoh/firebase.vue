@@ -45,7 +45,12 @@ const historyQuery = query(
   limitToLast(2)
 )
 
-const { data: historyData, pending: historyPending } = useDatabaseList<HohData>(historyQuery)
+const { data: historyData } = useDatabaseList<HohData>(historyQuery)
+  const historyDataOrder = computed(() => {
+  if (!historyData.value) return []
+  return [...historyData.value].reverse()
+})
+
 
 const newStep = ref("")
 const newProcess = ref(0)
@@ -112,12 +117,8 @@ const addHistoryItem = async () => {
     <div class="mt-8">
       <h2 class="text-xl font-semibold mb-4">History</h2>
       
-      <div v-if="historyPending" class="flex justify-center py-8">
-        <div class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
-      </div>
-
-      <div v-else-if="historyData?.length" class="space-y-4">
-        <div v-for="item in historyData" :key="item.id" class="border rounded-lg p-4">
+      <div v-if="historyData?.length" class="space-y-4">
+        <div v-for="item in historyDataOrder" :key="item.id" class="border rounded-lg p-4">
           <div class="flex items-center justify-between mb-2">
             <Badge :variant="item.status ? 'default' : 'secondary'">
               {{ item.step }}
