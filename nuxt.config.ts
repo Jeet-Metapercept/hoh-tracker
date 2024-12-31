@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "nuxt-svgo",
     "@formkit/auto-animate/nuxt",
+    "nuxt-vuefire",
   ],
   wellKnown: {
     securityTxt: {
@@ -37,6 +38,30 @@ export default defineNuxtConfig({
       disabled: false,
     },
     devtools: true,
+  },
+  // vuefire: {
+  //   config: {
+  //     apiKey: "AIzaSyDLiXUeLCL_SqQTdXi4bQ70ulUEzUtTPwg",
+  //     authDomain: "hoh-stats.firebaseapp.com",
+  //     databaseURL: "https://hoh-stats-default-rtdb.asia-southeast1.firebasedatabase.app",
+  //     projectId: "hoh-stats",
+  //     storageBucket: "hoh-stats.firebasestorage.app",
+  //     messagingSenderId: "427466791217",
+  //     appId: "1:427466791217:web:905bf02bd2d5fd47597810",
+  //     measurementId: "G-ZEH6SGV52N"
+  //   },
+  // },
+  vuefire: {
+    config: {
+      apiKey: process.env.FIREBASE_API_KEY,
+      authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+      databaseURL: process.env.FIREBASE_DATABASE_URL,
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+      appId: process.env.FIREBASE_APP_ID,
+      measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+    },
   },
   svgo: {
     autoImportPath: false,
