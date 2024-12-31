@@ -129,9 +129,16 @@ const historyData = computed(() => {
         <InspiraTracingBeam v-if="!historyPending" class="px-6">
           <div class="relative max-w-2xl pt-3 antialiased text-left">
             <div v-for="item in historyData" :key="item.id" class="mb-10">
-              <Badge class="mb-2" variant="secondary">
+              <div class="flex justify-between items-center">
+                <Badge class="mb-2" variant="secondary">
                 {{ new Date(item.created_at).toLocaleString() }}
-              </Badge>
+                </Badge>
+
+                <Badge class="mb-2" variant="default">
+                  Complete
+                </Badge>
+                </div>
+            
 
               <div class="mb-2">
                 <Alert>
