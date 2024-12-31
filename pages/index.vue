@@ -17,8 +17,8 @@ definePageMeta({
     </section>
 
     <div class="flex flex-col justify-center gap-3">
-        <!-- <HohStatus /> -->
-        <HohFirebase />
-      </div>
+      <!-- <HohStatus /> -->
+      <HohFirebase />
+    </div>
   </section>
 </template>
