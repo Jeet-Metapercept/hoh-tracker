@@ -13,6 +13,13 @@ const { data, pending } = useDatabaseObject<HohStatus>(statusRef);
 const toggleStatus = async () => {
   await update(statusRef, { status: !data.value?.status });
 };
+
+// # When status is true, setting to false
+// curl -X PATCH \
+//   'https://hoh-stats-default-rtdb.asia-southeast1.firebasedatabase.app/.json' \
+//   -H 'Content-Type: application/json' \
+//   -d '{"status": false}'
+
 </script>
 
 <template>
