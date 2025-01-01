@@ -81,7 +81,7 @@ const gaugeSecondaryColor = computed(() =>
 
 const now = useNow({ interval: 1000 });
 const totalDurationMinutes = 60;
-const failureThresholdDurationMinutes = 15;
+const failureThresholdDurationMinutes = totalDurationMinutes + 15;
 
 const targetTime = computed(() => {
   return addMinutes(
