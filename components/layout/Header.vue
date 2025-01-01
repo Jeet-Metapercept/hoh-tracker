@@ -22,7 +22,7 @@ const [DefineNavigationMenu, ReuseNavigationMenu] = createReusableTemplate();
   </DefineNavigationMenu>
   <header class="fixed top-0 left-0 w-full py-3 bg-background border-b z-50">
     <nav
-      class="container flex justify-between [&>div]:flex [&>div]:items-center [&>div]:gap-3"
+      class="flex justify-between [&>div]:flex [&>div]:items-center [&>div]:gap-3 px-4"
     >
       <div>
         <LayoutLogo />
