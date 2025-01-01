@@ -108,18 +108,6 @@ const remainingTimeString = computed(() => {
 
 <template>
   <div class="gague">
-    <!-- <pre>{{ historyData[0] }}</pre> -->
-    <!-- <pre>{{ new Date(historyData[0].completed_at) }}</pre> -->
-
-    <ClientOnly><h1>{{ remainingTimeString }}</h1></ClientOnly>
-    
-
-    remainingPercentage
-    <ClientOnly><h1>{{ elapsedPercentage }}</h1></ClientOnly>
-
-    
-
-
     <div class="flex flex-col justify-center gap-4 my-8">
       <div
         class="relative flex h-[300px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
@@ -128,6 +116,7 @@ const remainingTimeString = computed(() => {
           <InspiraAnimatedCircularProgressBar
             :gauge-primary-color="gaugePrimaryColor"
             :gauge-secondary-color="gaugeSecondaryColor"
+            :no-decimals="true"
             :max="100"
             :min="0"
             :value="statusData?.status === 'True' ? 100 : elapsedPercentage"
@@ -229,7 +218,7 @@ const remainingTimeString = computed(() => {
         <!-- Next Run -->
         <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800">
           <div>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Next Run</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Next Schdule</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">{{ remainingTimeString }}</p>
           </div>
 

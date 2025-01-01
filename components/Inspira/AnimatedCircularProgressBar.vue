@@ -47,6 +47,7 @@ interface Props {
   gaugeSecondaryColor?: string;
   class?: string;
   circleStrokeWidth?: number;
+  noDecimals?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -56,14 +57,16 @@ const props = withDefaults(defineProps<Props>(), {
   gaugePrimaryColor: "rgb(79 70 229)",
   gaugeSecondaryColor: "rgba(0, 0, 0, 0.1)",
   circleStrokeWidth: 10,
+  noDecimals: false
 });
 
 const circumference = 2 * Math.PI * 45;
 const percentPx = circumference / 100;
 
-const currentPercent = computed(
-  () => ((props.value - props.min) / (props.max - props.min)) * 100,
+const currentPercent = computed(() =>
+  props.noDecimals ? Math.round(((props.value - props.min) / (props.max - props.min)) * 100) : ((props.value - props.min) / (props.max - props.min)) * 100
 );
+
 const percentageInPx = computed(() => `${percentPx}px`);
 </script>
 
