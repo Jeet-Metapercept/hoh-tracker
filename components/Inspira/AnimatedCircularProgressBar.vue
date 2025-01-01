@@ -28,7 +28,7 @@
     </svg>
     <span
       :data-current-value="currentPercent"
-      class="absolute inset-0 m-auto size-fit delay-0 duration-1000 ease-linear animate-in fade-in"
+      class="absolute inset-0 m-auto size-fit tracking-wide delay-0 duration-1000 ease-linear animate-in fade-in"
     >
       {{ currentPercent }}
     </span>
