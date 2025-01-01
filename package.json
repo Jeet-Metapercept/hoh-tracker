@@ -13,6 +13,7 @@
   "dependencies": {
     "@firebase/app-types": "^0.9.3",
     "@formkit/auto-animate": "^0.8.2",
+    "@iconify-json/lucide": "^1.2.20",
     "@nuxt/fonts": "^0.10.2",
     "@nuxt/image": "^1.8.1",
     "@nuxtjs/fontaine": "^0.4.4",
