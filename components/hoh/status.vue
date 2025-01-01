@@ -42,10 +42,6 @@ const value = computed(() => {
   return historyData.value[0].process
 })
 
-// const toggleStatus = async () => {
-//   await update(statusRef, { status: !statusData.value?.status })
-// }
-
 const historyRef = dbRef(db, "/history")
 const historyQuery = query(
   historyRef,
@@ -58,37 +54,6 @@ const historyData = computed(() => {
   if (!historyDataRaw.value) return []
   return [...historyDataRaw.value].reverse()
 })
-
-
-// const newStep = ref("")
-// const newProcess = ref(0)
-
-// const addHistoryItem = async () => {
-//     if (!newStep.value) return
-
-//     const newItem = {
-//       step: newStep.value,
-//       status: false,
-//       process: newProcess.value,
-//       created_at: serverTimestamp(),
-//       updated_at: serverTimestamp()
-//     }
-
-//     await push(historyRef, newItem)
-//     newStep.value = ""
-//     newProcess.value = Math.min(newProcess.value + 10, 100)
-// }
-
-// curl -X POST \
-//   'https://hoh-stats-default-rtdb.asia-southeast1.firebasedatabase.app/history.json' \
-//   -H 'Content-Type: application/json' \
-//   -d '{
-//     "step": "Test Step",
-//     "status": false,
-//     "process": 50,
-//     "created_at": {".sv": "timestamp"},
-//     "updated_at": {".sv": "timestamp"}
-//   }'
 </script>
 
 <template>
