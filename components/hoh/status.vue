@@ -118,38 +118,7 @@ const remainingTimeString = computed(() => {
     <ClientOnly><h1>{{ elapsedPercentage }}</h1></ClientOnly>
 
     
-    <div class="flex flex-col justify-between p-4">
-    <article class="rounded-lg border border-gray-100 bg-white p-4">
-      <div>
-        <p class="text-sm text-gray-500">Last Run</p>
-        <p class="text font-medium text-gray-900">{{ formatDistanceToNow(new Date(historyData[0].completed_at), { addSuffix: true }) }} </p>
-      </div>
-    
-      <div class="mt-1 flex gap-1 text-green-600">
-        <Icon  name="lucide:check-check" />
-        <p class="flex gap-2 text-xs">
-          <!-- <span class="font-medium"> Completed at </span> -->
-          <span class="text-gray-500"> {{ new Date(historyData[0].completed_at).toLocaleString() }} </span>
-        </p>
-      </div>
-    </article>
 
-    <article class="rounded-lg border border-gray-100 bg-white p-4">
-      <div>
-        <p class="text-sm text-gray-500">Next Run</p>
-        <p class="text font-medium text-gray-900">{{ remainingTimeString }} </p>
-      </div>
-    
-      <div class="mt-1 flex gap-1 text-green-600">
-        <Icon  name="lucide:check-check" />
-        <p class="flex gap-2 text-xs">
-          <!-- <span class="font-medium"> Starting at </span> -->
-          <span class="text-gray-500"> {{ new Date(targetTime).toLocaleString() }} </span>
-        </p>
-      </div>
-    </article>
-  
-  </div>
 
     <div class="flex flex-col justify-center gap-4 my-8">
       <div
@@ -235,7 +204,41 @@ const remainingTimeString = computed(() => {
           </Stepper>
         </div> -->
       </div>
-      <Separator label="History" class="mt-8 mb-2"/>
+
+      
+      <div class="flex flex-col justify-between gap-2 px-4">
+        <article class="rounded-lg border border-gray-100 bg-white p-4">
+          <div>
+            <p class="text-sm text-gray-500">Last Run</p>
+            <p class="text font-medium text-gray-900">{{ formatDistanceToNow(new Date(historyData[0].completed_at), { addSuffix: true }) }} </p>
+          </div>
+        
+          <div class="mt-1 flex gap-1 text-green-600">
+            <Icon  name="lucide:check-check" />
+            <p class="flex gap-2 text-xs">
+              <!-- <span class="font-medium"> Completed at </span> -->
+              <span class="text-gray-500"> {{ new Date(historyData[0].completed_at).toLocaleString() }} </span>
+            </p>
+          </div>
+        </article>
+
+        <article class="rounded-lg border border-gray-100 bg-white p-4">
+          <div>
+            <p class="text-sm text-gray-500">Next Run</p>
+            <p class="text font-medium text-gray-900">{{ remainingTimeString }} </p>
+          </div>
+        
+          <div class="mt-1 flex gap-1 text-green-600">
+            <Icon  name="lucide:check-check" />
+            <p class="flex gap-2 text-xs">
+              <!-- <span class="font-medium"> Starting at </span> -->
+              <span class="text-gray-500"> {{ new Date(targetTime).toLocaleString() }} </span>
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <Separator label="History" class="mb-2"/>
 
       <!-- History List -->
       <div class="max-w-2xl mx-auto w-full">
