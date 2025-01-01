@@ -23,24 +23,14 @@ interface HohStatus {
   status: boolean
 }
 
-interface HohData {
-  id: string
-  step: string
-  status: boolean
-  process: number
-  created_at: Date
-  updated_at: Date
+interface HohHistoryData {
+  started_at: Date
+  completed_at: Date
 }
 
 const db = useDatabase()
 const statusRef = dbRef(db, "/")
 const { data: statusData } = useDatabaseObject<HohStatus>(statusRef)
-
-// Get the overall progress value from the latest history item
-const value = computed(() => {
-  if (!historyData.value?.length) return 0
-  return historyData.value[0].process
-})
 
 const historyRef = dbRef(db, "/history")
 const historyQuery = query(
@@ -49,7 +39,7 @@ const historyQuery = query(
   limitToLast(5)
 )
 
-const { data: historyDataRaw, pending: historyPending } = useDatabaseList<HohData>(historyQuery)
+const { data: historyDataRaw, pending: historyPending } = useDatabaseList<HohHistoryData>(historyQuery)
 const historyData = computed(() => {
   if (!historyDataRaw.value) return []
   return [...historyDataRaw.value].reverse()
@@ -66,7 +56,7 @@ const historyData = computed(() => {
           :gauge-secondary-color="gaugeSecondaryColor"
           :max="100"
           :min="0"
-          :value="value"
+          :value="74"
         />
       </div>
 
@@ -104,10 +94,10 @@ const historyData = computed(() => {
       <div class="max-w-2xl mx-auto w-full">
         <InspiraTracingBeam v-if="!historyPending" class="px-10">
           <div class="relative max-w-2xl pt-3 antialiased text-left">
-            <div v-for="item in historyData" :key="item.id" class="mb-10">
+            <div v-for="(item, index) in historyData" :key="item.id" class="mb-10">
               <div class="flex justify-between items-center">
                 <Badge class="mb-2" variant="secondary">
-                {{ new Date(item.created_at).toLocaleString() }}
+                {{ new Date(item.started_at).toLocaleString() }}
                 </Badge>
 
                 <Badge class="mb-2" variant="default">
@@ -120,11 +110,11 @@ const historyData = computed(() => {
                 <Alert>
                   <div class="flex gap-2">
                     <Icon name="lucide:terminal" class="w-4 h-4" />
-                    <AlertDescription>{{item.step}}</AlertDescription>
+                    <AlertDescription>{{item.completed_at}}</AlertDescription>
                   </div>
-                  <Progress :model-value="item.process" class="my-2" />
+                  <Progress :model-value="index * 10" class="my-2" />
                   <p class=" text-sm text-gray-500">
-                    Progress: {{ item.process }}%
+                    Progress: {{ index * 10 }}%
                   </p>
                 </Alert>
               </div>
