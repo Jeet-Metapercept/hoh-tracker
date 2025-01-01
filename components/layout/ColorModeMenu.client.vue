@@ -17,7 +17,7 @@ const colorModeIcons = new Map<string, string>([
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button size="icon" class="rounded-full bg-premier text-premier-foreground " variant="outline" aria-label="Color Mode Menu">
+      <Button size="icon" class="rounded-full" variant="outline" aria-label="Color Mode Menu">
         <Icon :name="colorModeIcons.get(colorMode)!" size="18" />
       </Button>
     </DropdownMenuTrigger>
