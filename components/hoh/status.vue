@@ -205,38 +205,45 @@ const remainingTimeString = computed(() => {
         </div> -->
       </div>
 
-      
+
       <div class="flex flex-col justify-between gap-2 px-4">
-        <article class="rounded-lg border border-gray-100 bg-white p-4">
+        <!-- Last Run -->
+        <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800">
           <div>
-            <p class="text-sm text-gray-500">Last Run</p>
-            <p class="text font-medium text-gray-900">{{ formatDistanceToNow(new Date(historyData[0].completed_at), { addSuffix: true }) }} </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Last Run</p>
+            <p class="text font-medium text-gray-900 dark:text-gray-100">
+              {{ formatDistanceToNow(new Date(historyData[0].completed_at), { addSuffix: true }) }}
+            </p>
           </div>
-        
-          <div class="mt-1 flex gap-1 text-green-600">
-            <Icon  name="lucide:check-check" />
+
+          <div class="mt-1 flex gap-1 text-green-600 dark:text-green-400">
+            <Icon name="lucide:check-check" />
             <p class="flex gap-2 text-xs">
-              <!-- <span class="font-medium"> Completed at </span> -->
-              <span class="text-gray-500"> {{ new Date(historyData[0].completed_at).toLocaleString() }} </span>
+              <span class="text-gray-500 dark:text-gray-400">
+                {{ new Date(historyData[0].completed_at).toLocaleString() }}
+              </span>
             </p>
           </div>
         </article>
 
-        <article class="rounded-lg border border-gray-100 bg-white p-4">
+        <!-- Next Run -->
+        <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800">
           <div>
-            <p class="text-sm text-gray-500">Next Run</p>
-            <p class="text font-medium text-gray-900">{{ remainingTimeString }} </p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Next Run</p>
+            <p class="text font-medium text-gray-900 dark:text-gray-100">{{ remainingTimeString }}</p>
           </div>
-        
-          <div class="mt-1 flex gap-1 text-green-600">
-            <Icon  name="lucide:check-check" />
+
+          <div class="mt-1 flex gap-1 text-green-600 dark:text-green-400">
+            <Icon name="lucide:check-check" />
             <p class="flex gap-2 text-xs">
-              <!-- <span class="font-medium"> Starting at </span> -->
-              <span class="text-gray-500"> {{ new Date(targetTime).toLocaleString() }} </span>
+              <span class="text-gray-500 dark:text-gray-400">
+                {{ new Date(targetTime).toLocaleString() }}
+              </span>
             </p>
           </div>
         </article>
       </div>
+
 
       <Separator label="History" class="mb-2"/>
 
