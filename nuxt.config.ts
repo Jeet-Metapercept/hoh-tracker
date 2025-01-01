@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     "nuxt-svgo",
     "@formkit/auto-animate/nuxt",
     "nuxt-vuefire",
+    "@vite-pwa/nuxt",
   ],
   wellKnown: {
     securityTxt: {
@@ -63,4 +64,52 @@ export default defineNuxtConfig({
     enabled: true,
   },
   compatibilityDate: "2024-11-14",
+  pwa: {
+    registerType: "autoUpdate",
+    manifest: {
+      id: "com.hohtracker.app",
+      name: "Heroes of History Tracker",
+      short_name: "HoH Tracker",
+      description: "HOH Tracker App",
+      theme_color: "#E90052",
+      background_color: "#E90052",
+      display: "standalone",
+      orientation: "portrait",
+      start_url: "/",
+      icons: [
+        {
+          src: "/icon-192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "/icon-512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+      ],
+      screenshots: [
+        {
+          src: "/icon-512.png",
+          sizes: "512x512",
+          type: "image/png",
+          form_factor: "narrow",
+        },
+        {
+          src: "/icon-512.png",
+          sizes: "512x512",
+          type: "image/png",
+          form_factor: "wide",
+        },
+      ],
+    },
+    client: {
+      installPrompt: true,
+      periodicSyncForUpdates: 3600,
+    },
+    devOptions: {
+      enabled: true,
+      type: "module",
+    },
+  },
 });

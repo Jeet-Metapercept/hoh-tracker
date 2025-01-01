@@ -79,7 +79,10 @@ const now = useNow({ interval: 1000 });
 const totalDurationMinutes = 60;
 
 const targetTime = computed(() => {
-  return addMinutes(new Date(statusData.value?.completed_at || Date.now()), totalDurationMinutes);
+  return addMinutes(
+    new Date(statusData.value?.completed_at || Date.now()),
+    totalDurationMinutes,
+  );
 });
 
 const elapsedMinutes = computed(() => {
@@ -206,7 +209,7 @@ const remainingTimeString = computed(() => {
           class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800"
         >
           <div>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Last Run</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Last Run</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
               {{
                 formatDistanceToNow(new Date(historyData[0].completed_at), {
@@ -231,7 +234,7 @@ const remainingTimeString = computed(() => {
           class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800 text-end"
         >
           <div>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Next Schdule</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Next Schdule</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
               {{ remainingTimeString }}
             </p>
