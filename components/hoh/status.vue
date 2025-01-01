@@ -71,12 +71,12 @@ const now = useNow({ interval: 1000 });
 
 const targetTime = computed(() => {
   const maxCompletedAt = Math.max(...historyData.value.map((item) => new Date(item.completed_at).getTime()));
-  return addHours(maxCompletedAt, 1); // Add 1 hour using date-fns
+  return addHours(maxCompletedAt, 1);
 });
 
 const remainingMinutes = computed(() => {
-  const diff = differenceInMinutes(targetTime.value, now.value); // Get difference in minutes
-  return Math.max(0, diff); // Ensure non-negative
+  const diff = differenceInMinutes(targetTime.value, now.value);
+  return Math.max(0, diff);
 });
 
 const remainingTimeString = computed(() => {
