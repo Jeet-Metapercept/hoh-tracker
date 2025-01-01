@@ -243,7 +243,8 @@ const remainingTimeString = computed(() => {
             <div v-for="item in historyData" :key="item.id" class="mb-10">
               <div class="flex justify-between items-center">
                 <Badge class="mb-2" variant="secondary">
-                  {{ new Date(item.started_at).toLocaleString() }}
+                  <!-- {{ new Date(item.started_at).toLocaleString() }} -->
+                  {{ formatDistanceToNow(new Date(item.completed_at), { addSuffix: true }) }}
                 </Badge>
 
                 <Badge class="mb-2 bg-emerald-500" variant="default">
