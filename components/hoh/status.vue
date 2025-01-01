@@ -166,7 +166,7 @@ const remainingTimeString = computed(() => {
           {{ statusData?.status === "True" ? "Live" : "Snoozed" }}
         </Badge>
        
-        <Alert variant="destructive" class="text-center min-w-[250px]">
+        <Alert variant="destructive" class="text-center min-w-[300px]">
           <AlertDescription
             v-if="statusData?.started_at && differenceInMinutes(new Date(), new Date(statusData.started_at)) > failureThresholdDurationMinutes"
             class="flex items-center justify-center gap-1">
