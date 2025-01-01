@@ -97,9 +97,7 @@ const historyData = computed(() => {
         </InspiraTracingBeam>
 
         <div v-if="historyPending" class="flex justify-center py-8">
-          <div
-            class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"
-          />
+          <Icon name="svg-spinners:tadpole" class="w-8 h-8" />
         </div>
       </div>
     </div>
