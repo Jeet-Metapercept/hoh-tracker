@@ -119,13 +119,6 @@ const historyData = computed(() => {
                 </Alert>
               </div>
             </div>
-
-            <div
-              v-if="historyData && !historyData.length"
-              class="text-gray-500 py-4"
-            >
-              No items available
-            </div>
           </div>
         </InspiraTracingBeam>
 
