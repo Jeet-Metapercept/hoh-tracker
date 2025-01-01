@@ -152,7 +152,7 @@ const remainingTimeString = computed(() => {
         <Badge
           :variant="statusData?.status === 'True' ? 'default' : 'destructive'"
           class="justify-center"
-          :class="statusData?.status === 'True' ? 'bg-emerald-500' : ''"
+          :class="statusData?.status === 'True' ? 'bg-green-400' : ''"
         >
           {{ statusData?.status === "True" ? "Live" : "Offline" }}
         </Badge>
@@ -284,7 +284,7 @@ const remainingTimeString = computed(() => {
                       new Date(item.completed_at).toLocaleString()
                     }}
                   
-                      <Badge class="bg-emerald-500" variant="default">
+                      <Badge class="bg-green-400" variant="default">
                         Complete
                       </Badge>  
                   </AlertDescription>
