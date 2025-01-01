@@ -69,40 +69,6 @@ const historyData = computed(() => {
 //   },
 // ]
 
-
-// const now = useNow({ interval: 1000 });
-// const totalDurationMinutes = 60;
-
-// const targetTime = computed(() => {
-//   return addHours(new Date(statusData.value?.completed_at || Date.now()), 1);
-// });
-
-// const remainingMinutes = computed(() => {
-//   const diff = differenceInMinutes(targetTime.value, now.value);
-//   return Math.max(0, Math.floor(diff)); 
-// });
-
-// const remainingPercentage = computed(() => {
-//   const diff = differenceInMinutes(targetTime.value, now.value);
-//   const remaining = Math.max(0, diff); 
-//   return parseFloat(((remaining / totalDurationMinutes) * 100).toFixed(2));
-// });
-
-
-// const remainingTimeString = computed(() => {
-//   const diffInMillis = targetTime.value.getTime() - now.value.getTime();
-
-//   if (diffInMillis <= 0) {
-//     return "0 minutes";
-//   }
-
-//   const duration = intervalToDuration({ 
-//     start: now.value.getTime(), 
-//     end: targetTime.value.getTime() 
-//   });
-
-//   return formatDuration(duration, { format: ['minutes', 'seconds'], zero: true });
-// });
 const now = useNow({ interval: 1000 });
 const totalDurationMinutes = 60;
 
