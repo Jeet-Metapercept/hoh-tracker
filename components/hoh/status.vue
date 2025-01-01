@@ -200,7 +200,7 @@ const remainingTimeString = computed(() => {
         </div> -->
       </div>
 
-      <div class="flex flex-col justify-between gap-2 px-4">
+      <div class="flex flex-col justify-between gap-4 px-4">
         <!-- Last Run -->
         <article
           class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800"
