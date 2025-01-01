@@ -7,11 +7,11 @@ import {
 } from "firebase/database";
 import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire";
 import {
-  addHours,
   differenceInMinutes,
   formatDuration,
   intervalToDuration,
   formatDistanceToNow,
+  addMinutes,
 } from "date-fns";
 
 const colorMode = useColorMode();
@@ -79,7 +79,7 @@ const now = useNow({ interval: 1000 });
 const totalDurationMinutes = 60;
 
 const targetTime = computed(() => {
-  return addHours(new Date(statusData.value?.completed_at || Date.now()), 1);
+  return addMinutes(new Date(statusData.value?.completed_at || Date.now()), totalDurationMinutes);
 });
 
 const elapsedMinutes = computed(() => {
