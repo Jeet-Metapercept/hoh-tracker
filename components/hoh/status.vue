@@ -16,12 +16,7 @@ import {
 
 const colorMode = useColorMode();
 
-const gaugePrimaryColor = computed(() => "rgb(233,0,82)");
-const gaugeSecondaryColor = computed(() =>
-  colorMode.value === "dark"
-    ? "rgba(255, 255, 255, 0.1)"
-    : "rgba(0, 0, 0, 0.1)",
-);
+
 
 interface HohStatus {
   status: string;
@@ -53,6 +48,15 @@ const historyData = computed(() => {
   return [...historyDataRaw.value].reverse();
 });
 
+const gaugePrimaryColor = computed(() => {
+  return statusData.value?.status === "True" ?  "rgb(0,255,133)": "rgb(233,0,82)";
+});
+
+const gaugeSecondaryColor = computed(() =>
+  colorMode.value === "dark"
+    ? "rgba(255, 255, 255, 0.1)"
+    : "rgba(0, 0, 0, 0.1)",
+);
 // const stepIndex = ref(3)
 // const steps = [
 //   {
