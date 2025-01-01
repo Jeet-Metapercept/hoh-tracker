@@ -133,13 +133,13 @@ const steps = [
               <div class="mt-5 flex flex-col items-center text-center">
                 <StepperTitle
                   :class="[state === 'active' && 'text-primary']"
-                  class="text-sm font-semibold transition lg:text-base"
+                  class="text-sm font-medium transition lg:text-base"
                 >
                   {{ step.title }}
                 </StepperTitle>
                 <StepperDescription
                   :class="[state === 'active' && 'text-primary']"
-                  class="sr-only text-xs text-muted-foreground transition md:not-sr-only lg:text-sm"
+                  class="sr-only font-light text-xs text-muted-foreground transition md:not-sr-only lg:text-sm"
                 >
                   {{ step.description }}
                 </StepperDescription>
