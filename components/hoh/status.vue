@@ -6,7 +6,7 @@ import {
   query,
 } from "firebase/database";
 import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire";
-import { addHours, differenceInMinutes, formatDuration, intervalToDuration } from "date-fns";
+import { addHours, differenceInMinutes, formatDuration, intervalToDuration , formatDistanceToNow} from "date-fns";
 
 const colorMode = useColorMode();
 
@@ -19,6 +19,9 @@ const gaugeSecondaryColor = computed(() =>
 
 interface HohStatus {
   status: string;
+  started_at: string;
+  completed_at: string;
+  step: string
 }
 
 interface HohHistoryData {
@@ -70,30 +73,72 @@ const steps = [
 const now = useNow({ interval: 1000 });
 
 const targetTime = computed(() => {
-  const maxCompletedAt = Math.max(...historyData.value.map((item) => new Date(item.completed_at).getTime()));
-  return addHours(maxCompletedAt, 1);
+  return addHours(new Date(statusData.value?.completed_at || Date.now()), 1);
 });
 
 const remainingMinutes = computed(() => {
   const diff = differenceInMinutes(targetTime.value, now.value);
-  return Math.max(0, diff);
+  return Math.max(0, Math.floor(diff)); 
 });
 
 const remainingTimeString = computed(() => {
   const diffInMillis = targetTime.value.getTime() - now.value.getTime();
-  const duration = intervalToDuration({ start: 0, end: Math.max(0, diffInMillis) });
 
-  return formatDuration(duration, { format: ['minutes', 'seconds'] });
+  if (diffInMillis <= 0) {
+    return "0 minutes";
+  }
+
+  const duration = intervalToDuration({ 
+    start: now.value.getTime(), 
+    end: targetTime.value.getTime() 
+  });
+
+  return formatDuration(duration, { format: ['minutes', 'seconds'], zero: true });
 });
 
 </script>
 
 <template>
   <div class="gague">
-    <pre>{{ historyData[0] }}</pre>
-    <pre>{{ new Date(historyData[0].completed_at) }}</pre>
+    <!-- <pre>{{ historyData[0] }}</pre> -->
+    <!-- <pre>{{ new Date(historyData[0].completed_at) }}</pre> -->
 
-    <ClientOnly><h1>{{ remainingTimeString }}</h1></ClientOnly>
+    <!-- <ClientOnly><h1>{{ remainingTimeString }}</h1></ClientOnly> -->
+
+
+    <div class="flex justify-between p-4">
+    <article class="rounded-lg border border-gray-100 bg-white p-4">
+      <div>
+        <p class="text-sm text-gray-500">Last Run</p>
+        <p class="text font-medium text-gray-900">{{ formatDistanceToNow(new Date(historyData[0].completed_at), { addSuffix: true }) }} </p>
+      </div>
+    
+      <div class="mt-1 flex gap-1 text-green-600">
+        <Icon  name="lucide:check-check" />
+        <p class="flex gap-2 text-xs">
+          <!-- <span class="font-medium"> Completed at </span> -->
+          <span class="text-gray-500"> {{ new Date(historyData[0].completed_at).toLocaleString() }} </span>
+        </p>
+      </div>
+    </article>
+
+    <article class="rounded-lg border border-gray-100 bg-white p-4">
+      <div>
+        <p class="text-sm text-gray-500">Next Run</p>
+        <p class="text font-medium text-gray-900">{{ remainingTimeString }} </p>
+      </div>
+    
+      <div class="mt-1 flex gap-1 text-green-600">
+        <Icon  name="lucide:check-check" />
+        <p class="flex gap-2 text-xs">
+          <!-- <span class="font-medium"> Starting at </span> -->
+          <span class="text-gray-500"> {{ new Date(targetTime).toLocaleString() }} </span>
+        </p>
+      </div>
+    </article>
+  
+  </div>
+
     <div class="flex flex-col justify-center gap-4 my-8">
       <div
         class="relative flex h-[300px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
