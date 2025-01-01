@@ -104,7 +104,7 @@ const remainingTimeString = computed(() => {
             :gauge-secondary-color="gaugeSecondaryColor"
             :max="100"
             :min="0"
-            :value="remainingMinutes"
+            :value="statusData?.status === 'True' ? 100 : remainingMinutes"
           />
         </div>
         <InspiraRippleComponentRipple
