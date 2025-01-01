@@ -1,7 +1,7 @@
 <template>
   <div
     class="progress-circle-base"
-    :class="cn('relative size-40 text-4xl font-semibold', props.class)"
+    :class="cn('relative size-40 text-3xl font-semibold', props.class)"
   >
     <svg fill="none" class="size-full" stroke-width="2" viewBox="0 0 100 100">
       <circle
