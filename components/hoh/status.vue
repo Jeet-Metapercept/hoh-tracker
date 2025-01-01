@@ -45,23 +45,13 @@ const historyData = computed(() => {
 
 <template>
   <div class="gague">
+    <div class="flex flex-col justify-center gap-8 my-8">
 
-    <div
+      <div
     class="relative flex h-[450px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
   >
-    <p
-      class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white"
-    >
-      Ripple
-    </p>
-    <InspiraRippleComponentRipple
-      class="bg-white/5 [mask-image:linear-gradient(to_bottom,white,transparent)]"
-      circle-class="border-[hsl(var(--primary))] bg-[#0000]/25 dark:bg-[#fff]/25 rounded-full"
-    />
-  </div>
-    <div class="flex flex-col justify-center gap-8 my-8">
-      <!-- Circular Progress Bar -->
-      <div class="flex justify-center">
+    <p class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white">
+          <!-- Circular Progress Bar -->
         <InspiraAnimatedCircularProgressBar
           :gauge-primary-color="gaugePrimaryColor"
           :gauge-secondary-color="gaugeSecondaryColor"
@@ -69,7 +59,14 @@ const historyData = computed(() => {
           :min="0"
           :value="74"
         />
-      </div>
+    </p>
+    <InspiraRippleComponentRipple
+      class="bg-white/5 [mask-image:linear-gradient(to_bottom,white,transparent)]"
+      circle-class="border-[hsl(var(--primary))] bg-[#0000]/25 dark:bg-[#fff]/25 rounded-full"
+    />
+  </div>
+  
+  
 
       <!-- Status Controls -->
       <div class="flex justify-center gap-4">
