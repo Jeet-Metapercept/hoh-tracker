@@ -70,16 +70,58 @@ const historyData = computed(() => {
 // ]
 
 
+// const now = useNow({ interval: 1000 });
+// const totalDurationMinutes = 60;
+
+// const targetTime = computed(() => {
+//   return addHours(new Date(statusData.value?.completed_at || Date.now()), 1);
+// });
+
+// const remainingMinutes = computed(() => {
+//   const diff = differenceInMinutes(targetTime.value, now.value);
+//   return Math.max(0, Math.floor(diff)); 
+// });
+
+// const remainingPercentage = computed(() => {
+//   const diff = differenceInMinutes(targetTime.value, now.value);
+//   const remaining = Math.max(0, diff); 
+//   return parseFloat(((remaining / totalDurationMinutes) * 100).toFixed(2));
+// });
+
+
+// const remainingTimeString = computed(() => {
+//   const diffInMillis = targetTime.value.getTime() - now.value.getTime();
+
+//   if (diffInMillis <= 0) {
+//     return "0 minutes";
+//   }
+
+//   const duration = intervalToDuration({ 
+//     start: now.value.getTime(), 
+//     end: targetTime.value.getTime() 
+//   });
+
+//   return formatDuration(duration, { format: ['minutes', 'seconds'], zero: true });
+// });
 const now = useNow({ interval: 1000 });
+const totalDurationMinutes = 60;
 
 const targetTime = computed(() => {
   return addHours(new Date(statusData.value?.completed_at || Date.now()), 1);
 });
 
-const remainingMinutes = computed(() => {
-  const diff = differenceInMinutes(targetTime.value, now.value);
-  return Math.max(0, Math.floor(diff)); 
+const elapsedMinutes = computed(() => {
+  const startTime = new Date(statusData.value?.completed_at || Date.now());
+  const diff = differenceInMinutes(now.value, startTime);
+  const clampedMinutes = Math.min(Math.max(0, diff), totalDurationMinutes);
+  return clampedMinutes;
 });
+
+// Scale elapsedMinutes to 0–100
+const elapsedPercentage = computed(() => {
+  return Math.round((elapsedMinutes.value / totalDurationMinutes) * 100);
+});
+
 
 const remainingTimeString = computed(() => {
   const diffInMillis = targetTime.value.getTime() - now.value.getTime();
@@ -103,9 +145,13 @@ const remainingTimeString = computed(() => {
     <!-- <pre>{{ historyData[0] }}</pre> -->
     <!-- <pre>{{ new Date(historyData[0].completed_at) }}</pre> -->
 
-    <!-- <ClientOnly><h1>{{ remainingTimeString }}</h1></ClientOnly> -->
+    <ClientOnly><h1>{{ remainingTimeString }}</h1></ClientOnly>
+    
 
+    remainingPercentage
+    <ClientOnly><h1>{{ elapsedPercentage }}</h1></ClientOnly>
 
+    
     <div class="flex flex-col justify-between p-4">
     <article class="rounded-lg border border-gray-100 bg-white p-4">
       <div>
@@ -149,8 +195,9 @@ const remainingTimeString = computed(() => {
             :gauge-secondary-color="gaugeSecondaryColor"
             :max="100"
             :min="0"
-            :value="statusData?.status === 'True' ? 100 : remainingMinutes"
+            :value="statusData?.status === 'True' ? 100 : elapsedPercentage"
           />
+          
         </div>
         <InspiraRippleComponentRipple
           class="bg-white/5 [mask-image:linear-gradient(to_bottom,white,transparent)]"
@@ -171,7 +218,7 @@ const remainingTimeString = computed(() => {
           {{ statusData?.status === 'True' ? "Live" : "Offline" }}
         </Badge>
 
-        <Alert variant="destructive" class="text-center">
+        <Alert variant="destructive" class="text-center min-w-[250px]">
           <AlertDescription>{{
             statusData?.step || "???"
           }}</AlertDescription>
@@ -222,7 +269,7 @@ const remainingTimeString = computed(() => {
           </Stepper>
         </div> -->
       </div>
-      <Separator label="History" />
+      <Separator label="History" class="mt-8 mb-2"/>
 
       <!-- History List -->
       <div class="max-w-2xl mx-auto w-full">
