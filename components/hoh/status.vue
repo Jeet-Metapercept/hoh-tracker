@@ -6,7 +6,7 @@ import {
   query,
 } from "firebase/database";
 import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire";
-import { addHours, differenceInMinutes } from "date-fns";
+import { addHours, differenceInMinutes, formatDuration, intervalToDuration } from "date-fns";
 
 const colorMode = useColorMode();
 
@@ -79,9 +79,11 @@ const remainingMinutes = computed(() => {
   return Math.max(0, diff); // Ensure non-negative
 });
 
-const remainingSeconds = computed(() => {
-  const diffInMillis = targetTime.value.getTime() - now.value.getTime(); // Difference in milliseconds
-  return Math.max(0, Math.ceil(diffInMillis / 1000)); // Convert to seconds, ensure non-negative
+const remainingTimeString = computed(() => {
+  const diffInMillis = targetTime.value.getTime() - now.value.getTime();
+  const duration = intervalToDuration({ start: 0, end: Math.max(0, diffInMillis) });
+
+  return formatDuration(duration, { format: ['minutes', 'seconds'] });
 });
 
 </script>
@@ -91,8 +93,7 @@ const remainingSeconds = computed(() => {
     <pre>{{ historyData[0] }}</pre>
     <pre>{{ new Date(historyData[0].completed_at) }}</pre>
 
-    <h1>{{ remainingMinutes }}</h1>
-    <h1>{{ remainingSeconds }}</h1>
+    <ClientOnly><h1>{{ remainingTimeString }}</h1></ClientOnly>
     <div class="flex flex-col justify-center gap-4 my-8">
       <div
         class="relative flex h-[300px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
