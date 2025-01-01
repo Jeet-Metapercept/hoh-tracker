@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 import { setupInspiraUI } from "@inspira-ui/plugins";
-import { fontFamily } from 'tailwindcss/defaultTheme'
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default <Partial<Config>>{
   darkMode: ["class"],
@@ -18,8 +18,8 @@ export default <Partial<Config>>{
     },
     extend: {
       fontFamily: {
-        sans: ['Oxanium', 'Roboto', 'Roboto fallback', ...fontFamily.sans],
-        display: ['Oxanium', 'sans-serif'],
+        sans: ["Oxanium", "Roboto", "Roboto fallback", ...fontFamily.sans],
+        display: ["Oxanium", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

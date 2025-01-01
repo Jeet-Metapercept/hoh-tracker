@@ -16,8 +16,6 @@ import {
 
 const colorMode = useColorMode();
 
-
-
 interface HohStatus {
   status: string;
   started_at: string;
@@ -49,7 +47,9 @@ const historyData = computed(() => {
 });
 
 const gaugePrimaryColor = computed(() => {
-  return statusData.value?.status === "True" ?  "rgb(74 222 128)" : "rgb(233,0,82)";
+  return statusData.value?.status === "True"
+    ? "rgb(74 222 128)"
+    : "rgb(233,0,82)";
 });
 
 const gaugeSecondaryColor = computed(() =>
@@ -151,7 +151,11 @@ const remainingTimeString = computed(() => {
       <!-- Status Controls -->
       <div class="max-w-4xl flex flex-col justify-center mx-auto gap-4 -mt-8">
         <Badge
-          v-if="statusData?.started_at && differenceInMinutes(new Date(), new Date(statusData?.started_at)) > failureThresholdDurationMinutes"
+          v-if="
+            statusData?.started_at &&
+            differenceInMinutes(new Date(), new Date(statusData?.started_at)) >
+              failureThresholdDurationMinutes
+          "
           :variant="'destructive'"
           class="justify-center bg-red-600"
         >
@@ -165,15 +169,24 @@ const remainingTimeString = computed(() => {
         >
           {{ statusData?.status === "True" ? "Live" : "Snoozed" }}
         </Badge>
-       
+
         <Alert variant="destructive" class="text-center min-w-[300px]">
           <AlertDescription
-            v-if="statusData?.started_at && differenceInMinutes(new Date(), new Date(statusData.started_at)) > failureThresholdDurationMinutes"
-            class="flex items-center justify-center gap-1">
+            v-if="
+              statusData?.started_at &&
+              differenceInMinutes(new Date(), new Date(statusData.started_at)) >
+                failureThresholdDurationMinutes
+            "
+            class="flex items-center justify-center gap-1"
+          >
             <Icon name="lucide:triangle-alert" />
-            {{ `Oops! Offline since ${formatDistanceToNow(new Date(statusData.started_at), { addSuffix: true })}` }}
+            {{
+              `Oops! Offline since ${formatDistanceToNow(new Date(statusData.started_at), { addSuffix: true })}`
+            }}
           </AlertDescription>
-          <AlertDescription v-else>{{ statusData?.step || "???" }}</AlertDescription>
+          <AlertDescription v-else>{{
+            statusData?.step || "???"
+          }}</AlertDescription>
         </Alert>
 
         <!-- <div class="my-4">
@@ -288,21 +301,20 @@ const remainingTimeString = computed(() => {
                     })
                   }}
                 </Badge>
-
               </div>
 
               <div class="mb-2">
                 <Alert>
                   <div class="flex gap-2">
                     <Icon name="lucide:terminal" class="w-4 h-4" />
-                    <AlertDescription class="flex justify-between align-center w-full">{{
-                      new Date(item.completed_at).toLocaleString()
-                    }}
-                  
+                    <AlertDescription
+                      class="flex justify-between align-center w-full"
+                      >{{ new Date(item.completed_at).toLocaleString() }}
+
                       <Badge class="bg-green-400" variant="default">
                         Complete
-                      </Badge>  
-                  </AlertDescription>
+                      </Badge>
+                    </AlertDescription>
                   </div>
                   <!-- <Progress :model-value="index * 10" class="my-2" /> -->
                   <!-- <p class=" text-sm text-gray-500">Progress: {{ index * 10 }}%</p> -->

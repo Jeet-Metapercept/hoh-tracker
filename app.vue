@@ -5,7 +5,9 @@ const config = useAppConfig();
 const description = computed(
   () => (route.meta.description as string) ?? config.nuxtSiteConfig_description,
 );
-const title = computed(() => (route.meta.title as string) ?? config.nuxtSiteConfig_name);
+const title = computed(
+  () => (route.meta.title as string) ?? config.nuxtSiteConfig_name,
+);
 const siteName = computed(() => config.nuxtSiteConfig_name);
 
 defineOgImageComponent("Default", {

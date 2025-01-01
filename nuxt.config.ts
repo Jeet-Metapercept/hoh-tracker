@@ -46,9 +46,7 @@ export default defineNuxtConfig({
     },
   },
   fonts: {
-    families: [
-      { name: 'Oxanium', provider: 'google' },
-    ],
+    families: [{ name: "Oxanium", provider: "google" }],
   },
   svgo: {
     autoImportPath: false,
