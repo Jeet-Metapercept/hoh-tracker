@@ -1,35 +1,35 @@
 <script setup lang="ts">
-import { 
+import {
   ref as dbRef,
   limitToLast,
   orderByChild,
   push,
   query,
   serverTimestamp,
-  update 
-} from "firebase/database"
-import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire"
+  update,
+} from "firebase/database";
+import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire";
 
 interface HohStatus {
-  status: boolean
+  status: boolean;
 }
 
 interface HohData {
-  id: string
-  step: string
-  status: boolean
-  process: number
-  created_at: Date
-  updated_at: Date
+  id: string;
+  step: string;
+  status: boolean;
+  process: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
-const db = useDatabase()
-const statusRef = dbRef(db, "status")
-const { data, pending } = useDatabaseObject<HohStatus>(statusRef)
+const db = useDatabase();
+const statusRef = dbRef(db, "status");
+const { data, pending } = useDatabaseObject<HohStatus>(statusRef);
 
 const toggleStatus = async () => {
-  await update(statusRef, { status: !data.value?.status })
-}
+  await update(statusRef, { status: !data.value?.status });
+};
 
 // # When status is true, setting to false
 // curl -X PATCH \
@@ -37,50 +37,50 @@ const toggleStatus = async () => {
 //   -H 'Content-Type: application/json' \
 //   -d '{"status": false}'
 
-
-const historyRef = dbRef(db, "history")
+const historyRef = dbRef(db, "history");
 const historyQuery = query(
   historyRef,
   orderByChild("created_at"),
-  limitToLast(2)
-)
+  limitToLast(2),
+);
 
-const { data: historyData } = useDatabaseList<HohData>(historyQuery)
-  const historyDataOrder = computed(() => {
-  if (!historyData.value) return []
-  return [...historyData.value].reverse()
-})
+const { data: historyData } = useDatabaseList<HohData>(historyQuery);
+const historyDataOrder = computed(() => {
+  if (!historyData.value) return [];
+  return [...historyData.value].reverse();
+});
 
-
-const newStep = ref("")
-const newProcess = ref(0)
+const newStep = ref("");
+const newProcess = ref(0);
 
 const addHistoryItem = async () => {
   try {
-    if (!newStep.value) return
+    if (!newStep.value) return;
 
     const newItem = {
       step: newStep.value,
       status: false,
       process: newProcess.value,
       created_at: serverTimestamp(),
-      updated_at: serverTimestamp()
-    }
+      updated_at: serverTimestamp(),
+    };
 
-    await push(historyRef, newItem)
-    newStep.value = ""
-    newProcess.value = Math.min(newProcess.value + 10, 100)
+    await push(historyRef, newItem);
+    newStep.value = "";
+    newProcess.value = Math.min(newProcess.value + 10, 100);
   } catch (error) {
-    console.error("Error adding history item:", error)
+    console.error("Error adding history item:", error);
   }
-}
+};
 </script>
 
 <template>
   <div class="w-full max-w-2xl mx-auto">
     <!-- Status Section -->
     <div v-if="pending" class="flex justify-center py-8">
-      <div class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
+      <div
+        class="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full"
+      />
     </div>
 
     <div v-else class="space-y-4">
@@ -90,7 +90,7 @@ const addHistoryItem = async () => {
     </div>
 
     <pre class="mt-4 p-4 rounded bg-gray-100 dark:bg-gray-800">{{ data }}</pre>
-    
+
     <Button :disabled="pending" @click="toggleStatus">Toggle Status</Button>
 
     <!-- Add History Form -->
@@ -116,9 +116,13 @@ const addHistoryItem = async () => {
     <!-- History List -->
     <div class="mt-8">
       <h2 class="text-xl font-semibold mb-4">History</h2>
-      
+
       <div v-if="historyData?.length" class="space-y-4">
-        <div v-for="item in historyDataOrder" :key="item.id" class="border rounded-lg p-4">
+        <div
+          v-for="item in historyDataOrder"
+          :key="item.id"
+          class="border rounded-lg p-4"
+        >
           <div class="flex items-center justify-between mb-2">
             <Badge :variant="item.status ? 'default' : 'secondary'">
               {{ item.step }}
@@ -133,7 +137,6 @@ const addHistoryItem = async () => {
               class="bg-primary h-2.5 rounded-full transition-all duration-500"
               :style="{ width: `${item.process}%` }"
             />
-
           </div>
           <p class="mt-2 text-sm text-muted-foreground">
             Progress: {{ item.process }}%
