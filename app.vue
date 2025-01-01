@@ -1,10 +1,12 @@
 <script setup lang="ts">
 const route = useRoute();
+const config = useAppConfig();
+
 const description = computed(
-  () => (route.meta.description as string) ?? "Default description",
+  () => (route.meta.description as string) ?? config.nuxtSiteConfig_description,
 );
-const title = computed(() => (route.meta.title as string) ?? "Default title");
-const siteName = computed(() => "Default Site Name");
+const title = computed(() => (route.meta.title as string) ?? config.nuxtSiteConfig_name);
+const siteName = computed(() => config.nuxtSiteConfig_name);
 
 defineOgImageComponent("Default", {
   description,
