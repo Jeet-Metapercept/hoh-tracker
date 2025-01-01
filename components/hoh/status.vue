@@ -270,18 +270,20 @@ const remainingTimeString = computed(() => {
                   }}
                 </Badge>
 
-                <Badge class="mb-2 bg-emerald-500" variant="default">
-                  Complete
-                </Badge>
               </div>
 
               <div class="mb-2">
                 <Alert>
                   <div class="flex gap-2">
                     <Icon name="lucide:terminal" class="w-4 h-4" />
-                    <AlertDescription>{{
+                    <AlertDescription class="flex justify-between align-center w-full">{{
                       new Date(item.completed_at).toLocaleString()
-                    }}</AlertDescription>
+                    }}
+                  
+                      <Badge class="bg-emerald-500" variant="default">
+                        Complete
+                      </Badge>  
+                  </AlertDescription>
                   </div>
                   <!-- <Progress :model-value="index * 10" class="my-2" /> -->
                   <!-- <p class=" text-sm text-gray-500">Progress: {{ index * 10 }}%</p> -->
