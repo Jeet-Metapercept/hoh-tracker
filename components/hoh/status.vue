@@ -216,13 +216,13 @@ const remainingTimeString = computed(() => {
         </article>
 
         <!-- Next Run -->
-        <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800">
+        <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800 text-end">
           <div>
             <p class="text-sm text-gray-500 dark:text-gray-400">Next Schdule</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">{{ remainingTimeString }}</p>
           </div>
 
-          <div class="mt-1 flex gap-1 text-green-600 dark:text-green-400">
+          <div class="mt-1 flex gap-1 text-green-600 dark:text-green-400 justify-end">
             <Icon name="lucide:check-check" />
             <p class="flex gap-2 text-xs">
               <span class="text-gray-500 dark:text-gray-400">
