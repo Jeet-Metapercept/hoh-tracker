@@ -123,10 +123,9 @@ const steps = [
                   class="z-10 rounded-full shrink-0"
                   :class="[state === 'active' && 'ring-2 ring-ring ring-offset-2 ring-offset-background']"
                 >
-                  <Icon v-if="state === 'completed'" name="lucide:check"/>
-                  <Icon v-if="state === 'active'" name="svg-spinners:pulse"/>
-                  <Icon v-if="state === 'inactive'"  name="lucide:dot"/>
-                  
+                  <Icon v-if="state === 'completed'" name="lucide:check" class="w-5 h-5"/>
+                  <Icon v-if="state === 'active'" name="svg-spinners:180-ring" class="w-5 h-5"/>
+                  <Icon v-if="state === 'inactive'"  name="lucide:circle" class="w-5 h-5"/>
                 </Button>
               </StepperTrigger>
 
