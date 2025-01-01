@@ -13,7 +13,7 @@ const [DefineNavigationMenu, ReuseNavigationMenu] = createReusableTemplate();
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem v-for="{ name, to } in links" :key="to">
-          <NuxtLink :class="navigationMenuTriggerStyle()" :to="to">
+          <NuxtLink :class="navigationMenuTriggerStyle()" :to="to" class="bg-premier text-premier-foreground">
             {{ name }}
           </NuxtLink>
         </NavigationMenuItem>
