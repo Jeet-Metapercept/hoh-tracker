@@ -49,7 +49,7 @@ const historyData = computed(() => {
 });
 
 const gaugePrimaryColor = computed(() => {
-  return statusData.value?.status === "True" ?  "rgb(0,255,133)": "rgb(233,0,82)";
+  return statusData.value?.status === "True" ?  "rgb(74 222 128)" : "rgb(233,0,82)";
 });
 
 const gaugeSecondaryColor = computed(() =>
