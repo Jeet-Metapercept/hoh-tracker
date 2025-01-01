@@ -72,16 +72,16 @@ const historyData = computed(() => {
       </div>
 
       <!-- Status Controls -->
-      <div class="flex justify-center gap-4">
+      <div class="max-w-4xl flex flex-col justify-center mx-auto gap-4 mb-4">
         <Badge
           :variant="statusData?.status === 'True' ? 'default' : 'destructive'"
+          class="justify-center"
+          :class="statusData?.status === 'True' ? 'bg-emerald-500' : ''"
         >
-          {{ statusData?.status ? "Online" : "Offline" }}
+          {{ statusData?.status === 'True' ? "Live" : "Offline" }}
         </Badge>
 
         <div>
-          stepper
-
           <Stepper>
             <StepperItem :step="1">
               <StepperTrigger>

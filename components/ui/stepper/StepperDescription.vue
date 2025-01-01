@@ -15,12 +15,12 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 
-const forwarded = useForwardProps(delegatedProps);
+const forwarded = useForwardProps(delegatedProps) as HTMLAttributes;
 </script>
 
 <template>
   <StepperDescription
-    v-slot="slotProps"
+    v-slot="slotProps: any"
     v-bind="forwarded"
     :class="cn('text-xs text-muted-foreground', props.class)"
   >
