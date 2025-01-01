@@ -101,7 +101,7 @@ const remainingTimeString = computed(() => {
   const diffInMillis = targetTime.value.getTime() - now.value.getTime();
 
   if (diffInMillis <= 0) {
-    return "0 minutes";
+    return "Running";
   }
 
   const duration = intervalToDuration({
@@ -118,9 +118,9 @@ const remainingTimeString = computed(() => {
 
 <template>
   <div class="gague">
-    <div class="flex flex-col justify-center gap-4 my-8">
+    <div class="flex flex-col justify-center gap-4 mb-8">
       <div
-        class="relative flex h-[300px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
+        class="relative flex h-[350px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
       >
         <div
           class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white"
@@ -144,7 +144,7 @@ const remainingTimeString = computed(() => {
       </div>
 
       <!-- Status Controls -->
-      <div class="max-w-4xl flex flex-col justify-center mx-auto gap-4">
+      <div class="max-w-4xl flex flex-col justify-center mx-auto gap-4 -mt-8">
         <Badge
           :variant="statusData?.status === 'True' ? 'default' : 'destructive'"
           class="justify-center"
