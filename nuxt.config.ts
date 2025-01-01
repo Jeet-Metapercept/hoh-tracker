@@ -45,6 +45,11 @@ export default defineNuxtConfig({
       measurementId: process.env.FIREBASE_MEASUREMENT_ID,
     },
   },
+  fonts: {
+    families: [
+      { name: 'Oxanium', provider: 'google' },
+    ],
+  },
   svgo: {
     autoImportPath: false,
   },
