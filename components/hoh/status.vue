@@ -72,10 +72,7 @@ const steps = [
       <div
         class="relative flex h-[300px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
       >
-        <div
-          class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white"
-        >
-          <!-- Circular Progress Bar -->
+        <div class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white">
           <InspiraAnimatedCircularProgressBar
             :gauge-primary-color="gaugePrimaryColor"
             :gauge-secondary-color="gaugeSecondaryColor"
