@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
       <slot />
-      <Ripple />
+      <InspiraRippleComponentRipple />
     </div>
   </template>

@@ -1,6 +1,6 @@
 <template>
     <div class="absolute inset-0">
-      <RippleCircle
+      <InspiraRippleComponentRippleCircle
         v-for="index in numberOfCircles"
         :key="index"
         :opacity="baseCircleOpacity - index * circleOpacityDowngradeRatio"
