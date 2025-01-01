@@ -65,30 +65,7 @@ const historyData = computed(() => {
         <Badge :variant="statusData?.status ? 'default' : 'destructive'">
           {{ statusData?.status ? "Online" : "Offline" }}
         </Badge>
-        <!-- <Button :disabled="statusPending" @click="toggleStatus">
-          Toggle Status
-        </Button> -->
       </div>
-
-      <!-- Add History Form -->
-      <!-- <div class="flex justify-center">
-        <form class="flex gap-4 max-w-2xl w-full" @submit.prevent="addHistoryItem">
-          <input
-            v-model="newStep"
-            type="text"
-            placeholder="Step description"
-            class="flex-1 rounded-md border p-2"
-          />
-          <input
-            v-model="newProcess"
-            type="number"
-            min="0"
-            max="100"
-            class="w-24 rounded-md border p-2"
-          />
-          <Button type="submit" :disabled="!newStep">Add</Button>
-        </form>
-      </div> -->
 
       <!-- History List -->
       <div class="max-w-2xl mx-auto w-full">
