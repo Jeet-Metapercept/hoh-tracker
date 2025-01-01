@@ -3,10 +3,7 @@ import {
   ref as dbRef,
   limitToLast,
   orderByChild,
-  // push,
   query,
-  // serverTimestamp,
-  // update
 } from "firebase/database"
 import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire"
 
