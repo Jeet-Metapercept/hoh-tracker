@@ -81,6 +81,7 @@ const gaugeSecondaryColor = computed(() =>
 
 const now = useNow({ interval: 1000 });
 const totalDurationMinutes = 60;
+const failureThresholdDurationMinutes = 15;
 
 const targetTime = computed(() => {
   return addMinutes(
@@ -150,15 +151,29 @@ const remainingTimeString = computed(() => {
       <!-- Status Controls -->
       <div class="max-w-4xl flex flex-col justify-center mx-auto gap-4 -mt-8">
         <Badge
-          :variant="statusData?.status === 'True' ? 'default' : 'destructive'"
-          class="justify-center"
-          :class="statusData?.status === 'True' ? 'bg-green-400' : ''"
+          v-if="statusData?.started_at && differenceInMinutes(new Date(), new Date(statusData?.started_at)) > failureThresholdDurationMinutes"
+          :variant="'destructive'"
+          class="justify-center bg-red-600"
         >
-          {{ statusData?.status === "True" ? "Live" : "Offline" }}
+          {{ statusData?.status === "True" ? "Offline" : "Failed" }}
         </Badge>
-
+        <Badge
+          v-else
+          :variant="'default'"
+          class="justify-center"
+          :class="statusData?.status === 'True' ? 'bg-green-400' : 'bg-premier'"
+        >
+          {{ statusData?.status === "True" ? "Live" : "Snoozed" }}
+        </Badge>
+       
         <Alert variant="destructive" class="text-center min-w-[250px]">
-          <AlertDescription>{{ statusData?.step || "???" }}</AlertDescription>
+          <AlertDescription
+            v-if="statusData?.started_at && differenceInMinutes(new Date(), new Date(statusData.started_at)) > failureThresholdDurationMinutes"
+            class="flex items-center justify-center gap-1">
+            <Icon name="lucide:triangle-alert" />
+            {{ `Oops! Offline since ${formatDistanceToNow(new Date(statusData.started_at), { addSuffix: true })}` }}
+          </AlertDescription>
+          <AlertDescription v-else>{{ statusData?.step || "???" }}</AlertDescription>
         </Alert>
 
         <!-- <div class="my-4">
