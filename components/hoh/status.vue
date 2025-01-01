@@ -6,6 +6,7 @@ import {
   query,
 } from "firebase/database";
 import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire";
+import { addHours, differenceInMinutes } from "date-fns";
 
 const colorMode = useColorMode();
 
@@ -21,8 +22,8 @@ interface HohStatus {
 }
 
 interface HohHistoryData {
-  started_at: Date;
-  completed_at: Date;
+  started_at: string;
+  completed_at: string;
 }
 
 const db = useDatabase();
@@ -64,10 +65,34 @@ const steps = [
     description: 'Start collaborating with your team',
   },
 ]
+
+
+const now = useNow({ interval: 1000 });
+
+const targetTime = computed(() => {
+  const maxCompletedAt = Math.max(...historyData.value.map((item) => new Date(item.completed_at).getTime()));
+  return addHours(maxCompletedAt, 1); // Add 1 hour using date-fns
+});
+
+const remainingMinutes = computed(() => {
+  const diff = differenceInMinutes(targetTime.value, now.value); // Get difference in minutes
+  return Math.max(0, diff); // Ensure non-negative
+});
+
+const remainingSeconds = computed(() => {
+  const diffInMillis = targetTime.value.getTime() - now.value.getTime(); // Difference in milliseconds
+  return Math.max(0, Math.ceil(diffInMillis / 1000)); // Convert to seconds, ensure non-negative
+});
+
 </script>
 
 <template>
   <div class="gague">
+    <pre>{{ historyData[0] }}</pre>
+    <pre>{{ new Date(historyData[0].completed_at) }}</pre>
+
+    <h1>{{ remainingMinutes }}</h1>
+    <h1>{{ remainingSeconds }}</h1>
     <div class="flex flex-col justify-center gap-4 my-8">
       <div
         class="relative flex h-[300px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
@@ -78,7 +103,7 @@ const steps = [
             :gauge-secondary-color="gaugeSecondaryColor"
             :max="100"
             :min="0"
-            :value="74"
+            :value="remainingMinutes"
           />
         </div>
         <InspiraRippleComponentRipple
