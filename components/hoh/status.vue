@@ -76,6 +76,8 @@ const historyData = computed(() => {
         <Badge :variant="statusData?.status === 'True' ? 'default' : 'destructive'">
           {{ statusData?.status ? "Online" : "Offline" }}
         </Badge>
+
+        
       </div>
       <Separator label="History" />
 
