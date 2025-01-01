@@ -17,7 +17,7 @@ const gaugeSecondaryColor = computed(() =>
 )
 
 interface HohStatus {
-  status: boolean
+  status: string
 }
 
 interface HohHistoryData {
@@ -59,22 +59,23 @@ const historyData = computed(() => {
 
       <!-- Status Controls -->
       <div class="flex justify-center gap-4">
-        <Badge :variant="statusData?.status ? 'default' : 'destructive'">
+        <Badge :variant="statusData?.status === 'True' ? 'default' : 'destructive'">
           {{ statusData?.status ? "Online" : "Offline" }}
         </Badge>
       </div>
+      <Separator label="History" />
 
       <!-- History List -->
       <div class="max-w-2xl mx-auto w-full">
         <InspiraTracingBeam v-if="!historyPending" class="px-10">
           <div class="relative max-w-2xl pt-3 antialiased text-left">
-            <div v-for="(item, index) in historyData" :key="item.id" class="mb-10">
+            <div v-for="(item) in historyData" :key="item.id" class="mb-10">
               <div class="flex justify-between items-center">
                 <Badge class="mb-2" variant="secondary">
                 {{ new Date(item.started_at).toLocaleString() }}
                 </Badge>
 
-                <Badge class="mb-2" variant="default">
+                <Badge class="mb-2 bg-emerald-500" variant="default">
                   Complete
                 </Badge>
                 </div>
@@ -84,12 +85,10 @@ const historyData = computed(() => {
                 <Alert>
                   <div class="flex gap-2">
                     <Icon name="lucide:terminal" class="w-4 h-4" />
-                    <AlertDescription>{{item.completed_at}}</AlertDescription>
+                    <AlertDescription>{{new Date(item.completed_at).toLocaleString()}}</AlertDescription>
                   </div>
-                  <Progress :model-value="index * 10" class="my-2" />
-                  <p class=" text-sm text-gray-500">
-                    Progress: {{ index * 10 }}%
-                  </p>
+                  <!-- <Progress :model-value="index * 10" class="my-2" /> -->
+                  <!-- <p class=" text-sm text-gray-500">Progress: {{ index * 10 }}%</p> -->
                 </Alert>
               </div>
             </div>
