@@ -30,7 +30,7 @@ const [DefineNavigationMenu, ReuseNavigationMenu] = createReusableTemplate();
       </div>
       <div>
         <slot />
-        <Sheet>
+        <!-- <Sheet>
           <SheetTrigger class="flex md:hidden" as-child>
             <Button variant="outline" size="icon" aria-label="Header Menu">
               <Icon name="lucide:menu" size="20" />
@@ -39,7 +39,7 @@ const [DefineNavigationMenu, ReuseNavigationMenu] = createReusableTemplate();
           <SheetContent>
             <ReuseNavigationMenu class="[&_ul]:flex-col [&_ul]:items-start" />
           </SheetContent>
-        </Sheet>
+        </Sheet> -->
       </div>
     </nav>
   </header>
