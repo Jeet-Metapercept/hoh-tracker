@@ -47,27 +47,27 @@ const historyData = computed(() => {
   return [...historyDataRaw.value].reverse();
 });
 
-const stepIndex = ref(3)
-const steps = [
-  {
-    step: 1,
-    icon: 'lucide:user',
-    title: 'Your details',
-    description: 'Provide your name and email',
-  },
-  {
-    step: 2,
-    icon: 'lucide:salad',
-    title: 'Company details',
-    description: 'A few details about your company',
-  },
-  {
-    step: 3,
-    icon: 'lucide:vibrate-off',
-    title: 'Invite your team',
-    description: 'Start collaborating with your team',
-  },
-]
+// const stepIndex = ref(3)
+// const steps = [
+//   {
+//     step: 1,
+//     icon: 'lucide:user',
+//     title: 'Your details',
+//     description: 'Provide your name and email',
+//   },
+//   {
+//     step: 2,
+//     icon: 'lucide:salad',
+//     title: 'Company details',
+//     description: 'A few details about your company',
+//   },
+//   {
+//     step: 3,
+//     icon: 'lucide:vibrate-off',
+//     title: 'Invite your team',
+//     description: 'Start collaborating with your team',
+//   },
+// ]
 
 
 const now = useNow({ interval: 1000 });
@@ -106,7 +106,7 @@ const remainingTimeString = computed(() => {
     <!-- <ClientOnly><h1>{{ remainingTimeString }}</h1></ClientOnly> -->
 
 
-    <div class="flex justify-between p-4">
+    <div class="flex flex-col justify-between p-4">
     <article class="rounded-lg border border-gray-100 bg-white p-4">
       <div>
         <p class="text-sm text-gray-500">Last Run</p>
@@ -177,7 +177,7 @@ const remainingTimeString = computed(() => {
           }}</AlertDescription>
         </Alert>
 
-        <div class="my-4">
+        <!-- <div class="my-4">
           <Stepper v-model="stepIndex" class="flex w-full items-start gap-2">
             <StepperItem
               v-for="step in steps"
@@ -220,7 +220,7 @@ const remainingTimeString = computed(() => {
               </div>
             </StepperItem>
           </Stepper>
-        </div>
+        </div> -->
       </div>
       <Separator label="History" />
 
