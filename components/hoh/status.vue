@@ -171,6 +171,12 @@ const remainingTimeString = computed(() => {
           {{ statusData?.status === 'True' ? "Live" : "Offline" }}
         </Badge>
 
+        <Alert variant="destructive" class="text-center">
+          <AlertDescription>{{
+            statusData?.step || "???"
+          }}</AlertDescription>
+        </Alert>
+
         <div class="my-4">
           <Stepper v-model="stepIndex" class="flex w-full items-start gap-2">
             <StepperItem
