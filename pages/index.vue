@@ -6,7 +6,7 @@ definePageMeta({
 </script>
 
 <template>
-  <section class="container mt-6">
+  <section class="container px-0">
     <!-- <div class="text-center">
       <h1 class="text-5xl font-bold mb-3">
         {{ config.nuxtSiteConfig_name }}
