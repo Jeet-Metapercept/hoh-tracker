@@ -39,6 +39,10 @@ export default <Partial<Config>>{
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        premier: {
+          DEFAULT: "hsl(var(--premier))",
+          foreground: "hsl(var(--premier-foreground))",
+        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",

@@ -20,7 +20,7 @@ const [DefineNavigationMenu, ReuseNavigationMenu] = createReusableTemplate();
       </NavigationMenuList>
     </NavigationMenu>
   </DefineNavigationMenu>
-  <header class="fixed top-0 left-0 w-full py-3 bg-background border-b z-50">
+  <header class="fixed top-0 left-0 w-full py-3 bg-premier border-b z-50">
     <nav
       class="flex justify-between [&>div]:flex [&>div]:items-center [&>div]:gap-3 px-4"
     >

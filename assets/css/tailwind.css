@@ -30,6 +30,9 @@
     --destructive: 339 100% 46%;
     --destructive-foreground: 0 0% 98%;
 
+    --premier: 339 100% 46%;
+    --premier-foreground: 0 0% 98%;
+
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 240 5.9% 10%;
@@ -62,6 +65,9 @@
     --destructive-foreground: 0 0% 98%; */
     --destructive: 339 100% 46%;
     --destructive-foreground: 0 0% 98%;
+  
+    --premier: 339 100% 46%;
+    --premier-foreground: 0 0% 98%;
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
