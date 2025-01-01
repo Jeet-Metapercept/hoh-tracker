@@ -43,6 +43,7 @@ const historyData = computed(() => {
   return [...historyDataRaw.value].reverse();
 });
 
+const stepIndex = ref(3)
 const steps = [
   {
     step: 1,
@@ -103,7 +104,7 @@ const steps = [
         </Badge>
 
         <div class="my-4">
-          <Stepper class="flex w-full items-start gap-2">
+          <Stepper v-model="stepIndex" class="flex w-full items-start gap-2">
             <StepperItem
               v-for="step in steps"
               :key="step.step"
@@ -120,7 +121,7 @@ const steps = [
                 <Button
                   :variant="state === 'completed' || state === 'active' ? 'default' : 'outline'"
                   size="icon"
-                  class="z-10 rounded-full shrink-0"
+                  class="z-10 rounded-full shrink-0 pointer-events-none"
                   :class="[state === 'active' && 'ring-2 ring-ring ring-offset-2 ring-offset-background']"
                 >
                   <Icon v-if="state === 'completed'" name="lucide:check" class="w-5 h-5"/>
