@@ -6,7 +6,13 @@ import {
   query,
 } from "firebase/database";
 import { useDatabase, useDatabaseList, useDatabaseObject } from "vuefire";
-import { addHours, differenceInMinutes, formatDuration, intervalToDuration , formatDistanceToNow} from "date-fns";
+import {
+  addHours,
+  differenceInMinutes,
+  formatDuration,
+  intervalToDuration,
+  formatDistanceToNow,
+} from "date-fns";
 
 const colorMode = useColorMode();
 
@@ -21,7 +27,7 @@ interface HohStatus {
   status: string;
   started_at: string;
   completed_at: string;
-  step: string
+  step: string;
 }
 
 interface HohHistoryData {
@@ -88,7 +94,6 @@ const elapsedPercentage = computed(() => {
   return Math.round((elapsedMinutes.value / totalDurationMinutes) * 100);
 });
 
-
 const remainingTimeString = computed(() => {
   const diffInMillis = targetTime.value.getTime() - now.value.getTime();
 
@@ -96,14 +101,16 @@ const remainingTimeString = computed(() => {
     return "0 minutes";
   }
 
-  const duration = intervalToDuration({ 
-    start: now.value.getTime(), 
-    end: targetTime.value.getTime() 
+  const duration = intervalToDuration({
+    start: now.value.getTime(),
+    end: targetTime.value.getTime(),
   });
 
-  return formatDuration(duration, { format: ['minutes', 'seconds'], zero: true });
+  return formatDuration(duration, {
+    format: ["minutes", "seconds"],
+    zero: true,
+  });
 });
-
 </script>
 
 <template>
@@ -112,7 +119,9 @@ const remainingTimeString = computed(() => {
       <div
         class="relative flex h-[300px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
       >
-        <div class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white">
+        <div
+          class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white"
+        >
           <InspiraAnimatedCircularProgressBar
             :gauge-primary-color="gaugePrimaryColor"
             :gauge-secondary-color="gaugeSecondaryColor"
@@ -121,7 +130,6 @@ const remainingTimeString = computed(() => {
             :min="0"
             :value="statusData?.status === 'True' ? 100 : elapsedPercentage"
           />
-          
         </div>
         <InspiraRippleComponentRipple
           class="bg-white/5 [mask-image:linear-gradient(to_bottom,white,transparent)]"
@@ -139,13 +147,11 @@ const remainingTimeString = computed(() => {
           class="justify-center"
           :class="statusData?.status === 'True' ? 'bg-emerald-500' : ''"
         >
-          {{ statusData?.status === 'True' ? "Live" : "Offline" }}
+          {{ statusData?.status === "True" ? "Live" : "Offline" }}
         </Badge>
 
         <Alert variant="destructive" class="text-center min-w-[250px]">
-          <AlertDescription>{{
-            statusData?.step || "???"
-          }}</AlertDescription>
+          <AlertDescription>{{ statusData?.step || "???" }}</AlertDescription>
         </Alert>
 
         <!-- <div class="my-4">
@@ -194,14 +200,19 @@ const remainingTimeString = computed(() => {
         </div> -->
       </div>
 
-
       <div class="flex flex-col justify-between gap-2 px-4">
         <!-- Last Run -->
-        <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800">
+        <article
+          class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800"
+        >
           <div>
             <p class="text-sm text-gray-500 dark:text-gray-400">Last Run</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
-              {{ formatDistanceToNow(new Date(historyData[0].completed_at), { addSuffix: true }) }}
+              {{
+                formatDistanceToNow(new Date(historyData[0].completed_at), {
+                  addSuffix: true,
+                })
+              }}
             </p>
           </div>
 
@@ -216,13 +227,19 @@ const remainingTimeString = computed(() => {
         </article>
 
         <!-- Next Run -->
-        <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800 text-end">
+        <article
+          class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800 text-end"
+        >
           <div>
             <p class="text-sm text-gray-500 dark:text-gray-400">Next Schdule</p>
-            <p class="text font-medium text-gray-900 dark:text-gray-100">{{ remainingTimeString }}</p>
+            <p class="text font-medium text-gray-900 dark:text-gray-100">
+              {{ remainingTimeString }}
+            </p>
           </div>
 
-          <div class="mt-1 flex gap-1 text-green-600 dark:text-green-400 justify-end">
+          <div
+            class="mt-1 flex gap-1 text-green-600 dark:text-green-400 justify-end"
+          >
             <Icon name="lucide:check-check" />
             <p class="flex gap-2 text-xs">
               <span class="text-gray-500 dark:text-gray-400">
@@ -233,8 +250,7 @@ const remainingTimeString = computed(() => {
         </article>
       </div>
 
-
-      <Separator label="History" class="mb-2"/>
+      <Separator label="History" class="mb-2" />
 
       <!-- History List -->
       <div class="max-w-2xl mx-auto w-full">
@@ -244,7 +260,11 @@ const remainingTimeString = computed(() => {
               <div class="flex justify-between items-center">
                 <Badge class="mb-2" variant="secondary">
                   <!-- {{ new Date(item.started_at).toLocaleString() }} -->
-                  {{ formatDistanceToNow(new Date(item.completed_at), { addSuffix: true }) }}
+                  {{
+                    formatDistanceToNow(new Date(item.completed_at), {
+                      addSuffix: true,
+                    })
+                  }}
                 </Badge>
 
                 <Badge class="mb-2 bg-emerald-500" variant="default">
