@@ -145,13 +145,15 @@ const remainingTimeString = computed(() => {
         <Badge
           v-else
           :variant="'default'"
-          class="justify-center"
+          class="justify-center text-white"
           :class="statusData?.status === 'True' ? 'bg-green-400' : 'bg-premier'"
         >
           {{ statusData?.status === "True" ? "Live" : "Snoozed" }}
         </Badge>
 
-        <Alert variant="destructive" class="text-center min-w-[300px]">
+        <Alert
+        variant="destructive" class="text-center min-w-[300px]"
+        :class="statusData?.status === 'True' ? 'border-green-400' : 'border-premier'">
           <AlertDescription
             v-if="
               statusData?.started_at &&
@@ -167,9 +169,13 @@ const remainingTimeString = computed(() => {
               `Oops! Offline since ${formatDistanceToNow(new Date(statusData.completed_at), { addSuffix: true })}`
             }}
           </AlertDescription>
-          <AlertDescription v-else>{{
+          <AlertDescription
+            v-else :class="statusData?.status === 'True' ? 'text-greren-400' : 'text-premier'"
+            class="dark:text-white"
+          >{{
             statusData?.step || "???"
-          }}</AlertDescription>
+          }}
+        </AlertDescription>
         </Alert>
       </div>
 
