@@ -177,12 +177,6 @@ const remainingTimeString = computed(() => {
 
       <div class="flex flex-col justify-between gap-4 px-4">
         <!-- Last Run -->
-        <img
-          alt=""
-          class="absolute w-16 right-0 top-2"
-          lazy="loaded"
-          src="/assets/ganesha-DuoyXHJT.png"
-        />
         <article
           class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800"
         >
