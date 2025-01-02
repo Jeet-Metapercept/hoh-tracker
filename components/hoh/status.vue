@@ -57,27 +57,6 @@ const gaugeSecondaryColor = computed(() =>
     ? "rgba(255, 255, 255, 0.1)"
     : "rgba(0, 0, 0, 0.1)",
 );
-// const stepIndex = ref(3)
-// const steps = [
-//   {
-//     step: 1,
-//     icon: 'lucide:user',
-//     title: 'Your details',
-//     description: 'Provide your name and email',
-//   },
-//   {
-//     step: 2,
-//     icon: 'lucide:salad',
-//     title: 'Company details',
-//     description: 'A few details about your company',
-//   },
-//   {
-//     step: 3,
-//     icon: 'lucide:vibrate-off',
-//     title: 'Invite your team',
-//     description: 'Start collaborating with your team',
-//   },
-// ]
 
 const now = useNow({ interval: 1000 });
 const totalDurationMinutes = 60 + 15;
@@ -188,52 +167,7 @@ const remainingTimeString = computed(() => {
             statusData?.step || "???"
           }}</AlertDescription>
         </Alert>
-
-        <!-- <div class="my-4">
-          <Stepper v-model="stepIndex" class="flex w-full items-start gap-2">
-            <StepperItem
-              v-for="step in steps"
-              :key="step.step"
-              v-slot="{ state }"
-              class="relative flex w-full flex-col items-center justify-center"
-              :step="step.step"
-            >
-              <StepperSeparator
-                v-if="step.step !== steps[steps.length - 1].step"
-                class="absolute left-[calc(50%+20px)] right-[calc(-50%+10px)] top-5 block h-0.5 shrink-0 rounded-full bg-muted group-data-[state=completed]:bg-primary"
-              />
-
-              <StepperTrigger as-child>
-                <Button
-                  :variant="state === 'completed' || state === 'active' ? 'default' : 'outline'"
-                  size="icon"
-                  class="z-10 rounded-full shrink-0 pointer-events-none"
-                  :class="[state === 'active' && 'ring-2 ring-ring ring-offset-2 ring-offset-background']"
-                >
-                  <Icon v-if="state === 'completed'" name="lucide:check" class="w-5 h-5"/>
-                  <Icon v-if="state === 'active'" name="svg-spinners:180-ring" class="w-5 h-5"/>
-                  <Icon v-if="state === 'inactive'"  name="lucide:circle" class="w-5 h-5"/>
-                </Button>
-              </StepperTrigger>
-
-              <div class="mt-5 flex flex-col items-center text-center">
-                <StepperTitle
-                  :class="[state === 'active' && 'text-primary']"
-                  class="text-sm font-medium transition lg:text-base"
-                >
-                  {{ step.title }}
-                </StepperTitle>
-                <StepperDescription
-                  :class="[state === 'active' && 'text-primary']"
-                  class="sr-only font-light text-xs text-muted-foreground transition md:not-sr-only lg:text-sm"
-                >
-                  {{ step.description }}
-                </StepperDescription>
-              </div>
-            </StepperItem>
-          </Stepper>
-        </div> -->
-      </div>
+       </div>
 
       <div class="flex flex-col justify-between gap-4 px-4">
         <!-- Last Run -->
