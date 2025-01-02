@@ -132,7 +132,7 @@ const remainingTimeString = computed(() => {
         <Badge
           v-if="
             statusData?.started_at &&
-            differenceInMinutes(new Date(), new Date(statusData?.started_at)) >
+            differenceInMinutes(new Date(), new Date(statusData?.completed_at)) >
               FAILURE_THRESHOLD_MINUTES
           "
           :variant="'destructive'"
@@ -153,14 +153,14 @@ const remainingTimeString = computed(() => {
           <AlertDescription
             v-if="
               statusData?.started_at &&
-              differenceInMinutes(new Date(), new Date(statusData.started_at)) >
+              differenceInMinutes(new Date(), new Date(statusData.completed_at)) >
                 FAILURE_THRESHOLD_MINUTES
             "
             class="flex items-center justify-center gap-1"
           >
             <Icon name="lucide:triangle-alert" />
             {{
-              `Oops! Offline since ${formatDistanceToNow(new Date(statusData.started_at), { addSuffix: true })}`
+              `Oops! Offline since ${formatDistanceToNow(new Date(statusData.completed_at), { addSuffix: true })}`
             }}
           </AlertDescription>
           <AlertDescription v-else>{{
