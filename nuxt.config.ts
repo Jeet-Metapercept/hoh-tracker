@@ -96,15 +96,15 @@ export default defineNuxtConfig({
           src: "/mobile-screenshot.png",
           sizes: "1080x1920",
           type: "image/png",
-          form_factor: "narrow"
+          form_factor: "narrow",
         },
         {
           src: "/desktop-screenshot.png",
           sizes: "2872x2852",
           type: "image/png",
-          form_factor: "wide"
+          form_factor: "wide",
         },
-       ]
+      ],
     },
     client: {
       installPrompt: false,

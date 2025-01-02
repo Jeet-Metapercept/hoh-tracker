@@ -30,7 +30,9 @@ interface HohHistoryData {
 
 const db = useDatabase();
 const statusRef = dbRef(db, "/");
-const { data: statusData } = useDatabaseObject<HohStatus>(statusRef, { once: true });
+const { data: statusData } = useDatabaseObject<HohStatus>(statusRef, {
+  once: true,
+});
 
 const historyRef = dbRef(db, "/history");
 const historyQuery = query(
@@ -132,8 +134,10 @@ const remainingTimeString = computed(() => {
         <Badge
           v-if="
             statusData?.started_at &&
-            differenceInMinutes(new Date(), new Date(statusData?.completed_at)) >
-              FAILURE_THRESHOLD_MINUTES
+            differenceInMinutes(
+              new Date(),
+              new Date(statusData?.completed_at),
+            ) > FAILURE_THRESHOLD_MINUTES
           "
           :variant="'destructive'"
           class="justify-center bg-red-600"
@@ -153,8 +157,10 @@ const remainingTimeString = computed(() => {
           <AlertDescription
             v-if="
               statusData?.started_at &&
-              differenceInMinutes(new Date(), new Date(statusData.completed_at)) >
-                FAILURE_THRESHOLD_MINUTES
+              differenceInMinutes(
+                new Date(),
+                new Date(statusData.completed_at),
+              ) > FAILURE_THRESHOLD_MINUTES
             "
             class="flex items-center justify-center gap-1"
           >
@@ -167,7 +173,7 @@ const remainingTimeString = computed(() => {
             statusData?.step || "???"
           }}</AlertDescription>
         </Alert>
-       </div>
+      </div>
 
       <div class="flex flex-col justify-between gap-4 px-4">
         <!-- Last Run -->
@@ -177,7 +183,10 @@ const remainingTimeString = computed(() => {
           <div>
             <p class="text-xs text-gray-500 dark:text-gray-400">Last Run</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
-              {{ (formatDistanceToNow(new Date(statusData?.completed_at!)), { addSuffix: true }) }}
+              {{
+                (formatDistanceToNow(new Date(statusData?.completed_at!)),
+                { addSuffix: true })
+              }}
             </p>
           </div>
 
