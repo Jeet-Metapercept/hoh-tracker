@@ -30,7 +30,7 @@ interface HohHistoryData {
 
 const db = useDatabase();
 const statusRef = dbRef(db, "/");
-const { data: statusData } = useDatabaseObject<HohStatus>(statusRef);
+const { data: statusData } = useDatabaseObject<HohStatus>(statusRef, { once: true });
 
 const historyRef = dbRef(db, "/history");
 const historyQuery = query(
