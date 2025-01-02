@@ -177,14 +177,23 @@ const remainingTimeString = computed(() => {
 
       <div class="flex flex-col justify-between gap-4 px-4">
         <!-- Last Run -->
-        <img alt="" class="absolute w-16 right-0 top-2" lazy="loaded" src="/assets/ganesha-DuoyXHJT.png">
+        <img
+          alt=""
+          class="absolute w-16 right-0 top-2"
+          lazy="loaded"
+          src="/assets/ganesha-DuoyXHJT.png"
+        />
         <article
           class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800"
         >
           <div>
             <p class="text-xs text-gray-500 dark:text-gray-400">Last Run</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
-              {{ formatDistanceToNow(new Date(statusData?.completed_at!), { addSuffix: true }) }}
+              {{
+                formatDistanceToNow(new Date(statusData?.completed_at!), {
+                  addSuffix: true,
+                })
+              }}
             </p>
           </div>
 
