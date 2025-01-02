@@ -32,7 +32,7 @@ const db = useDatabase();
 const statusRef = dbRef(db, "/");
 const { data: statusData } = useDatabaseObject<HohStatus>(statusRef);
 
-const historyRef = dbRef(db, "/history",);
+const historyRef = dbRef(db, "/history");
 const historyQuery = query(
   historyRef,
   orderByChild("created_at"),
@@ -152,8 +152,14 @@ const remainingTimeString = computed(() => {
         </Badge>
 
         <Alert
-        variant="destructive" class="text-center min-w-[300px]"
-        :class="statusData?.status === 'True' ? 'border-green-400' : 'border-premier'">
+          variant="destructive"
+          class="text-center min-w-[300px]"
+          :class="
+            statusData?.status === 'True'
+              ? 'border-green-400'
+              : 'border-premier'
+          "
+        >
           <AlertDescription
             v-if="
               statusData?.started_at &&
@@ -170,12 +176,13 @@ const remainingTimeString = computed(() => {
             }}
           </AlertDescription>
           <AlertDescription
-            v-else :class="statusData?.status === 'True' ? 'text-greren-400' : 'text-premier'"
+            v-else
+            :class="
+              statusData?.status === 'True' ? 'text-greren-400' : 'text-premier'
+            "
             class="dark:text-white"
-          >{{
-            statusData?.step || "???"
-          }}
-        </AlertDescription>
+            >{{ statusData?.step || "???" }}
+          </AlertDescription>
         </Alert>
       </div>
 
