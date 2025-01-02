@@ -59,26 +59,26 @@ const gaugeSecondaryColor = computed(() =>
 );
 
 const now = useNow({ interval: 1000 });
-const totalDurationMinutes = 60 + 15;
-const failureThresholdDurationMinutes = totalDurationMinutes + 15;
+const TOTAL_DURATION_MINUTES = 60 + 15;
+const FAILURE_THRESHOLD_MINUTES = TOTAL_DURATION_MINUTES + 15;
 
 const targetTime = computed(() => {
   return addMinutes(
     new Date(statusData.value?.completed_at || Date.now()),
-    totalDurationMinutes,
+    TOTAL_DURATION_MINUTES,
   );
 });
 
 const elapsedMinutes = computed(() => {
   const startTime = new Date(statusData.value?.completed_at || Date.now());
   const diff = differenceInMinutes(now.value, startTime);
-  const clampedMinutes = Math.min(Math.max(0, diff), totalDurationMinutes);
+  const clampedMinutes = Math.min(Math.max(0, diff), TOTAL_DURATION_MINUTES);
   return clampedMinutes;
 });
 
 // Scale elapsedMinutes to 0–100
 const elapsedPercentage = computed(() => {
-  return Math.round((elapsedMinutes.value / totalDurationMinutes) * 100);
+  return Math.round((elapsedMinutes.value / TOTAL_DURATION_MINUTES) * 100);
 });
 
 const remainingTimeString = computed(() => {
@@ -133,7 +133,7 @@ const remainingTimeString = computed(() => {
           v-if="
             statusData?.started_at &&
             differenceInMinutes(new Date(), new Date(statusData?.started_at)) >
-              failureThresholdDurationMinutes
+              FAILURE_THRESHOLD_MINUTES
           "
           :variant="'destructive'"
           class="justify-center bg-red-600"
@@ -154,7 +154,7 @@ const remainingTimeString = computed(() => {
             v-if="
               statusData?.started_at &&
               differenceInMinutes(new Date(), new Date(statusData.started_at)) >
-                failureThresholdDurationMinutes
+                FAILURE_THRESHOLD_MINUTES
             "
             class="flex items-center justify-center gap-1"
           >
