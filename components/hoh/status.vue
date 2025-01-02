@@ -63,10 +63,7 @@ const TOTAL_DURATION_MINUTES = 60 + 15;
 const FAILURE_THRESHOLD_MINUTES = TOTAL_DURATION_MINUTES + 15;
 
 const targetTime = computed(() => {
-  return addMinutes(
-    new Date(statusData.value?.completed_at || Date.now()),
-    TOTAL_DURATION_MINUTES,
-  );
+  return addMinutes(new Date(statusData.value?.completed_at || Date.now()), TOTAL_DURATION_MINUTES,);
 });
 
 const elapsedMinutes = computed(() => {
@@ -102,6 +99,9 @@ const remainingTimeString = computed(() => {
 
 <template>
   <div class="gague">
+    <pre>{{ targetTime }}</pre>
+    <pre>{{ elapsedPercentage }}</pre>
+    <pre>{{ remainingTimeString }}</pre>
     <div class="flex flex-col justify-center gap-4 mb-8">
       <div
         class="relative flex h-[350px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
