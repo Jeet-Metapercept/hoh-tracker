@@ -177,11 +177,7 @@ const remainingTimeString = computed(() => {
           <div>
             <p class="text-xs text-gray-500 dark:text-gray-400">Last Run</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
-              {{
-                formatDistanceToNow(new Date(historyData[0].completed_at), {
-                  addSuffix: true,
-                })
-              }}
+              {{ (formatDistanceToNow(statusData?.completed_at!), { addSuffix: true }) }}
             </p>
           </div>
 
@@ -189,7 +185,7 @@ const remainingTimeString = computed(() => {
             <Icon name="lucide:check-check" />
             <p class="flex gap-2 text-xs">
               <span class="text-gray-500 dark:text-gray-400">
-                {{ new Date(historyData[0].completed_at).toLocaleString() }}
+                {{ new Date(statusData?.completed_at!).toLocaleString() }}
               </span>
             </p>
           </div>
