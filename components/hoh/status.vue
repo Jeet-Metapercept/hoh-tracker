@@ -177,7 +177,7 @@ const remainingTimeString = computed(() => {
           <div>
             <p class="text-xs text-gray-500 dark:text-gray-400">Last Run</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
-              {{ (formatDistanceToNow(statusData?.completed_at!), { addSuffix: true }) }}
+              {{ (formatDistanceToNow(new Date(statusData?.completed_at!)), { addSuffix: true }) }}
             </p>
           </div>
 
