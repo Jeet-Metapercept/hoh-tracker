@@ -30,11 +30,9 @@ interface HohHistoryData {
 
 const db = useDatabase();
 const statusRef = dbRef(db, "/");
-const { data: statusData } = useDatabaseObject<HohStatus>(statusRef, {
-  once: true,
-});
+const { data: statusData } = useDatabaseObject<HohStatus>(statusRef);
 
-const historyRef = dbRef(db, "/history");
+const historyRef = dbRef(db, "/history",);
 const historyQuery = query(
   historyRef,
   orderByChild("created_at"),
@@ -42,7 +40,7 @@ const historyQuery = query(
 );
 
 const { data: historyDataRaw, pending: historyPending } =
-  useDatabaseList<HohHistoryData>(historyQuery);
+  useDatabaseList<HohHistoryData>(historyQuery, { once: true });
 const historyData = computed(() => {
   if (!historyDataRaw.value) return [];
   return [...historyDataRaw.value].reverse();
