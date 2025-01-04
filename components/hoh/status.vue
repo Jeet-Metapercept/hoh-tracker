@@ -29,10 +29,10 @@ interface HohHistoryData {
 }
 
 const db = useDatabase();
-const statusRef = dbRef(db, "/");
+const statusRef = dbRef(db, "/hohtracker");
 const { data: statusData } = useDatabaseObject<HohStatus>(statusRef);
 
-const historyRef = dbRef(db, "/history");
+const historyRef = dbRef(db, "/hohtracker/history");
 const historyQuery = query(
   historyRef,
   orderByChild("created_at"),
