@@ -114,5 +114,10 @@ export default defineNuxtConfig({
       enabled: true,
       type: "module",
     },
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,txt,png,ico,svg,json}'],
+      cleanupOutdatedCaches: true,
+      navigateFallback: '/',
+    },
   },
 });
