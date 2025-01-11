@@ -68,7 +68,7 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2024-11-14",
   routeRules: {
-    '/': { prerender: true, ssr: false, },  // Homepage pre-rendered at build time
+    '/': { prerender: false, ssr: false, },  // Homepage pre-rendered at build time
   },
   pwa: {
     registerType: "autoUpdate",
