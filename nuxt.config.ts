@@ -67,9 +67,6 @@ export default defineNuxtConfig({
     enabled: true,
   },
   compatibilityDate: "2024-11-14",
-  routeRules: {
-    '/': { prerender: false, ssr: false, },  // Homepage pre-rendered at build time
-  },
   pwa: {
     registerType: "autoUpdate",
     manifest: {
