@@ -241,10 +241,9 @@ v-else :class="statusData?.status === 'True' ? 'text-greren-400' : 'text-premier
               <div class="mb-2">
                 <Alert>
                   <div class="flex gap-2 align-center">
-                    <Icon name="lucide:terminal" class="w-4 h-4" />
-                    <AlertDescription class="flex justify-between align-center w-full">{{ new
-                      Date(item.completed_at).toLocaleString() }}
-
+                    <!-- <Icon name="lucide:terminal" class="w-4 h-4" /> -->
+                    <AlertDescription class="flex justify-between align-center w-full">
+                      <!-- {{ new Date(item.completed_at).toLocaleString() }} -->
                       <div class="flex space-x-2">
                         <NuxtImg
                           v-for="(event, index) in item.events.split(',')" :key="index"
