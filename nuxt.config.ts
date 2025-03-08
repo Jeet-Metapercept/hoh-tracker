@@ -23,6 +23,10 @@ export default defineNuxtConfig({
     "nuxt-vuefire",
     "@vite-pwa/nuxt",
   ],
+  shadcn: {
+    prefix: '',
+    componentDir: './components/ui'
+  },
   wellKnown: {
     securityTxt: {
       canonical: [`${baseUrl}/.well-known/security.txt`],
