@@ -26,6 +26,7 @@ interface HohStatus {
 interface HohHistoryData {
   started_at: string;
   completed_at: string;
+  events: string;
 }
 
 const db = useDatabase();
@@ -98,99 +99,86 @@ const remainingTimeString = computed(() => {
     zero: true,
   });
 });
+
+const getAvatarSrc = (event: string): string => {
+  const avatarMap: Record<string, string> = {
+    Resources: "/hoh/Resources.svg",
+    Energy: "/hoh/CampaignEnergy.svg",
+    Egypt: "/hoh/EgyptEvent.svg",
+    China: "/hoh/ChinaEvent.svg",
+    Vikings: "/hoh/VikingsEvent.webp",
+  };
+
+  return avatarMap[event] ?? "https://heroesofhistory.wiki/shared/icon_flat_portal_swirl.webp";
+};
+
+
 </script>
 
 <template>
   <div class="gague">
     <div class="flex flex-col justify-center gap-4 mb-8">
       <div
-        class="relative flex h-[350px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full"
-      >
+        class="relative flex h-[350px] w-full flex-col items-center justify-center overflow-hidden rounded-lg lg:w-full md:w-full">
         <div
-          class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white"
-        >
+          class="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter text-black dark:text-white">
           <InspiraAnimatedCircularProgressBar
-            :gauge-primary-color="gaugePrimaryColor"
-            :gauge-secondary-color="gaugeSecondaryColor"
-            :no-decimals="true"
-            :max="100"
-            :min="0"
-            :value="statusData?.status === 'True' ? 100 : elapsedPercentage"
-          />
+:gauge-primary-color="gaugePrimaryColor"
+            :gauge-secondary-color="gaugeSecondaryColor" :no-decimals="true" :max="100" :min="0"
+            :value="statusData?.status === 'True' ? 100 : elapsedPercentage" />
         </div>
         <InspiraRippleComponentRipple
-          class="bg-white/5 [mask-image:linear-gradient(to_bottom,white,transparent)]"
+class="bg-white/5 [mask-image:linear-gradient(to_bottom,white,transparent)]"
           circle-class="border-[hsl(var(--primary))] bg-[#0000]/25 dark:bg-[#fff]/25 rounded-full"
-          :base-circle-size="180"
-          :number-of-circles="3"
-          :space-between-circle="40"
-        />
+          :base-circle-size="180" :number-of-circles="3" :space-between-circle="40" />
       </div>
 
       <!-- Status Controls -->
       <div class="max-w-4xl flex flex-col justify-center mx-auto gap-4 -mt-8">
         <Badge
-          v-if="
-            statusData?.started_at &&
-            differenceInMinutes(
-              new Date(),
-              new Date(statusData?.completed_at),
-            ) > FAILURE_THRESHOLD_MINUTES
-          "
-          :variant="'destructive'"
-          class="justify-center bg-red-600"
-        >
+v-if="
+          statusData?.started_at &&
+          differenceInMinutes(
+            new Date(),
+            new Date(statusData?.completed_at),
+          ) > FAILURE_THRESHOLD_MINUTES
+        " :variant="'destructive'" class="justify-center bg-red-600">
           {{ statusData?.status === "True" ? "Offline" : "Failed" }}
         </Badge>
         <Badge
-          v-else
-          :variant="'default'"
-          class="justify-center text-white"
-          :class="statusData?.status === 'True' ? 'bg-green-400' : 'bg-premier'"
-        >
+v-else :variant="'default'" class="justify-center text-white"
+          :class="statusData?.status === 'True' ? 'bg-green-400' : 'bg-premier'">
           {{ statusData?.status === "True" ? "Live" : "Snoozed" }}
         </Badge>
 
         <Alert
-          variant="destructive"
-          class="text-center min-w-[300px]"
-          :class="
-            statusData?.status === 'True'
-              ? 'border-green-400'
-              : 'border-premier'
-          "
-        >
+variant="destructive" class="text-center min-w-[300px]" :class="statusData?.status === 'True'
+          ? 'border-green-400'
+          : 'border-premier'
+          ">
           <AlertDescription
-            v-if="
-              statusData?.started_at &&
-              differenceInMinutes(
-                new Date(),
-                new Date(statusData.completed_at),
-              ) > FAILURE_THRESHOLD_MINUTES
-            "
-            class="flex items-center justify-center gap-1"
-          >
+v-if="
+            statusData?.started_at &&
+            differenceInMinutes(
+              new Date(),
+              new Date(statusData.completed_at),
+            ) > FAILURE_THRESHOLD_MINUTES
+          " class="flex items-center justify-center gap-1">
             <Icon name="lucide:triangle-alert" />
             {{
               `Oops! Offline since ${formatDistanceToNow(new Date(statusData.completed_at), { addSuffix: true })}`
             }}
           </AlertDescription>
           <AlertDescription
-            v-else
-            :class="
-              statusData?.status === 'True' ? 'text-greren-400' : 'text-premier'
-            "
-            class="dark:text-white"
-            >{{ statusData?.step || "???" }}
+v-else :class="statusData?.status === 'True' ? 'text-greren-400' : 'text-premier'
+            " class="dark:text-white">{{ statusData?.step || "???" }}
           </AlertDescription>
         </Alert>
       </div>
 
       <div class="flex flex-col justify-between gap-4 px-4">
         <!-- Last Run -->
-        <article
-          class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800"
-        >
+        <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800">
           <div>
             <p class="text-xs text-gray-500 dark:text-gray-400">Last Run</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
@@ -213,9 +201,7 @@ const remainingTimeString = computed(() => {
         </article>
 
         <!-- Next Run -->
-        <article
-          class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800 text-end"
-        >
+        <article class="rounded-lg border border-gray-100 p-4 dark:border-zinc-800 text-end">
           <div>
             <p class="text-xs text-gray-500 dark:text-gray-400">Next Schdule</p>
             <p class="text font-medium text-gray-900 dark:text-gray-100">
@@ -223,9 +209,7 @@ const remainingTimeString = computed(() => {
             </p>
           </div>
 
-          <div
-            class="mt-1 flex gap-1 text-green-600 dark:text-green-400 justify-end"
-          >
+          <div class="mt-1 flex gap-1 text-green-600 dark:text-green-400 justify-end">
             <Icon name="lucide:check-check" />
             <p class="flex gap-2 text-xs">
               <span class="text-gray-500 dark:text-gray-400">
@@ -256,11 +240,18 @@ const remainingTimeString = computed(() => {
 
               <div class="mb-2">
                 <Alert>
-                  <div class="flex gap-2">
+                  <div class="flex gap-2 align-center">
                     <Icon name="lucide:terminal" class="w-4 h-4" />
-                    <AlertDescription
-                      class="flex justify-between align-center w-full"
-                      >{{ new Date(item.completed_at).toLocaleString() }}
+                    <AlertDescription class="flex justify-between align-center w-full">{{ new
+                      Date(item.completed_at).toLocaleString() }}
+
+                      <div class="flex space-x-2">
+                        <NuxtImg
+                          v-for="(event, index) in item.events.split(',')" :key="index"
+                          :src="getAvatarSrc(event)" :alt="event"
+                          class="w-6 h-6 rounded-full"
+                          :tooltip="event" />
+                      </div>
 
                       <Badge class="bg-green-400" variant="default">
                         Complete
