@@ -102,10 +102,10 @@ const remainingTimeString = computed(() => {
 
 const getAvatarSrc = (event: string): string => {
   const avatarMap: Record<string, string> = {
-    Resources: "/hoh/Resources.webp",
-    Energy: "/hoh/CampaignEnergy.webp",
-    Egypt: "/hoh/EgyptEvent.webp",
-    China: "/hoh/ChinaEvent.png",
+    Resources: "/hoh/Resources.svg",
+    Energy: "/hoh/CampaignEnergy.svg",
+    Egypt: "/hoh/EgyptEvent.svg",
+    China: "/hoh/ChinaEvent.svg",
     Vikings: "/hoh/VikingsEvent.webp",
   };
 
@@ -240,17 +240,17 @@ v-else :class="statusData?.status === 'True' ? 'text-greren-400' : 'text-premier
 
               <div class="mb-2">
                 <Alert>
-                  <div class="flex gap-2">
+                  <div class="flex gap-2 align-center">
                     <Icon name="lucide:terminal" class="w-4 h-4" />
                     <AlertDescription class="flex justify-between align-center w-full">{{ new
                       Date(item.completed_at).toLocaleString() }}
 
                       <div class="flex space-x-2">
-                        <Avatar v-for="(event, index) in item.events.split(',')" :key="index">
-                          {{ getAvatarSrc(event) }}
-                          <AvatarImage src="/hoh/Resources.webp" :alt="event" />
-                          <AvatarFallback>?</AvatarFallback>
-                        </Avatar>
+                        <NuxtImg
+                          v-for="(event, index) in item.events.split(',')" :key="index"
+                          :src="getAvatarSrc(event)" :alt="event"
+                          class="w-6 h-6 rounded-full"
+                          :tooltip="event" />
                       </div>
 
                       <Badge class="bg-green-400" variant="default">
