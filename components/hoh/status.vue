@@ -99,6 +99,20 @@ const remainingTimeString = computed(() => {
     zero: true,
   });
 });
+
+const getAvatarSrc = (event: string): string => {
+  const avatarMap: Record<string, string> = {
+    Resources: "/hoh/Resources.webp",
+    Energy: "/hoh/CampaignEnergy.webp",
+    Egypt: "/hoh/EgyptEvent.webp",
+    China: "/hoh/ChinaEvent.png",
+    Vikings: "/hoh/VikingsEvent.webp",
+  };
+
+  return avatarMap[event] ?? "https://heroesofhistory.wiki/shared/icon_flat_portal_swirl.webp";
+};
+
+
 </script>
 
 <template>
@@ -139,8 +153,8 @@ v-else :variant="'default'" class="justify-center text-white"
 
         <Alert
 variant="destructive" class="text-center min-w-[300px]" :class="statusData?.status === 'True'
-            ? 'border-green-400'
-            : 'border-premier'
+          ? 'border-green-400'
+          : 'border-premier'
           ">
           <AlertDescription
 v-if="
@@ -231,12 +245,12 @@ v-else :class="statusData?.status === 'True' ? 'text-greren-400' : 'text-premier
                     <AlertDescription class="flex justify-between align-center w-full">{{ new
                       Date(item.completed_at).toLocaleString() }}
 
-                      <div>
-                        <Badge
-                          v-for="(event, index) in item.events.split(',')" :key="index" class="bg-green-400 mx-1"
-                          variant="default">
-                          {{ event }}
-                        </Badge>
+                      <div class="flex space-x-2">
+                        <Avatar v-for="(event, index) in item.events.split(',')" :key="index">
+                          {{ getAvatarSrc(event) }}
+                          <AvatarImage src="/hoh/Resources.webp" :alt="event" />
+                          <AvatarFallback>?</AvatarFallback>
+                        </Avatar>
                       </div>
 
                       <Badge class="bg-green-400" variant="default">
