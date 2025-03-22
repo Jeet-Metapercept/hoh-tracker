@@ -60,7 +60,7 @@ const gaugeSecondaryColor = computed(() =>
 );
 
 const now = useNow({ interval: 1000 });
-const TOTAL_DURATION_MINUTES = 38;
+const TOTAL_DURATION_MINUTES = 39;
 const FAILURE_THRESHOLD_MINUTES = TOTAL_DURATION_MINUTES + 10;
 
 const targetTime = computed(() => {
