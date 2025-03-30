@@ -112,8 +112,6 @@ const getAvatarSrc = (event: string): string => {
 
   return avatarMap[event] ?? "https://heroesofhistory.wiki/shared/icon_flat_portal_swirl.webp";
 };
-
-
 </script>
 
 <template>
@@ -247,9 +245,8 @@ v-else :class="statusData?.status === 'True' ? 'text-greren-400' : 'text-premier
                       <!-- {{ new Date(item.completed_at).toLocaleString() }} -->
                       <div class="flex space-x-2">
                         <NuxtImg
-                          v-for="(event, index) in item.events.split(',')" :key="index"
-                          :src="getAvatarSrc(event)" :alt="event"
-                          class="w-6 h-6 rounded-full"
+v-for="(event, index) in item.events.trim().split(',').filter(Boolean)" :key="index"
+                          :src="getAvatarSrc(event.trim())" :alt="event" class="w-6 h-6 rounded-full"
                           :tooltip="event" />
                       </div>
 
