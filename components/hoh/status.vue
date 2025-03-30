@@ -107,7 +107,7 @@ const getAvatarSrc = (event: string): string => {
     Egypt: "/hoh/EgyptEvent.svg",
     China: "/hoh/ChinaEvent.svg",
     Vikings: "/hoh/VikingsEvent.webp",
-    Google: "https://img.icons8.com/?size=100&id=17949&format=png",
+    Google: "/hoh/google-icon-logo.svg",
   };
 
   return avatarMap[event] ?? "https://heroesofhistory.wiki/shared/icon_flat_portal_swirl.webp";
