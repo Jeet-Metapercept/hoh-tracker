@@ -40,6 +40,7 @@ useHead({
     <Head>
       <Title>{{ title }}</Title>
       <Meta :content="description" name="description" />
+      <NuxtPwaManifest />
     </Head>
     <Body>
       <NuxtLoadingIndicator />
