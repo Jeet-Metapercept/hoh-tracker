@@ -45,11 +45,11 @@ function mapDoc(d: QueryDocumentSnapshot): BattleLogRow {
 }
 
 /** Hard cap on how many events we pull in one bulk load (bounds reads/memory). */
-const MAX_TOTAL = 1000;
+const MAX_TOTAL = 100;
 
 /**
  * Battle log, newest-first. Pulls the season's events in ONE query (up to
- * MAX_TOTAL = 1000) so client-side filtering sees the whole set. No incremental
+ * MAX_TOTAL) so client-side filtering sees the whole set. No incremental
  * Firestore pagination — the component reveals more of this list locally.
  */
 export function useBattleLog() {
