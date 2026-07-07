@@ -131,7 +131,7 @@ async function fetchBoard(db: Firestore, now: Date): Promise<BoardResult> {
 export function useEnergyBoard() {
   const rows = ref<PlayerEnergy[]>([]);
   const seasonId = ref<string | null>(null);
-  const lastPostedAt = ref<string | null>(null);
+  const lastUpdatedAt = ref<string | null>(null);
   const pending = ref(true);
   const error = ref<string | null>(null);
 
@@ -144,12 +144,12 @@ export function useEnergyBoard() {
       const result = await fetchBoard(db, new Date());
       rows.value = result.rows;
       seasonId.value = result.season.season_id;
-      lastPostedAt.value = result.season.last_posted_at ?? null;
+      lastUpdatedAt.value = result.season.last_updated_at ?? null;
     } catch (e) {
       error.value = e instanceof Error ? e.message : String(e);
       rows.value = [];
       seasonId.value = null;
-      lastPostedAt.value = null;
+      lastUpdatedAt.value = null;
     } finally {
       pending.value = false;
     }
@@ -158,5 +158,5 @@ export function useEnergyBoard() {
   // Client-only initial load.
   onMounted(refresh);
 
-  return { rows, seasonId, lastPostedAt, pending, error, refresh };
+  return { rows, seasonId, lastUpdatedAt, pending, error, refresh };
 }

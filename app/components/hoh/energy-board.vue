@@ -6,7 +6,7 @@
 
 import { formatDistanceToNow } from "date-fns";
 
-const { rows, seasonId, lastPostedAt, pending, error, refresh } = useEnergyBoard();
+const { rows, seasonId, lastUpdatedAt, pending, error, refresh } = useEnergyBoard();
 const now = useNow({ interval: 1000 });
 
 // Player-detail modal.
@@ -74,13 +74,12 @@ function countdown(nextRegenAt: string | null): string {
   return h > 0 ? `${h}h ${m}m ${sec}s` : `${m}m ${sec}s`;
 }
 
-// "as of" = the bot's last_posted_at (when the board was last posted/updated),
-// falling back to the client clock only for the sample view. `now` is referenced
-// so the relative label re-renders as time passes.
+// "as of" = the bot's last_updated_at (when data was last refreshed). `now` is
+// referenced so the relative label re-renders as time passes.
 const asOf = computed(() => {
   void now.value; // tick dependency so "x ago" stays fresh
-  if (lastPostedAt.value) {
-    return formatDistanceToNow(new Date(lastPostedAt.value), { addSuffix: true });
+  if (lastUpdatedAt.value) {
+    return formatDistanceToNow(new Date(lastUpdatedAt.value), { addSuffix: true });
   }
   return "just now";
 });
@@ -88,8 +87,8 @@ const asOf = computed(() => {
 // Compact form for small screens: "8m ago", "3h ago", "2d ago".
 const asOfShort = computed(() => {
   void now.value;
-  if (!lastPostedAt.value) return "now";
-  const s = Math.max(0, (now.value.getTime() - new Date(lastPostedAt.value).getTime()) / 1000);
+  if (!lastUpdatedAt.value) return "now";
+  const s = Math.max(0, (now.value.getTime() - new Date(lastUpdatedAt.value).getTime()) / 1000);
   if (s < 60) return "just now";
   if (s < 3600) return `${Math.floor(s / 60)}m ago`;
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
@@ -177,9 +176,9 @@ const asOfShort = computed(() => {
         class="ml-auto flex shrink-0 items-center gap-1.5 text-xs font-normal normal-case sm:gap-2"
       >
         <span
-          v-if="lastPostedAt"
+          v-if="lastUpdatedAt"
           class="whitespace-nowrap opacity-80"
-          :title="lastPostedAt ?? ''"
+          :title="lastUpdatedAt ?? ''"
         >
           <!-- compact on mobile, full on ≥sm -->
           <span class="sm:hidden">{{ asOfShort }}</span>

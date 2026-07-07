@@ -8,7 +8,7 @@ export interface SeasonDoc {
   season_id: string;
   conflict_start_iso: string;
   conflict_end_iso: string;
-  last_posted_at?: string | null;
+  last_updated_at?: string | null;
 }
 
 /** Coerce a Firestore value (Timestamp | Date | string) to an ISO string. */
@@ -42,7 +42,7 @@ export async function pickSeason(
       season_id: String(x.season_id ?? d.id),
       conflict_start_iso: toIso(x.conflict_start_iso),
       conflict_end_iso: toIso(x.conflict_end_iso),
-      last_posted_at: x.last_posted_at ? toIso(x.last_posted_at) : null,
+      last_updated_at: x.last_updated_at ? toIso(x.last_updated_at) : null,
     };
   });
   if (seasons.length === 0) return null;
