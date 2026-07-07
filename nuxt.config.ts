@@ -16,8 +16,6 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "nuxt-umami",
   ],
-  // Umami analytics for the Atlantis site (hun-sentinel.netlify.app). The website
-  // id is not a secret — it is exposed in the browser tracking call.
   umami: {
     id: "382a16b9-68ed-4334-8412-633e78d2c92b",
     host: "https://analytics.proximabiz.net",
