@@ -154,7 +154,7 @@ function localTime(row: BattleLogRow): string {
           <button
             v-for="l in legend"
             :key="l.type"
-            class="hoh-toggle flex min-w-[140px] items-center justify-center gap-1.5 !px-3 !py-1 text-[11px] leading-none"
+            class="hoh-toggle flex min-w-[104px] items-center justify-center gap-1.5 !px-3 !py-1 text-[11px] leading-none"
             :data-active="typeFilter === l.type"
             :class="typeFilter && typeFilter !== l.type ? 'opacity-60 hover:opacity-100' : ''"
             :title="`Filter: ${l.label}`"
