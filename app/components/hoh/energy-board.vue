@@ -227,7 +227,7 @@ const asOfShort = computed(() => {
       <table class="hoh-table min-w-[420px]">
         <thead>
           <tr>
-            <th class="whitespace-nowrap">Player</th>
+            <th class="whitespace-nowrap">Member</th>
             <th class="whitespace-nowrap" style="width: 140px">Energy</th>
             <th class="whitespace-nowrap text-right" style="width: 100px">Next +1 In</th>
           </tr>
