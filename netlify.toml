@@ -1,13 +1,6 @@
-# Netlify build config for the Atlantis web site (hun-sentinel.netlify.app).
-# Deploys from the `atlantis-frontend` branch. Nuxt's Nitro auto-detects the Netlify
-# environment and emits the SSR server + static assets; `publish = "dist"` is the
-# directory Nitro's Netlify preset writes to. pnpm is used via the repo's
-# `packageManager` field in package.json.
 [build]
   command = "pnpm build"
   publish = "dist"
 
-# pnpm 11.10 (pinned via package.json packageManager) needs Node >= 22.13 — it
-# uses the node:sqlite builtin, which does not exist on Node 20.
 [build.environment]
   NODE_VERSION = "22"
