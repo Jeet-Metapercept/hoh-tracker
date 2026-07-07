@@ -1,13 +1,22 @@
 import tailwindcss from "@tailwindcss/vite";
+import { version } from "./package.json";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      appVersion: version,
+    },
+  },
   // PWA branch: home redirects to /status so installed apps (which launch at the
-  // cached start_url "/") land on the live status page. The web default lives on
-  // `develop` (/ → /atlantis). Keep this the ONLY diff from develop.
+  // cached start_url "/") land on the live status page. The web default (/ →
+  // /atlantis) lives on atlantis-frontend.
   routeRules: {
     "/": { redirect: "/status" },
+    // isr (not swr) so responses hit Netlify's durable shared CDN cache → Firestore
+    // reads become ~flat regardless of traffic.
+    "/api/atlantis/**": { isr: 300 },
   },
   modules: [
     "@nuxtjs/color-mode",
@@ -16,7 +25,14 @@ export default defineNuxtConfig({
     "shadcn-nuxt",
     "nuxt-vuefire",
     "@vite-pwa/nuxt",
+    "nuxt-umami",
   ],
+  umami: {
+    id: "382a16b9-68ed-4334-8412-633e78d2c92b",
+    host: "https://analytics.proximabiz.net",
+    autoTrack: true,
+    ignoreLocalhost: true,
+  },
   css: ["~/assets/css/tailwind.css"],
   imports: {
     dirs: ["types"],
@@ -64,29 +80,27 @@ export default defineNuxtConfig({
       name: "Heroes of History Tracker",
       short_name: "HoH Tracker",
       description: "HOH Tracker App",
-      theme_color: "#E90052",
-      background_color: "#E90052",
+      theme_color: "#1d4468",
+      background_color: "#1d4468",
       display: "standalone",
       orientation: "portrait",
-      start_url: "/status",
+      start_url: "/",
       icons: [
         { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
         { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
         { src: "/icon-1024.png", sizes: "1024x1024", type: "image/png" },
         { src: "/icon-2048.png", sizes: "2048x2048", type: "image/png" },
-      ],
-      screenshots: [
         {
-          src: "/mobile-screenshot.png",
-          sizes: "1080x1920",
+          src: "/icon-192-maskable.png",
+          sizes: "192x192",
           type: "image/png",
-          form_factor: "narrow",
+          purpose: "maskable",
         },
         {
-          src: "/desktop-screenshot.png",
-          sizes: "2872x2852",
+          src: "/icon-512-maskable.png",
+          sizes: "512x512",
           type: "image/png",
-          form_factor: "wide",
+          purpose: "maskable",
         },
       ],
     },
@@ -101,7 +115,7 @@ export default defineNuxtConfig({
     workbox: {
       globPatterns: ["**/*.{js,css,html,txt,png,ico,svg,json}"],
       cleanupOutdatedCaches: true,
-      navigateFallback: "/",
+      navigateFallback: undefined,
     },
   },
 });

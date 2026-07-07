@@ -148,30 +148,8 @@ function localTime(row: BattleLogRow): string {
         class="mb-4 rounded-md border px-3 py-3"
         style="border-color: var(--hoh-gold-border); background: #f8f5e6"
       >
-        <!-- Type filter buttons (also serve as the legend). Wrap freely; each pill
-             has a min-width but grows to fit its label (no forced 2-line wrap). -->
-        <div class="flex flex-wrap gap-2">
-          <button
-            v-for="l in legend"
-            :key="l.type"
-            class="hoh-toggle flex min-w-[140px] items-center justify-center gap-1.5 !px-3 !py-1 text-[11px] leading-none"
-            :data-active="typeFilter === l.type"
-            :class="typeFilter && typeFilter !== l.type ? 'opacity-60 hover:opacity-100' : ''"
-            :title="`Filter: ${l.label}`"
-            @click="toggleType(l.type)"
-          >
-            <span
-              class="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full text-white"
-              :style="{ background: l.color }"
-            >
-              <Icon :name="l.icon" class="h-2 w-2" />
-            </span>
-            <span class="whitespace-nowrap">{{ l.label }}</span>
-          </button>
-        </div>
-
         <!-- Player + node filters + clear -->
-        <div class="mt-3 flex flex-col gap-3 border-t pt-3 sm:flex-row sm:items-end" style="border-color: var(--hoh-gold-border)">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end">
           <!-- Members -->
           <div class="flex flex-1 flex-col gap-1">
             <label class="text-xs font-bold" style="color: var(--hoh-gold-deep)">Members</label>
@@ -197,26 +175,63 @@ function localTime(row: BattleLogRow): string {
               <option v-for="n in nodeOptions" :key="n" :value="n">{{ n }}</option>
             </select>
           </div>
+        </div>
 
-          <!-- Clear — space always reserved (hidden, not removed) so nothing shifts -->
+        <!-- Type filter buttons (also serve as the legend). -->
+        <div class="mt-3 flex flex-wrap gap-2 border-t pt-3" style="border-color: var(--hoh-gold-border)">
           <button
-            class="flex shrink-0 items-center justify-center gap-1 rounded px-3 py-1.5 text-xs font-bold transition-opacity"
-            :class="isFiltered ? '' : 'invisible'"
-            style="background: var(--hoh-blue); color: #fff"
-            @click="clearFilters"
+            v-for="l in legend"
+            :key="l.type"
+            class="hoh-toggle group flex items-center justify-center !px-2 !py-1 text-[11px] leading-none"
+            :data-active="typeFilter === l.type"
+            :class="typeFilter && typeFilter !== l.type ? 'opacity-60 hover:opacity-100' : ''"
+            :title="`Filter: ${l.label}`"
+            @click="toggleType(l.type)"
           >
-            <Icon name="lucide:x" class="h-3 w-3" /> Clear
+            <span
+              class="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full text-white"
+              :style="{ background: l.color }"
+            >
+              <Icon :name="l.icon" class="h-2 w-2" />
+            </span>
+            <span
+              class="overflow-hidden whitespace-nowrap transition-all duration-200"
+              :class="
+                typeFilter === l.type
+                  ? 'ml-0.5 max-w-[140px]'
+                  : 'max-w-0 group-hover:ml-0.5 group-hover:max-w-[140px]'
+              "
+            >{{ l.label }}</span>
           </button>
         </div>
+
+        <!-- Clear filters — only shown when a filter is active. Full width on
+             mobile, constrained on web. -->
+        <button
+          v-if="isFiltered"
+          class="mt-3 flex w-full items-center justify-center gap-1 rounded px-6 py-1.5 text-xs font-bold sm:w-auto"
+          style="background: var(--hoh-blue); color: #fff"
+          @click="clearFilters"
+        >
+          <Icon name="lucide:x" class="h-3 w-3" /> Clear
+        </button>
       </div>
 
       <!-- Error banner -->
       <div
         v-if="error"
-        class="mb-4 rounded-md border px-3 py-2 text-xs"
+        class="mb-4 flex items-center gap-2 rounded-md border px-3 py-2 text-xs"
         style="border-color: var(--hoh-gold-border); background: #f8e6d6; color: #8a3d12"
       >
-        Couldn't load the battle log — {{ error }}
+        <span class="flex-1">Couldn't load the battle log. Please try again.</span>
+        <button
+          class="shrink-0 rounded px-2 py-1 font-bold text-white"
+          :disabled="pending"
+          style="background: var(--hoh-blue)"
+          @click="refresh"
+        >
+          Retry
+        </button>
       </div>
 
       <!-- Loading state -->
@@ -270,15 +285,15 @@ function localTime(row: BattleLogRow): string {
               </span>
               <button
                 v-if="ev.node"
-                class="rounded border px-1.5 py-0.5 text-[10px] font-bold transition-colors hover:bg-[var(--hoh-blue)] hover:text-white"
-                style="border-color: var(--hoh-blue); color: var(--hoh-blue)"
+                class="rounded border px-1.5 py-0.5 text-[10px] font-bold text-[var(--hoh-blue)] transition-colors hover:bg-[var(--hoh-blue)] hover:text-white"
+                style="border-color: var(--hoh-blue)"
                 :title="`Filter slot ${ev.node}`"
                 @click="nodeFilter = nodeFilter === ev.node ? null : ev.node"
               >
                 {{ ev.node }}
               </button>
               <span
-                class="ml-auto text-xs tabular-nums"
+                class="ml-auto hidden shrink-0 whitespace-nowrap text-xs tabular-nums sm:inline"
                 style="color: var(--hoh-gold-deep)"
               >
                 {{ ago(ev.time_utc) }}
@@ -286,8 +301,12 @@ function localTime(row: BattleLogRow): string {
             </div>
 
             <p class="mt-1 text-sm" style="color: #5a4a1e">{{ ev.raw_text }}</p>
-            <div class="mt-0.5 text-xs tabular-nums" style="color: var(--hoh-gold-deep)">
-              {{ localTime(ev) }}
+            <div
+              class="mt-0.5 flex items-center gap-2 text-xs tabular-nums"
+              style="color: var(--hoh-gold-deep)"
+            >
+              <span>{{ localTime(ev) }}</span>
+              <span class="ml-auto sm:hidden">{{ ago(ev.time_utc) }}</span>
             </div>
           </div>
         </div>

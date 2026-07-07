@@ -6,7 +6,7 @@
 
 import { formatDistanceToNow } from "date-fns";
 
-const { rows, seasonId, lastPostedAt, pending, error, refresh } = useEnergyBoard();
+const { rows, seasonId, lastUpdatedAt, pending, error, refresh } = useEnergyBoard();
 const now = useNow({ interval: 1000 });
 
 // Player-detail modal.
@@ -74,13 +74,12 @@ function countdown(nextRegenAt: string | null): string {
   return h > 0 ? `${h}h ${m}m ${sec}s` : `${m}m ${sec}s`;
 }
 
-// "as of" = the bot's last_posted_at (when the board was last posted/updated),
-// falling back to the client clock only for the sample view. `now` is referenced
-// so the relative label re-renders as time passes.
+// "as of" = the bot's last_updated_at (when data was last refreshed). `now` is
+// referenced so the relative label re-renders as time passes.
 const asOf = computed(() => {
   void now.value; // tick dependency so "x ago" stays fresh
-  if (lastPostedAt.value) {
-    return formatDistanceToNow(new Date(lastPostedAt.value), { addSuffix: true });
+  if (lastUpdatedAt.value) {
+    return formatDistanceToNow(new Date(lastUpdatedAt.value), { addSuffix: true });
   }
   return "just now";
 });
@@ -88,8 +87,8 @@ const asOf = computed(() => {
 // Compact form for small screens: "8m ago", "3h ago", "2d ago".
 const asOfShort = computed(() => {
   void now.value;
-  if (!lastPostedAt.value) return "now";
-  const s = Math.max(0, (now.value.getTime() - new Date(lastPostedAt.value).getTime()) / 1000);
+  if (!lastUpdatedAt.value) return "now";
+  const s = Math.max(0, (now.value.getTime() - new Date(lastUpdatedAt.value).getTime()) / 1000);
   if (s < 60) return "just now";
   if (s < 3600) return `${Math.floor(s / 60)}m ago`;
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
@@ -177,9 +176,9 @@ const asOfShort = computed(() => {
         class="ml-auto flex shrink-0 items-center gap-1.5 text-xs font-normal normal-case sm:gap-2"
       >
         <span
-          v-if="lastPostedAt"
+          v-if="lastUpdatedAt"
           class="whitespace-nowrap opacity-80"
-          :title="lastPostedAt ?? ''"
+          :title="lastUpdatedAt ?? ''"
         >
           <!-- compact on mobile, full on ≥sm -->
           <span class="sm:hidden">{{ asOfShort }}</span>
@@ -201,13 +200,21 @@ const asOfShort = computed(() => {
 
     <div class="hoh-panel-body">
       <!-- Error banner -->
-      <p
+      <div
         v-if="error"
-        class="mb-3 rounded border px-3 py-2 text-xs"
+        class="mb-3 flex items-center gap-2 rounded border px-3 py-2 text-xs"
         style="border-color: var(--hoh-gold-border); background: #f8e6d6; color: #8a3d12"
       >
-        Couldn't load the energy board — {{ error }}
-      </p>
+        <span class="flex-1">Couldn't load the energy board. Please try again.</span>
+        <button
+          class="shrink-0 rounded px-2 py-1 font-bold text-white"
+          :disabled="pending"
+          style="background: var(--hoh-blue)"
+          @click="refresh"
+        >
+          Retry
+        </button>
+      </div>
 
       <!-- Loading -->
       <div v-if="pending" class="flex justify-center py-8">
@@ -227,7 +234,7 @@ const asOfShort = computed(() => {
       <table class="hoh-table min-w-[420px]">
         <thead>
           <tr>
-            <th class="whitespace-nowrap">Player</th>
+            <th class="whitespace-nowrap">Member</th>
             <th class="whitespace-nowrap" style="width: 140px">Energy</th>
             <th class="whitespace-nowrap text-right" style="width: 100px">Next +1 In</th>
           </tr>

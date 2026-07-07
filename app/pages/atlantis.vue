@@ -17,6 +17,8 @@ useSeoMeta({
 
 // Show a styled shield placeholder if the emblem image is missing/broken.
 const emblemBroken = ref(false);
+
+const appVersion = useRuntimeConfig().public.appVersion;
 </script>
 
 <template>
@@ -107,6 +109,10 @@ const emblemBroken = ref(false);
       <ClientOnly>
         <HohBattleTimeline />
       </ClientOnly>
+
+      <footer class="mt-8 pb-6 text-center text-xs" style="color: #d6f4ff99">
+        {{ ALLIANCE_NAME }} · Atlantis Sentinel · v{{ appVersion }}
+      </footer>
     </div>
   </div>
 </template>

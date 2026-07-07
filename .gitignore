@@ -23,5 +23,6 @@ logs
 .env.*
 !.env.example
 
-# Standalone bot (kept out of the frontend repo — has its own secrets)
-atlantis/
+# Standalone bot (kept out of the frontend repo — has its own secrets).
+# Anchored to root so it does NOT match server/api/atlantis/.
+/atlantis/
