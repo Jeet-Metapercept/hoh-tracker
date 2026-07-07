@@ -11,9 +11,9 @@ export default defineNuxtConfig({
   },
   routeRules: {
     "/": { redirect: "/atlantis" },
-    // Netlify Edge caches the Atlantis API for all users (5 min swr) → Firestore
+    // isr (not swr) so responses hit Netlify's durable shared CDN cache → Firestore
     // reads become ~flat regardless of traffic.
-    "/api/atlantis/**": { swr: 300 },
+    "/api/atlantis/**": { isr: 300 },
   },
   modules: [
     "@nuxtjs/color-mode",
