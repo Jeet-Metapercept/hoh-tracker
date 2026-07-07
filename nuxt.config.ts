@@ -1,8 +1,14 @@
 import tailwindcss from "@tailwindcss/vite";
+import { version } from "./package.json";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      appVersion: version,
+    },
+  },
   // Home redirects to the Atlantis dashboard (the app's main page).
   routeRules: {
     "/": { redirect: "/atlantis" },
