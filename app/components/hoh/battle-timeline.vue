@@ -6,8 +6,26 @@
 
 import { formatDistanceToNow } from "date-fns";
 
-const { events, seasonId, pending, error, refresh } = useBattleLog();
+const { events, lastUpdatedAt, pending, error, refresh } = useBattleLog();
 const now = useNow({ interval: 30000 }); // refresh relative labels every 30s
+
+// "updated x ago" — the bot's last_updated_at; `now` keeps the label fresh.
+const asOf = computed(() => {
+  void now.value;
+  if (lastUpdatedAt.value) {
+    return formatDistanceToNow(new Date(lastUpdatedAt.value), { addSuffix: true });
+  }
+  return "just now";
+});
+const asOfShort = computed(() => {
+  void now.value;
+  if (!lastUpdatedAt.value) return "now";
+  const s = Math.max(0, (now.value.getTime() - new Date(lastUpdatedAt.value).getTime()) / 1000);
+  if (s < 60) return "just now";
+  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+  return `${Math.floor(s / 86400)}d ago`;
+});
 
 // Client-side "reveal more": show PAGE at a time from the filtered list.
 const PAGE = 10;
@@ -124,9 +142,13 @@ function localTime(row: BattleLogRow): string {
       <span
         class="ml-auto flex shrink-0 items-center gap-1.5 text-xs font-normal normal-case sm:gap-2"
       >
-        <span v-if="seasonId" class="whitespace-nowrap opacity-80">
-          <span class="sm:hidden">{{ seasonId }}</span>
-          <span class="hidden sm:inline">Season {{ seasonId }}</span>
+        <span
+          v-if="lastUpdatedAt"
+          class="whitespace-nowrap opacity-80"
+          :title="lastUpdatedAt ?? ''"
+        >
+          <span class="sm:hidden">{{ asOfShort }}</span>
+          <span class="hidden sm:inline">updated {{ asOf }}</span>
         </span>
         <button
           class="rounded px-1.5 py-0.5 text-white/90 hover:bg-white/15"

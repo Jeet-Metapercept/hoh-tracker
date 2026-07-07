@@ -63,6 +63,16 @@ watch(
 );
 const seasonLabel = computed(() => `Season ${seasonId.value ?? "—"}`);
 
+// One-line shareable summary: "Team Energy 45/100 — Naka (5/5), Erio (5/5), …"
+// (board order).
+const copyMessage = computed(() => {
+  const list = members.value.map((r) => `${r.name} (${r.energy}/${MAX_ENERGY})`).join(", ");
+  return `Team Energy ${totalEnergy.value}/${maxEnergy.value} ··· ${list}`;
+});
+
+const { copy, copied } = useClipboard({ source: copyMessage, copiedDuring: 1500 });
+const copyBoard = () => copy();
+
 // ── Countdown formatting — "1h19m27s" / "39m36s" (matches cli.ts hms) ─────────
 function countdown(nextRegenAt: string | null): string {
   if (!nextRegenAt) return "full";
@@ -171,7 +181,18 @@ const asOfShort = computed(() => {
     <section class="hoh-panel">
     <div class="hoh-panel-header">
       <img src="/hoh-style/resources/atlantis_energy.webp" alt="" class="h-6 w-6 shrink-0" />
-      <span class="truncate">Atlantis Energy</span>
+      <button
+        class="flex min-w-0 items-center gap-1.5 rounded text-left hover:opacity-80"
+        :disabled="!members.length"
+        :title="copied ? 'Copied!' : 'Tap to copy energy summary'"
+        @click="copyBoard"
+      >
+        <span class="truncate">Atlantis Energy</span>
+        <Icon
+          :name="copied ? 'lucide:check' : 'lucide:copy'"
+          class="ms-1 h-3 w-3 shrink-0 opacity-60"
+        />
+      </button>
       <span
         class="ml-auto flex shrink-0 items-center gap-1.5 text-xs font-normal normal-case sm:gap-2"
       >
@@ -180,7 +201,6 @@ const asOfShort = computed(() => {
           class="whitespace-nowrap opacity-80"
           :title="lastUpdatedAt ?? ''"
         >
-          <!-- compact on mobile, full on ≥sm -->
           <span class="sm:hidden">{{ asOfShort }}</span>
           <span class="hidden sm:inline">updated {{ asOf }}</span>
         </span>
