@@ -93,3 +93,6 @@
     @apply bg-background text-foreground font-sans;
   }
 }
+
+/* Heroes of History game-style UI kit (tokens + component recipes). */
+@import "./hoh/index.css";
