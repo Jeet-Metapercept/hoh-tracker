@@ -1,0 +1,231 @@
+/* ╔══════════════════════════════════════════════════════════════════════════╗
+ * ║  HEROES OF HISTORY — UI KIT                                                ║
+ * ║  Game-styled design tokens + component recipes.                            ║
+ * ║  Scraped from the game wiki (see DESIGN.md in this folder).               ║
+ * ║                                                                            ║
+ * ║  The look: BLUE chrome (headers/buttons/borders) on CREAM parchment       ║
+ * ║  surfaces, with GOLD/AMBER accents for data & currency. Text on colored    ║
+ * ║  chrome gets a 4-way black outline for readability.                        ║
+ * ║                                                                            ║
+ * ║  Imported once from app/assets/css/tailwind.css. Used by pages/sample.vue. ║
+ * ╚══════════════════════════════════════════════════════════════════════════╝ */
+
+/* ┌────────────────────────────────────────────────────────────────────────┐
+ * │  1 · TOKENS                                                              │
+ * └────────────────────────────────────────────────────────────────────────┘ */
+:root {
+  /* — Blues · chrome (headers, buttons, borders) — */
+  --hoh-blue: #3e7bad;
+  --hoh-blue-light: #82adcf;
+  --hoh-blue-mid: #538cb8;
+  --hoh-blue-hover: #4792cf;
+  --hoh-blue-deep: #2c5a7a;
+  --hoh-blue-darkest: #1d4468;
+  --hoh-blue-footer: #3367b4;
+
+  /* — Cream · parchment surfaces — */
+  --hoh-cream: #ebe4cc;
+  --hoh-cream-cell: #ecdec0;
+  --hoh-cream-light: #f8f5e6;
+  --hoh-parchment-pale: #fbf0ce;
+
+  /* — Gold · data, currency, emphasis — */
+  --hoh-gold: #da8641;
+  --hoh-gold-header: #e2c587;
+  --hoh-gold-text: #aa822b;
+  --hoh-gold-deep: #916a17;
+  --hoh-gold-chip: #e3c586;
+  --hoh-gold-chip-text: #4e3f14; /* also the default parchment body text */
+  --hoh-gold-border: #dcc698;
+
+  /* — Neutral — */
+  --hoh-steel-border: #a5b6c4;
+
+  /* — Radii — */
+  --hoh-radius: 10px;
+  --hoh-radius-sm: 4px;
+
+  /* — Signature 4-way text outline (text on colored chrome) — */
+  --hoh-text-outline:
+    -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+
+  /* — Signature gradient · raised menu tile — */
+  --hoh-grad-tile: linear-gradient(
+    180deg,
+    #82adcf 0,
+    #82adcf 5%,
+    #3e7bad 0,
+    #3e7bad 95%,
+    #82adcf 0,
+    #82adcf
+  );
+}
+
+/* ┌────────────────────────────────────────────────────────────────────────┐
+ * │  2 · COMPONENTS                                                          │
+ * └────────────────────────────────────────────────────────────────────────┘ */
+@layer components {
+  /* ── Panel · blue header + parchment body (the core layout unit) ───────── */
+  .hoh-panel {
+    border-radius: var(--hoh-radius);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+  .hoh-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 34px;
+    padding: 8px 14px;
+    background-color: var(--hoh-blue);
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-shadow: var(--hoh-text-outline);
+  }
+  .hoh-panel-body {
+    padding: 14px;
+    background-color: var(--hoh-cream);
+    color: var(--hoh-gold-chip-text);
+  }
+
+  /* ── Buttons ───────────────────────────────────────────────────────────── */
+  .hoh-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--hoh-radius-sm);
+    background-color: var(--hoh-blue);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      transform 0.1s ease;
+  }
+  .hoh-btn:hover {
+    background-color: var(--hoh-blue-hover);
+  }
+  .hoh-btn:active {
+    transform: translateY(1px);
+  }
+  .hoh-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .hoh-btn-gold {
+    background-color: var(--hoh-gold);
+    color: #fff;
+  }
+  .hoh-btn-gold:hover {
+    background-color: #e89a5c;
+  }
+
+  /* ── Pill toggle (gold outline) ────────────────────────────────────────── */
+  .hoh-toggle {
+    padding: 8px 16px;
+    border: 1px solid var(--hoh-gold-deep);
+    border-radius: 20px;
+    background-color: transparent;
+    color: var(--hoh-gold-deep);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .hoh-toggle:hover {
+    background-color: var(--hoh-gold-deep);
+    color: #fff;
+  }
+  .hoh-toggle[data-active="true"] {
+    background-color: var(--hoh-gold-deep);
+    color: #fff;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  /* ── Round chip button ─────────────────────────────────────────────────── */
+  .hoh-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--hoh-gold-chip);
+    color: var(--hoh-gold-chip-text);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .hoh-chip:hover {
+    transform: scale(1.1);
+  }
+
+  /* ── Raised menu tile ──────────────────────────────────────────────────── */
+  .hoh-tile {
+    border: 2px solid var(--hoh-blue-darkest);
+    border-radius: 8px;
+    background: var(--hoh-grad-tile);
+    color: #fff;
+    text-shadow: var(--hoh-text-outline);
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      filter 0.2s ease;
+  }
+  .hoh-tile:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.08);
+  }
+
+  /* ── Resource pill (icon + value) ──────────────────────────────────────── */
+  .hoh-resource {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px 4px 4px;
+    border: 1px solid var(--hoh-gold-border);
+    border-radius: 20px;
+    background: var(--hoh-cream-cell);
+    color: var(--hoh-gold-chip-text);
+    font-weight: 700;
+  }
+
+  /* ── Modal · chunky blue frame on parchment ────────────────────────────── */
+  .hoh-modal {
+    border: 7px solid var(--hoh-blue);
+    border-radius: 8px;
+    background: var(--hoh-cream);
+    color: var(--hoh-gold-chip-text);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ── Table · blue header, gold underline, parchment cells ──────────────── */
+  .hoh-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .hoh-table th {
+    padding: 6px 8px;
+    border: 1px solid var(--hoh-steel-border);
+    border-bottom: 2px solid var(--hoh-gold-border);
+    background: var(--hoh-blue-mid);
+    color: #fff;
+    font-size: 0.85rem;
+    text-align: left;
+    text-shadow: 1px 1px 2px #000;
+  }
+  .hoh-table td {
+    padding: 6px 8px;
+    border: 1px solid var(--hoh-gold-border);
+    background: var(--hoh-cream-cell);
+    color: var(--hoh-gold-chip-text);
+    font-size: 0.85rem;
+  }
+
+  /* ── Utility · outline text on colored chrome ──────────────────────────── */
+  .hoh-outline {
+    text-shadow: var(--hoh-text-outline);
+  }
+}
