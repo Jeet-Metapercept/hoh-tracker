@@ -9,9 +9,11 @@ export default defineNuxtConfig({
       appVersion: version,
     },
   },
-  // Home redirects to the Atlantis dashboard (the app's main page).
   routeRules: {
     "/": { redirect: "/atlantis" },
+    // Netlify Edge caches the Atlantis API for all users (5 min swr) → Firestore
+    // reads become ~flat regardless of traffic.
+    "/api/atlantis/**": { swr: 300 },
   },
   modules: [
     "@nuxtjs/color-mode",
