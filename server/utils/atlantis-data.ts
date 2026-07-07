@@ -14,7 +14,8 @@ import type { RawBoard } from "~/utils/derive-board";
 import type { BattleLogRow } from "~/composables/useBattleLog";
 
 const ENERGY_TYPES = new Set(["DAMAGE", "BREACH"]);
-const MAX_EVENTS = 100;
+// Fewer events in dev to cut Firestore reads; full 100 in production.
+const MAX_EVENTS = import.meta.dev ? 5 : 100;
 
 /** Raw energy-board data for the active season (no energy math). */
 export async function readBoard(): Promise<RawBoard & { lastUpdatedAt: string | null }> {
@@ -61,7 +62,11 @@ export async function readBoard(): Promise<RawBoard & { lastUpdatedAt: string | 
 }
 
 /** Recent battle-log events for the active season, newest-first (capped). */
-export async function readBattleLog(): Promise<{ seasonId: string; events: BattleLogRow[] }> {
+export async function readBattleLog(): Promise<{
+  seasonId: string;
+  lastUpdatedAt: string | null;
+  events: BattleLogRow[];
+}> {
   const db = serverDb();
   const season = await pickSeason(db, new Date());
   if (!season) throw createError({ statusCode: 404, statusMessage: "No season found." });
@@ -88,5 +93,9 @@ export async function readBattleLog(): Promise<{ seasonId: string; events: Battl
     };
   });
 
-  return { seasonId: season.season_id, events };
+  return {
+    seasonId: season.season_id,
+    lastUpdatedAt: season.last_updated_at ?? null,
+    events,
+  };
 }

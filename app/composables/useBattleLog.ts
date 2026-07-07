@@ -14,12 +14,14 @@ export interface BattleLogRow {
 
 interface BattleLogResponse {
   seasonId: string;
+  lastUpdatedAt: string | null;
   events: BattleLogRow[];
 }
 
 export function useBattleLog() {
   const events = ref<BattleLogRow[]>([]);
   const seasonId = ref<string | null>(null);
+  const lastUpdatedAt = ref<string | null>(null);
   const pending = ref(true);
   const error = ref<string | null>(null);
 
@@ -30,6 +32,7 @@ export function useBattleLog() {
       const data = await $fetch<BattleLogResponse>("/api/atlantis/battle-log");
       events.value = data.events;
       seasonId.value = data.seasonId;
+      lastUpdatedAt.value = data.lastUpdatedAt ?? null;
     } catch (e) {
       error.value = e instanceof Error ? e.message : String(e);
       events.value = [];
@@ -40,5 +43,5 @@ export function useBattleLog() {
 
   onMounted(refresh);
 
-  return { events, seasonId, pending, error, refresh };
+  return { events, seasonId, lastUpdatedAt, pending, error, refresh };
 }
