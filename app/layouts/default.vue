@@ -24,6 +24,14 @@ const _socials: Link[] = [
 <template>
   <div>
     <LayoutHeader :links="links">
+      <NuxtLink
+        to="/atlantis"
+        class="flex items-center gap-1.5 rounded-md bg-white/15 px-3 py-1.5 text-sm font-bold text-white transition-colors hover:bg-white/25"
+        title="Battle for Atlantis dashboard"
+      >
+        <Icon name="lucide:swords" class="h-4 w-4" />
+        <span class="hidden sm:inline">Atlantis</span>
+      </NuxtLink>
       <LayoutColorModeMenu
         :color-mode="colorMode.preference"
         @update:color-mode="colorMode.preference = $event"
