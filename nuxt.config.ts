@@ -3,9 +3,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  // Home redirects to the Atlantis dashboard (the app's main page).
+  // PWA branch: home redirects to /status so installed apps (which launch at the
+  // cached start_url "/") land on the live status page. The web default lives on
+  // `develop` (/ → /atlantis). Keep this the ONLY diff from develop.
   routeRules: {
-    "/": { redirect: "/atlantis" },
+    "/": { redirect: "/status" },
   },
   modules: [
     "@nuxtjs/color-mode",
