@@ -7,5 +7,7 @@
   command = "pnpm build"
   publish = "dist"
 
+# pnpm 11.10 (pinned via package.json packageManager) needs Node >= 22.13 — it
+# uses the node:sqlite builtin, which does not exist on Node 20.
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
