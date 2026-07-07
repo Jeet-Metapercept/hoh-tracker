@@ -278,15 +278,16 @@ function localTime(row: BattleLogRow): string {
                 {{ ev.node }}
               </button>
               <span
-                class="ml-auto text-xs tabular-nums"
+                class="ml-auto shrink-0 whitespace-nowrap text-xs tabular-nums"
                 style="color: var(--hoh-gold-deep)"
               >
-                {{ ago(ev.time_utc) }}
+                <span class="hidden sm:inline">{{ ago(ev.time_utc) }}</span>
+                <span class="sm:hidden">{{ localTime(ev) }}</span>
               </span>
             </div>
 
             <p class="mt-1 text-sm" style="color: #5a4a1e">{{ ev.raw_text }}</p>
-            <div class="mt-0.5 text-xs tabular-nums" style="color: var(--hoh-gold-deep)">
+            <div class="mt-0.5 hidden text-xs tabular-nums sm:block" style="color: var(--hoh-gold-deep)">
               {{ localTime(ev) }}
             </div>
           </div>
