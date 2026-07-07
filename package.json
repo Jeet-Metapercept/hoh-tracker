@@ -10,8 +10,6 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "netlify:login": "netlify login",
-    "netlify:init": "netlify init",
     "netlify:deploy": "netlify deploy --build",
     "netlify:prod": "netlify deploy --build --prod"
   },
