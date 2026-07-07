@@ -1,8 +1,5 @@
-// useEnergyBoard.ts — live Atlantis energy board.
-// Fetches RAW season data from /api/atlantis/board (Netlify-Edge cached) and derives
-// energy/next-regen on the client against live `now` (deriveBoard) so the countdown
-// stays fresh even when the raw payload is cached. No direct client→Firestore reads.
-
+// Live energy board: fetch raw data from /api/atlantis/board (Edge-cached) and derive
+// energy/countdown on the client against live `now`.
 import { deriveBoard, type RawBoard } from "~/utils/derive-board";
 
 type BoardResponse = RawBoard & { lastUpdatedAt: string | null };

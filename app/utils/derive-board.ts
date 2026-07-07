@@ -1,6 +1,5 @@
-// derive-board.ts — pure energy-board derivation from raw season data.
-// Ported verbatim from the bot's getPlayerEnergies (atlantis/src/players/players.ts)
-// so the board matches CLI `--status`. No I/O: takes raw docs + `now`, returns rows.
+// Pure energy-board derivation (ported from the bot's getPlayerEnergies, matches
+// CLI --status). Takes raw docs + `now`, returns sorted rows.
 
 /** Roster + override-anchor doc (players/{player_key}). */
 export interface RawPlayer {

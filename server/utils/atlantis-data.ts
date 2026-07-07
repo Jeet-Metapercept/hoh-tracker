@@ -1,6 +1,5 @@
-// atlantis-data.ts — the single place that reads Atlantis data from Firestore.
-// Used by the /api/atlantis/* endpoints (which the Netlify Edge caches via swr).
-// Returns RAW JSON only; energy math is derived on the client (utils/derive-board).
+// The single Firestore read logic for the /api/atlantis/* endpoints. Raw JSON only
+// (energy math is derived on the client).
 import {
   collection,
   getDocs,

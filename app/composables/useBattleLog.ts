@@ -1,6 +1,5 @@
-// useBattleLog.ts — recent battle-log events for the active season, newest-first.
-// Fetches from /api/atlantis/battle-log (Netlify-Edge cached); the component filters
-// and reveals-more client-side. No direct client→Firestore reads.
+// Recent battle-log events from /api/atlantis/battle-log (Edge-cached); the component
+// filters and reveals-more client-side.
 
 /** One battle-log event for the timeline (mirrors the bot's BattleLogEvent). */
 export interface BattleLogRow {

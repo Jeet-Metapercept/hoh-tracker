@@ -1,5 +1,4 @@
-// Server-side Firestore via the client SDK (no admin key). Runs in the Nitro
-// Node runtime; reads process.env.FIREBASE_* (same values as vuefire.config).
+// Server-side Firestore (client SDK, no admin key). Reads process.env.FIREBASE_*.
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getFirestore, type Firestore } from "firebase/firestore";
 
