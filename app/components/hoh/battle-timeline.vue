@@ -220,10 +220,18 @@ function localTime(row: BattleLogRow): string {
       <!-- Error banner -->
       <div
         v-if="error"
-        class="mb-4 rounded-md border px-3 py-2 text-xs"
+        class="mb-4 flex items-center gap-2 rounded-md border px-3 py-2 text-xs"
         style="border-color: var(--hoh-gold-border); background: #f8e6d6; color: #8a3d12"
       >
-        Couldn't load the battle log — {{ error }}
+        <span class="flex-1">Couldn't load the battle log. Please try again.</span>
+        <button
+          class="shrink-0 rounded px-2 py-1 font-bold text-white"
+          :disabled="pending"
+          style="background: var(--hoh-blue)"
+          @click="refresh"
+        >
+          Retry
+        </button>
       </div>
 
       <!-- Loading state -->
