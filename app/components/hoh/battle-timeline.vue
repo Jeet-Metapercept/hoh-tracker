@@ -270,25 +270,28 @@ function localTime(row: BattleLogRow): string {
               </span>
               <button
                 v-if="ev.node"
-                class="rounded border px-1.5 py-0.5 text-[10px] font-bold transition-colors hover:bg-[var(--hoh-blue)] hover:text-white"
-                style="border-color: var(--hoh-blue); color: var(--hoh-blue)"
+                class="rounded border px-1.5 py-0.5 text-[10px] font-bold text-[var(--hoh-blue)] transition-colors hover:bg-[var(--hoh-blue)] hover:text-white"
+                style="border-color: var(--hoh-blue)"
                 :title="`Filter slot ${ev.node}`"
                 @click="nodeFilter = nodeFilter === ev.node ? null : ev.node"
               >
                 {{ ev.node }}
               </button>
               <span
-                class="ml-auto shrink-0 whitespace-nowrap text-xs tabular-nums"
+                class="ml-auto hidden shrink-0 whitespace-nowrap text-xs tabular-nums sm:inline"
                 style="color: var(--hoh-gold-deep)"
               >
-                <span class="hidden sm:inline">{{ ago(ev.time_utc) }}</span>
-                <span class="sm:hidden">{{ localTime(ev) }}</span>
+                {{ ago(ev.time_utc) }}
               </span>
             </div>
 
             <p class="mt-1 text-sm" style="color: #5a4a1e">{{ ev.raw_text }}</p>
-            <div class="mt-0.5 hidden text-xs tabular-nums sm:block" style="color: var(--hoh-gold-deep)">
-              {{ localTime(ev) }}
+            <div
+              class="mt-0.5 flex items-center gap-2 text-xs tabular-nums"
+              style="color: var(--hoh-gold-deep)"
+            >
+              <span>{{ localTime(ev) }}</span>
+              <span class="ml-auto sm:hidden">{{ ago(ev.time_utc) }}</span>
             </div>
           </div>
         </div>
