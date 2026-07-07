@@ -175,16 +175,6 @@ function localTime(row: BattleLogRow): string {
               <option v-for="n in nodeOptions" :key="n" :value="n">{{ n }}</option>
             </select>
           </div>
-
-          <!-- Clear — space always reserved (hidden, not removed) so nothing shifts -->
-          <button
-            class="flex shrink-0 items-center justify-center gap-1 rounded px-3 py-1.5 text-xs font-bold transition-opacity"
-            :class="isFiltered ? '' : 'invisible'"
-            style="background: var(--hoh-blue); color: #fff"
-            @click="clearFilters"
-          >
-            <Icon name="lucide:x" class="h-3 w-3" /> Clear
-          </button>
         </div>
 
         <!-- Type filter buttons (also serve as the legend). -->
@@ -214,6 +204,17 @@ function localTime(row: BattleLogRow): string {
             >{{ l.label }}</span>
           </button>
         </div>
+
+        <!-- Clear filters — only shown when a filter is active. Full width on
+             mobile, constrained on web. -->
+        <button
+          v-if="isFiltered"
+          class="mt-3 flex w-full items-center justify-center gap-1 rounded px-6 py-1.5 text-xs font-bold sm:w-auto"
+          style="background: var(--hoh-blue); color: #fff"
+          @click="clearFilters"
+        >
+          <Icon name="lucide:x" class="h-3 w-3" /> Clear
+        </button>
       </div>
 
       <!-- Error banner -->
