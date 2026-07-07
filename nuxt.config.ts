@@ -72,6 +72,18 @@ export default defineNuxtConfig({
         { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
         { src: "/icon-1024.png", sizes: "1024x1024", type: "image/png" },
         { src: "/icon-2048.png", sizes: "2048x2048", type: "image/png" },
+        {
+          src: "/icon-192-maskable.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "maskable",
+        },
+        {
+          src: "/icon-512-maskable.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
       ],
     },
     client: {
