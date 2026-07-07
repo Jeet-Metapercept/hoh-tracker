@@ -9,9 +9,7 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "netlify:deploy": "netlify deploy --build",
-    "netlify:prod": "netlify deploy --build --prod"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@vueuse/core": "^14.3.0",
