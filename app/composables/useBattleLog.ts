@@ -1,6 +1,5 @@
 // Recent battle-log events from /api/atlantis/battle-log (Edge-cached); the component
-// filters and reveals-more client-side. Loaded ON DEMAND (not on mount) — the first
-// refresh() is triggered by the user, so idle visitors never hit Firestore.
+// filters and reveals-more client-side.
 
 /** One battle-log event for the timeline (mirrors the bot's BattleLogEvent). */
 export interface BattleLogRow {
@@ -23,8 +22,7 @@ export function useBattleLog() {
   const events = ref<BattleLogRow[]>([]);
   const seasonId = ref<string | null>(null);
   const lastUpdatedAt = ref<string | null>(null);
-  const pending = ref(false);
-  const hasLoaded = ref(false); // true once the first fetch resolves
+  const pending = ref(true);
   const error = ref<string | null>(null);
 
   async function refresh() {
@@ -40,9 +38,10 @@ export function useBattleLog() {
       events.value = [];
     } finally {
       pending.value = false;
-      hasLoaded.value = true;
     }
   }
 
-  return { events, seasonId, lastUpdatedAt, pending, hasLoaded, error, refresh };
+  onMounted(refresh);
+
+  return { events, seasonId, lastUpdatedAt, pending, error, refresh };
 }
