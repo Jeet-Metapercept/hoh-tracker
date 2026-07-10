@@ -23,10 +23,16 @@ export async function readBoard(): Promise<RawBoard & { lastUpdatedAt: string | 
   const season = await pickSeason(db, new Date());
   if (!season) throw createError({ statusCode: 404, statusMessage: "No season found." });
 
+  // Only DAMAGE/BREACH matter for energy — filter server-side so Firestore returns
+  // just the energy events, not the whole season's battle log.
   const [playerSnap, eventSnap] = await Promise.all([
     getDocs(collection(db, "players")),
     getDocs(
-      query(collection(db, "battle_log_events"), where("season_id", "==", season.season_id)),
+      query(
+        collection(db, "battle_log_events"),
+        where("season_id", "==", season.season_id),
+        where("type", "in", [...ENERGY_TYPES]),
+      ),
     ),
   ]);
 
