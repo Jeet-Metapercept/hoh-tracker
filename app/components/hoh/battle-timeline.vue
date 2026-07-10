@@ -6,7 +6,7 @@
 
 import { formatDistanceToNow } from "date-fns";
 
-const { events, lastUpdatedAt, pending, error, refresh } = useBattleLog();
+const { events, lastUpdatedAt, pending, hasLoaded, error, refresh } = useBattleLog();
 const now = useNow({ interval: 30000 }); // refresh relative labels every 30s
 
 // "updated x ago" — the bot's last_updated_at; `now` keeps the label fresh.
@@ -140,6 +140,7 @@ function localTime(row: BattleLogRow): string {
       />
       <span class="truncate">Battle Log</span>
       <span
+        v-if="hasLoaded"
         class="ml-auto flex shrink-0 items-center gap-1.5 text-xs font-normal normal-case sm:gap-2"
       >
         <span
@@ -164,7 +165,21 @@ function localTime(row: BattleLogRow): string {
       </span>
     </div>
 
-    <div class="hoh-panel-body">
+    <!-- On-demand: nothing is fetched until the user taps Load (saves Firestore
+         reads for visitors who never open the log). -->
+    <div v-if="!hasLoaded && !pending" class="hoh-panel-body">
+      <div class="flex flex-col items-center gap-3 py-8">
+        <p class="text-sm" style="color: var(--hoh-gold-deep)">
+          Load the recent battle events for this season.
+        </p>
+        <button class="hoh-btn !px-5 !py-2 text-sm" @click="refresh">
+          <Icon name="lucide:scroll-text" class="mr-1.5 inline h-4 w-4" />
+          Load battle log
+        </button>
+      </div>
+    </div>
+
+    <div v-else class="hoh-panel-body">
       <!-- Filters: clickable type chips + player dropdown -->
       <div
         class="mb-4 rounded-md border px-3 py-3"
